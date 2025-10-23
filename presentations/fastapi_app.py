@@ -1,10 +1,27 @@
-from fastapi import FastAPI, HTTPException, Response, status
+from fastapi import FastAPI, HTTPException, Response, status, Request
 from pydantic import BaseModel
 from services.link_service import LinkService
+import time
+from logging import debug
 
 
 def create_app() -> FastAPI:
     app = FastAPI()
+
+    @app.middleware("http")
+    async def add_process_time_handler(request: Request, call_next) -> Response:
+        t0 = time.time()
+
+        response = await call_next(request)
+
+        elapsed_ms = round((time.time() - t0) * 1000, 2)
+        response.headers["X-Process-Time"] = str(elapsed_ms)
+        debug("{} {} done in {}ms", request.method, request.url, elapsed_ms)
+
+        return response
+
+
+
     short_link_service = LinkService()
 
     class PutLink(BaseModel):
