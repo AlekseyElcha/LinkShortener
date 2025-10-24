@@ -1,8 +1,10 @@
-import logging
 from fastapi import FastAPI, HTTPException, Response, status, Request
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from services.link_service import LinkService
 import time
+import traceback
+import logging
 
 def create_app() -> FastAPI:
     app = FastAPI()
@@ -18,6 +20,28 @@ def create_app() -> FastAPI:
         logging.debug("{} {} done in {}ms", request.method, request.url, elapsed_ms)
 
         return response
+
+    @app.exception_handler(Exception)
+    async def global_exception_handler(request: Request, exc: Exception) -> JSONResponse:
+        logging.error(
+            f"Global exception handler caught an exception:\n"
+            f"Request: {request.method} {request.url}\n"
+            f"Headers: {dict(request.headers)}\n"
+            f"Query params: {dict(request.query_params)}\n"
+            f"Client: {request.client}\n"
+            f"Exception type: {type(exc).__name__}\n"
+            f"Exception message: {str(exc)}\n"
+            f"Traceback:\n{traceback.format_exc()}"
+        )
+
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={
+                "detail": "Internal server error",
+                "exception_type": type(exc).__name__,
+                "exception_message": str(exc)
+            }
+        )
 
     short_link_service = LinkService()
 
