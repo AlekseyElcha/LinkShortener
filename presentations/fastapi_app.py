@@ -1,9 +1,8 @@
+import logging
 from fastapi import FastAPI, HTTPException, Response, status, Request
 from pydantic import BaseModel
 from services.link_service import LinkService
 import time
-from logging import debug
-
 
 def create_app() -> FastAPI:
     app = FastAPI()
@@ -16,11 +15,9 @@ def create_app() -> FastAPI:
 
         elapsed_ms = round((time.time() - t0) * 1000, 2)
         response.headers["X-Process-Time"] = str(elapsed_ms)
-        debug("{} {} done in {}ms", request.method, request.url, elapsed_ms)
+        logging.debug("{} {} done in {}ms", request.method, request.url, elapsed_ms)
 
         return response
-
-
 
     short_link_service = LinkService()
 
@@ -40,6 +37,7 @@ def create_app() -> FastAPI:
         real_link = short_link_service.get_real_link(link)
 
         if real_link is None:
+            logging.debug(f"Long link {link} entered, 404 short link not found")
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Short link not found:(")
 
         return Response(status_code=status.HTTP_301_MOVED_PERMANENTLY, headers={"Location": real_link})
