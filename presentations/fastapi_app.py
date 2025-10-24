@@ -6,7 +6,6 @@ import time
 
 def create_app() -> FastAPI:
     app = FastAPI()
-    print(1)
 
     @app.middleware("http")
     async def add_process_time_handler(request: Request, call_next) -> Response:
