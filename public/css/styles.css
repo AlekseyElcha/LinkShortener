@@ -244,3 +244,148 @@ body {
         margin: 0;
     }
 }
+/* Authentication Page Styles */
+.back-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.back-link:hover {
+  color: var(--primary-color);
+}
+
+.login-form-section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 2px solid white;
+  border-radius: var(--border-radius);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  color: var(--text-color);
+  background-color: white;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: var(--secondary-color);
+  opacity: 0.8;
+}
+
+.form-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.form-input:hover {
+  border-color: #e8e8e8;
+}
+
+.register-link {
+  text-align: center;
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+  margin-top: var(--spacing-sm);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.register-link:hover {
+  color: var(--text-color);
+}
+
+/* Dashboard Page Styles */
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-xl) 0;
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  color: var(--text-color);
+  margin: 0;
+  font-weight: 400;
+}
+
+.logout-button {
+  background-color: #d5dbdb;
+  color: var(--text-color);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: var(--spacing-xl);
+}
+
+.logout-button:hover {
+  background-color: #bdc3c7;
+}
+/* Page Management */
+.page {
+  width: 100%;
+}
+
+.page.hidden {
+  display: none !important;
+}
+/* Password Input with Toggle */
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper .form-input {
+  padding-right: 50px; /* Место для кнопки */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary-color);
+  transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+  color: var(--text-color);
+}
+
+.password-toggle span {
+  font-size: 16px;
+  user-select: none;
+}

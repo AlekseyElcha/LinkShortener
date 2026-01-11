@@ -3,34 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сокращатель ссылок</title>
+    <title>Кликер</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div class="page-container">
-        <header class="header">
-            <div class="header-content">
-                <div class="brand-section">
-                    <h1 class="logo">Сократитель ссылок</h1>
-                    <p class="description">
-                        Больше не придётся видеть длинные url! <br>
-                        Введите ссылку, которую хотите сократить.
-                    </p>
+        <!-- Главная страница -->
+        <div id="main-page" class="page">
+            <header class="header">
+                <div class="header-content">
+                    <div class="brand-section">
+                        <h1 class="logo">Кликер</h1>
+                        <p class="description">Помогите клиентам быстро найти вашу страницу в интернете. Благодаря короткой ссылке клиентам не придётся видеть длинные url-адреса, занимающие много места.</p>
+                    </div>
+                    <button class="login-button" onclick="showLoginPage()">Войти</button>
                 </div>
-                <button class="login-button">Войти</button>
-            </div>
-        </header>
-        
-        <main class="main-content">
-            <div class="url-input-section">
-                <input id="url" class="enter-url" placeholder="Введите ссылку, которую нужно сократить">
-                <button class="submit-button" onclick="create()">Сократить</button>
-            </div>
-            <div id="result" class="result-area"></div>
-        </main>
+            </header>
+            
+            <main class="main-content">
+                <div class="url-input-section">
+                    <input id="url" class="enter-url" placeholder="Введите ссылку, которую нужно сократить">
+                    <button class="submit-button" onclick="create()">Сократить</button>
+                </div>
+                <div id="result" class="result-area"></div>
+            </main>
+        </div>
+
+        <!-- Страница авторизации -->
+        <div id="login-page" class="page" style="display: none;">
+            <header class="header">
+                <div class="header-content">
+                    <div class="brand-section">
+                        <h1 class="logo">Кликер</h1>
+                        <p class="description">Войдите в свой аккаунт для доступа к дополнительным возможностям.</p>
+                    </div>
+                    <button class="back-link" onclick="showMainPage()">← Назад</button>
+                </div>
+            </header>
+            
+            <main class="main-content">
+                <div class="login-form-section">
+                    <form id="loginForm" class="login-form">
+                        <div class="form-group">
+                            <input type="text" id="username" class="form-input" placeholder="Логин" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="password-input-wrapper">
+                                <input type="password" id="password" class="form-input" placeholder="Пароль" required>
+                                <button type="button" class="password-toggle" onclick="togglePassword()">
+                                    <span id="password-icon">👁️</span>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-button">Войти</button>
+                        <div class="register-link" onclick="showRegisterPage()"></div>
+                            Нет аккаунта? Создать аккаунт
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+
+        <!-- Страница регистрации -->
+        <div id="register-page" class="page" style="display: none;">
+            <header class="header">
+                <div class="header-content">
+                    <div class="brand-section">
+                        <h1 class="logo">Кликер</h1>
+                        <p class="description">Создайте новый аккаунт для доступа к дополнительным возможностям.</p>
+                    </div>
+                    <button class="back-link" onclick="showLoginPage()">← Назад</button>
+                </div>
+            </header>
+            
+            <main class="main-content">
+                <div class="login-form-section">
+                    <form id="registerForm" class="login-form">
+                        <div class="form-group">
+                            <input type="text" id="reg-username" class="form-input" placeholder="Логин" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="password-input-wrapper">
+                                <input type="password" id="reg-password" class="form-input" placeholder="Пароль" required>
+                                <button type="button" class="password-toggle" onclick="toggleRegisterPassword()">
+                                    <span id="reg-password-icon">👁️</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="password-input-wrapper">
+                                <input type="password" id="reg-password-confirm" class="form-input" placeholder="Подтвердите пароль" required>
+                                <button type="button" class="password-toggle" onclick="toggleRegisterPasswordConfirm()">
+                                    <span id="reg-password-confirm-icon">👁️</span>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-button">Создать аккаунт</button>
+                        <div class="register-link" onclick="showLoginPage()">
+                            Уже есть аккаунт? Войти
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+
+        <!-- Личный кабинет -->
+        <div id="dashboard-page" class="page" style="display: none;">
+            <header class="header">
+                <div class="header-content">
+                    <div class="brand-section">
+                        <h1 class="logo">Кликер</h1>
+                        <p class="description">Добро пожаловать в ваш личный кабинет.</p>
+                    </div>
+                    <button class="logout-button" onclick="logout()">Выйти</button>
+                </div>
+            </header>
+            
+            <main class="main-content">
+                <div class="dashboard-content">
+                    <h2 class="dashboard-title">Личный кабинет</h2>
+                </div>
+            </main>
+        </div>
     </div>
 
     <script>
+        // Функция сокращения ссылок (оригинальная)
         async function create() {
             const url = document.getElementById('url').value;
 
@@ -50,6 +148,254 @@
             document.getElementById('result').innerHTML =
                 `<a href="${shortUrl}">${shortUrl}</a>`;
         }
+
+        // Функции навигации
+        function showMainPage() {
+            document.getElementById('main-page').style.display = 'block';
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('register-page').style.display = 'none';
+            document.getElementById('dashboard-page').style.display = 'none';
+        }
+
+        function showLoginPage() {
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('login-page').style.display = 'block';
+            document.getElementById('register-page').style.display = 'none';
+            document.getElementById('dashboard-page').style.display = 'none';
+        }
+
+        function showRegisterPage() {
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('register-page').style.display = 'block';
+            document.getElementById('dashboard-page').style.display = 'none';
+        }
+
+        function showDashboard() {
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('register-page').style.display = 'none';
+            document.getElementById('dashboard-page').style.display = 'block';
+        }
+
+        // Функции переключения видимости пароля
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('password-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.textContent = '👁️';
+            }
+        }
+
+        function toggleRegisterPassword() {
+            const passwordInput = document.getElementById('reg-password');
+            const passwordIcon = document.getElementById('reg-password-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.textContent = '👁️';
+            }
+        }
+
+        function toggleRegisterPasswordConfirm() {
+            const passwordInput = document.getElementById('reg-password-confirm');
+            const passwordIcon = document.getElementById('reg-password-confirm-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.textContent = '👁️';
+            }
+        }
+
+        // Обработка форм авторизации и регистрации
+        document.addEventListener('DOMContentLoaded', function() {
+            // Форма входа
+            document.getElementById('loginForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                if (!username || !password) {
+                    alert('Пожалуйста, заполните все поля');
+                    return;
+                }
+
+                try {
+                    const requestData = {
+                        login: username,
+                        password: password
+                    };
+                    
+                    console.log('Отправляем данные:', requestData);
+                    
+                    // Отправляем запрос на backend
+                    const response = await fetch('/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(requestData)
+                    });
+
+                    console.log('Статус ответа:', response.status);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('Успешный ответ:', data);
+                        
+                        // Сохраняем состояние авторизации
+                        localStorage.setItem('isAuthenticated', 'true');
+                        localStorage.setItem('username', username);
+                        
+                        // Переходим в личный кабинет
+                        showDashboard();
+                        
+                        // Очищаем форму
+                        document.getElementById('username').value = '';
+                        document.getElementById('password').value = '';
+                        
+                    } else {
+                        // Обрабатываем ошибки авторизации
+                        const errorText = await response.text();
+                        console.log('Ошибка от сервера:', errorText);
+                        
+                        try {
+                            const errorData = JSON.parse(errorText);
+                            alert(errorData.message || errorData.detail || 'Неверный логин или пароль');
+                        } catch (e) {
+                            alert('Ошибка сервера: ' + errorText);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Ошибка при авторизации:', error);
+                    alert('Ошибка соединения с сервером');
+                }
+            });
+
+            // Форма регистрации
+            document.getElementById('registerForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('reg-username').value;
+                const password = document.getElementById('reg-password').value;
+                const passwordConfirm = document.getElementById('reg-password-confirm').value;
+                
+                if (!username || !password || !passwordConfirm) {
+                    alert('Пожалуйста, заполните все поля');
+                    return;
+                }
+
+                if (password !== passwordConfirm) {
+                    alert('Пароли не совпадают');
+                    return;
+                }
+
+                try {
+                    const requestData = {
+                        login: username,
+                        password: password
+                    };
+                    
+                    console.log('Отправляем данные регистрации:', requestData);
+                    
+                    // Отправляем запрос на backend
+                    const response = await fetch('/auth/create_account', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(requestData)
+                    });
+
+                    console.log('Статус ответа регистрации:', response.status);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('Успешная регистрация:', data);
+                        alert('Аккаунт успешно создан! Теперь вы можете войти.');
+                        
+                        // Очищаем форму
+                        document.getElementById('reg-username').value = '';
+                        document.getElementById('reg-password').value = '';
+                        document.getElementById('reg-password-confirm').value = '';
+                        
+                        // Переходим на страницу входа
+                        showLoginPage();
+                        
+                    } else {
+                        // Обрабатываем ошибки регистрации
+                        const errorText = await response.text();
+                        console.log('Ошибка регистрации от сервера:', errorText);
+                        
+                        try {
+                            const errorData = JSON.parse(errorText);
+                            alert(errorData.message || errorData.detail || 'Ошибка при создании аккаунта');
+                        } catch (e) {
+                            alert('Ошибка сервера: ' + errorText);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Ошибка при регистрации:', error);
+                    alert('Ошибка соединения с сервером');
+                }
+            });
+        });
+
+        // Функция выхода
+        async function logout() {
+            try {
+                // Опционально: отправляем запрос на backend для выхода
+                await fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+            } catch (error) {
+                console.log('Ошибка при выходе:', error);
+                // Продолжаем выход даже если backend недоступен
+            }
+            
+            // Очищаем данные авторизации
+            localStorage.removeItem('isAuthenticated');
+            localStorage.removeItem('username');
+            
+            // Обновляем кнопку входа
+            const loginButton = document.querySelector('.login-button');
+            loginButton.textContent = 'Войти';
+            loginButton.onclick = showLoginPage;
+            
+            // Возвращаемся на главную страницу
+            showMainPage();
+        }
+
+        // Проверяем авторизацию при загрузке страницы
+        window.addEventListener('load', function() {
+            const isAuthenticated = localStorage.getItem('isAuthenticated');
+            const loginButton = document.querySelector('.login-button');
+            
+            if (isAuthenticated === 'true') {
+                // Если пользователь уже авторизован, показываем кнопку "Личный кабинет"
+                loginButton.textContent = 'Личный кабинет';
+                loginButton.onclick = showDashboard;
+            } else {
+                // Если не авторизован, показываем кнопку "Войти"
+                loginButton.textContent = 'Войти';
+                loginButton.onclick = showLoginPage;
+            }
+        });
     </script>
 </body>
 </html>
