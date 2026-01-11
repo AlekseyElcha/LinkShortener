@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сокращатель ссылок</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="page-container">
+        <header class="header">
+            <div class="header-content">
+                <div class="brand-section">
+                    <h1 class="logo">Сократитель ссылок</h1>
+                    <p class="description">
+                        Больше не придётся видеть длинные url! <br>
+                        Введите ссылку, которую хотите сократить.
+                    </p>
+                </div>
+                <button class="login-button">Войти</button>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <div class="url-input-section">
+                <input id="url" class="enter-url" placeholder="Введите ссылку, которую нужно сократить">
+                <button class="submit-button" onclick="create()">Сократить</button>
+            </div>
+            <div id="result" class="result-area"></div>
+        </main>
+    </div>
+
+    <script>
+        async function create() {
+            const url = document.getElementById('url').value;
+
+            const response = await fetch('/create_slug', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ long_url: url })
+            });
+
+            if (!response.ok) {
+                console.error('Ошибка:', response.status);
+                return;
+            }
+
+            const data = await response.json();
+            const shortUrl = window.location.origin + '/' + data.slug;
+            document.getElementById('result').innerHTML =
+                `<a href="${shortUrl}">${shortUrl}</a>`;
+        }
+    </script>
+</body>
+</html>

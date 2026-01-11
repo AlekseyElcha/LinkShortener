@@ -1,11 +1,13 @@
 from fastapi import FastAPI, Depends, Body, HTTPException, status
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Annotated
 
-
+from src.get_session import get_session
+from src.authorization.auth import router as auth_router
 from src.database.models import Base
 from src.database.database import engine, new_session
 from src.exeptions import LongUrlNotFoundError
@@ -18,13 +20,9 @@ async def lifespan(app: FastAPI):
         await connection.run_sync(Base.metadata.create_all)
     yield
 
-
-async def get_session():
-    async with new_session() as session:
-        yield session
-
-
 app = FastAPI(lifespan=lifespan)
+
+app.include_router(router=auth_router)
 
 app.add_middleware(
     CORSMiddleware,
@@ -52,3 +50,5 @@ async def get_url_by_slug(
     except LongUrlNotFoundError:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Ссылка не существует")
     return RedirectResponse(url=long_url, status_code=status.HTTP_302_FOUND)
+
+app.mount("/", StaticFiles(directory="./public", html=True), name="public")

@@ -8,3 +8,7 @@ class SlugAlreadyExistsError(ShortenerBaseException):
 
 class LongUrlNotFoundError(ShortenerBaseException):
     pass
+
+
+class CriticalDatabaseError(ShortenerBaseException):
+    pass

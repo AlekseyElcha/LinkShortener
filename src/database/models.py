@@ -9,3 +9,11 @@ class ShortURL(Base):
 
     slug: Mapped[str] = mapped_column(primary_key=True)
     long_url: Mapped[str]
+
+
+class UserModel(Base):
+    __tablename__ = "users"
+
+    login: Mapped[str] = mapped_column(primary_key=True)
+    password: Mapped[str]
+
