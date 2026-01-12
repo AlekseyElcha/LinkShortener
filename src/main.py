@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, Body, HTTPException, status
+from fastapi import FastAPI, Depends, Body, HTTPException, status, Request
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -8,6 +8,8 @@ from typing import Annotated
 
 from src.get_session import get_session
 from src.authorization.auth import router as auth_router
+from src.authorization.auth import check_auth
+from src.services.personal_client import router as personal_router
 from src.database.models import Base
 from src.database.database import engine, new_session
 from src.exeptions import LongUrlNotFoundError
@@ -23,6 +25,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 app.include_router(router=auth_router)
+app.include_router(router=personal_router)
 
 app.add_middleware(
     CORSMiddleware,
@@ -35,9 +38,15 @@ app.add_middleware(
 @app.post("/create_slug")
 async def create_slug(
         long_url: Annotated[str, Body(embed=True)],
-        session: Annotated[AsyncSession, Depends(get_session)]
+        session: Annotated[AsyncSession, Depends(get_session)],
+        request: Request
 ):
-    slug = await generate_short_url(long_url=long_url, session=session)
+    check_res = await check_auth(request, session)
+    if check_res:
+        user_id = check_res
+    else:
+        user_id = 0
+    slug = await generate_short_url(long_url=long_url, user_id=user_id, session=session)
     return {"slug": slug}
 
 @app.get("/{slug}")

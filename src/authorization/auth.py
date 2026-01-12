@@ -1,4 +1,4 @@
-from fastapi import Depends, HTTPException, Response, APIRouter, Body
+from fastapi import Depends, HTTPException, Response, APIRouter, Body, Request, status
 from authx import AuthXConfig, AuthX
 from sqlalchemy import select
 from typing import Annotated
@@ -31,7 +31,7 @@ async def login(
         password: Annotated[str, Body(embed=True)],
         response: Response = None,
 ):
-    query = select(UserModel).where(UserModel.login == login).where(UserModel.password == password)
+    query = select(UserModel).where(login == UserModel.login).where(password == UserModel.password)
     result = await session.execute(query)
     data = result.scalar_one_or_none()
     if data:
@@ -71,12 +71,43 @@ async def create_account(user: UserAddSchema,
         "message": "Аккаунт успешно создан!"
     }
 
-async def admin_required(user = Depends(security.access_token_required)):
-    try:
-        is_admin = user.get("is_admin")
-    except AttributeError:
-        is_admin = getattr(user, 'is_admin', False)
-    if not is_admin:
-        raise HTTPException(status_code=403, detail="Требуются права администратора")
-    return user
+# async def admin_required(user = Depends(security.access_token_required)):
+#     try:
+#         is_admin = user.get("is_admin")
+#     except AttributeError:
+#         is_admin = getattr(user, 'is_admin', False)
+#     if not is_admin:
+#         raise HTTPException(status_code=403, detail="Требуются права администратора")
+#     return user
 
+def decode_token(token: str):
+    try:
+        payload = jwt.decode(
+            token,
+            config.JWT_SECRET_KEY,
+            algorithms=["HS256"]
+        )
+        print(f"Token payload: {payload}")
+        return payload
+    except Exception as e:
+        print(f"Token decode error: {e}")
+        return {}
+
+async def check_auth(request: Request, session: AsyncSession):
+    token = request.cookies.get(config.JWT_ACCESS_COOKIE_NAME)
+    if token:
+        login = decode_token(token).get("sub")
+        return await get_user_id_by_login(login, session)
+    return False
+
+async def check_auth_account(request: Request, session: AsyncSession):
+    token = request.cookies.get(config.JWT_ACCESS_COOKIE_NAME)
+    if token:
+        login = decode_token(token).get("sub")
+        return await get_user_id_by_login(login, session)
+    raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Авторизация неверна.")
+
+async def get_user_id_by_login(login: str, session: AsyncSession):
+    query = select(UserModel.id).where(login == UserModel.login)
+    res = await session.execute(query)
+    return res.scalar_one_or_none()
