@@ -50,6 +50,7 @@ async def create_slug(
     slug = await generate_short_url(long_url=long_url, user_id=user_id, session=session)
     return {"slug": slug}
 
+
 @app.get("/{slug}")
 async def get_url_by_slug(
         slug: str,
