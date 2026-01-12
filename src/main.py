@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import FastAPI, Depends, Body, HTTPException, status, Request
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -61,3 +62,6 @@ async def get_url_by_slug(
     return RedirectResponse(url=long_url, status_code=status.HTTP_302_FOUND)
 
 app.mount("/", StaticFiles(directory="./public", html=True), name="public")
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, workers=4)
