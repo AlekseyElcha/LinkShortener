@@ -36,6 +36,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.post("/create_slug")
 async def create_slug(
         long_url: Annotated[str, Body(embed=True)],
