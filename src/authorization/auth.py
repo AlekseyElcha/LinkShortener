@@ -87,10 +87,8 @@ def decode_token(token: str):
             config.JWT_SECRET_KEY,
             algorithms=["HS256"]
         )
-        print(f"Token payload: {payload}")
         return payload
     except Exception as e:
-        print(f"Token decode error: {e}")
         return {}
 
 async def check_auth(request: Request, session: AsyncSession):

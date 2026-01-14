@@ -1,4 +1,3 @@
-import uvicorn
 from fastapi import FastAPI, Depends, Body, HTTPException, status, Request
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -6,6 +5,9 @@ from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Annotated
+import uvicorn
+import logging
+
 
 from src.get_session import get_session
 from src.authorization.auth import router as auth_router
@@ -57,8 +59,10 @@ async def get_url_by_slug(
         slug: str,
         session: Annotated[AsyncSession, Depends(get_session)]
 ):
+    logging.debug("Обращение к ручке get_url_by_slug (src.main.py)")
     try:
         long_url = await get_long_url_by_slug_from_database(slug, session)
+        logging.debug(f"Длинная ссылка возвращена из БД: {long_url}")
     except LongUrlNotFoundError:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Ссылка не существует")
     return RedirectResponse(url=long_url, status_code=status.HTTP_302_FOUND)
@@ -66,4 +70,5 @@ async def get_url_by_slug(
 app.mount("/", StaticFiles(directory="./public", html=True), name="public")
 
 if __name__ == "__main__":
+    logging.info("Сервер uvicorn запущен")
     uvicorn.run("main:app", host="0.0.0.0", port=8000, workers=4)

@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <button type="submit" class="submit-button">Войти</button>
-                        <div class="register-link" onclick="showRegisterPage()"></div>
+                        <div class="register-link" onclick="showRegisterPage()">
                             Нет аккаунта? Создать аккаунт
                         </div>
                     </form>
@@ -112,7 +112,7 @@
             <header class="header">
                 <div class="header-content">
                     <div class="brand-section">
-                        <h1 class="logo">Кликер</h1>
+                        <button class="home-button" onclick="showMainPage()">← На главную</button>
                         <p class="description">Добро пожаловать в ваш личный кабинет.</p>
                     </div>
                     <button class="logout-button" onclick="logout()">Выйти</button>
@@ -122,13 +122,109 @@
             <main class="main-content">
                 <div class="dashboard-content">
                     <h2 class="dashboard-title">Личный кабинет</h2>
+                    
+                    <!-- История ссылок в личном кабинете -->
+                    <div id="dashboard-history" class="url-history">
+                        <h3 class="history-title">История ваших ссылок</h3>
+                        <div id="dashboard-history-list" class="history-list">
+                            <!-- Здесь будет список ссылок -->
+                        </div>
+                    </div>
                 </div>
             </main>
         </div>
     </div>
 
     <script>
-        // Функция сокращения ссылок (оригинальная)
+        // Функция добавления новой ссылки в историю
+        function addUrlToHistory(newUrl, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const shortUrl = window.location.origin + '/' + newUrl.slug;
+            const date = new Date(newUrl.created_at).toLocaleDateString('ru-RU');
+            
+            const newItem = document.createElement('div');
+            newItem.className = 'history-item';
+            newItem.innerHTML = `
+                <div class="history-item-original">${newUrl.long_url}</div>
+                <a href="${shortUrl}" class="history-item-short" target="_blank">${shortUrl}</a>
+                <div class="history-item-meta">
+                    <span class="history-item-clicks">Переходов: ${newUrl.hop_counts || 0}</span>
+                    <span class="history-item-date">${date}</span>
+                </div>
+            `;
+
+            // Добавляем в начало списка
+            if (container.firstChild) {
+                container.insertBefore(newItem, container.firstChild);
+            } else {
+                container.appendChild(newItem);
+            }
+        }
+
+        // Функция загрузки истории ссылок
+        async function loadUrlHistory(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            // Показываем загрузку
+            container.innerHTML = '<div class="history-loading">Загрузка истории...</div>';
+
+            try {
+                const response = await fetch('/account/get_created_urls', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('История ссылок:', data);
+                    
+                    if (data && data.length > 0) {
+                        displayUrlHistory(data, containerId);
+                    } else {
+                        container.innerHTML = '<div class="history-empty">У вас пока нет сокращенных ссылок</div>';
+                    }
+                } else {
+                    console.error('Ошибка загрузки истории:', response.status);
+                    container.innerHTML = '<div class="history-error">Ошибка загрузки истории</div>';
+                }
+            } catch (error) {
+                console.error('Ошибка при загрузке истории:', error);
+                container.innerHTML = '<div class="history-error">Ошибка соединения с сервером</div>';
+            }
+        }
+
+        // Функция отображения истории ссылок
+        function displayUrlHistory(urls, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            let html = '';
+            urls.forEach(url => {
+                const shortUrl = window.location.origin + '/' + url.slug;
+                const date = url.created_at ? new Date(url.created_at).toLocaleDateString('ru-RU') : '';
+                const clicks = url.hop_counts || 0; // Используем hop_counts вместо clicks
+                
+                html += `
+                    <div class="history-item">
+                        <div class="history-item-original">${url.long_url || url.original_url}</div>
+                        <a href="${shortUrl}" class="history-item-short" target="_blank">${shortUrl}</a>
+                        <div class="history-item-meta">
+                            <span class="history-item-clicks">Переходов: ${clicks}</span>
+                            ${date ? `<span class="history-item-date">${date}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Функция сокращения ссылок
         async function create() {
             const url = document.getElementById('url').value;
 
@@ -147,6 +243,38 @@
             const shortUrl = window.location.origin + '/' + data.slug;
             document.getElementById('result').innerHTML =
                 `<a href="${shortUrl}">${shortUrl}</a>`;
+
+            // Обновляем историю в личном кабинете если он открыт
+            const dashboardPage = document.getElementById('dashboard-page');
+            if (dashboardPage && dashboardPage.style.display !== 'none') {
+                // Создаем объект новой ссылки
+                const newUrl = {
+                    slug: data.slug,
+                    long_url: url,
+                    created_at: new Date().toISOString(),
+                    hop_counts: 0 // Новая ссылка, переходов пока нет
+                };
+                
+                addUrlToHistory(newUrl, 'dashboard-history-list');
+            }
+        }
+
+        // Функция настройки кнопки "Личный кабинет" с обновлением истории
+        function setupDashboardButton() {
+            const loginButton = document.querySelector('.login-button');
+            loginButton.textContent = 'Личный кабинет';
+            loginButton.onclick = function() {
+                showDashboard();
+                
+                // Показываем индикатор загрузки
+                const historyContainer = document.getElementById('dashboard-history-list');
+                if (historyContainer) {
+                    historyContainer.innerHTML = '<div class="history-loading">Обновление истории...</div>';
+                }
+                
+                // Всегда обновляем историю при клике на "Личный кабинет"
+                loadUrlHistory('dashboard-history-list');
+            };
         }
 
         // Функции навигации
@@ -176,6 +304,9 @@
             document.getElementById('login-page').style.display = 'none';
             document.getElementById('register-page').style.display = 'none';
             document.getElementById('dashboard-page').style.display = 'block';
+            
+            // Сразу загружаем историю при открытии личного кабинета
+            loadUrlHistory('dashboard-history-list');
         }
 
         // Функции переключения видимости пароля
@@ -259,7 +390,10 @@
                         localStorage.setItem('isAuthenticated', 'true');
                         localStorage.setItem('username', username);
                         
-                        // Переходим в личный кабинет
+                        // Обновляем кнопку входа
+                        setupDashboardButton();
+                        
+                        // Переходим в личный кабинет (история загрузится автоматически)
                         showDashboard();
                         
                         // Очищаем форму
@@ -387,9 +521,8 @@
             const loginButton = document.querySelector('.login-button');
             
             if (isAuthenticated === 'true') {
-                // Если пользователь уже авторизован, показываем кнопку "Личный кабинет"
-                loginButton.textContent = 'Личный кабинет';
-                loginButton.onclick = showDashboard;
+                // Если пользователь уже авторизован, настраиваем кнопку "Личный кабинет"
+                setupDashboardButton();
             } else {
                 // Если не авторизован, показываем кнопку "Войти"
                 loginButton.textContent = 'Войти';
