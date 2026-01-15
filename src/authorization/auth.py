@@ -105,6 +105,13 @@ async def check_auth_account(request: Request, session: AsyncSession):
         return await get_user_id_by_login(login, session)
     raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Авторизация неверна.")
 
+async def check_auth_get_login(request: Request):
+    token = request.cookies.get(config.JWT_ACCESS_COOKIE_NAME)
+    if token:
+        login = decode_token(token).get("sub")
+        return login
+    raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Авторизация неверна.")
+
 async def get_user_id_by_login(login: str, session: AsyncSession):
     query = select(UserModel.id).where(login == UserModel.login)
     res = await session.execute(query)

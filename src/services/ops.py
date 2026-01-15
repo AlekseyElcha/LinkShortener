@@ -1,9 +1,10 @@
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
+import logging
 
-from src.database.models import ShortURL
-from src.exeptions import SlugAlreadyExistsError, LongUrlNotFoundError
+from src.database.models import ShortURL, RedirectsHistory
+from src.exeptions import SlugAlreadyExistsError, LongUrlNotFoundError, RedirectsHistoryNull, AddRedirectHistoryToDatabaseError
 from src.services.slug_service import generate_random_short_url
 
 
@@ -19,6 +20,7 @@ async def add_slug_to_database(slug: str, long_url: str, user_id: int, session: 
     except IntegrityError:
         raise SlugAlreadyExistsError
 
+
 async def get_long_url_by_slug_from_database(slug: str, session: AsyncSession):
     query = select(ShortURL).where(slug == ShortURL.slug)
     res = await session.execute(query)
@@ -30,6 +32,7 @@ async def get_long_url_by_slug_from_database(slug: str, session: AsyncSession):
     else:
         raise LongUrlNotFoundError
 
+
 async def check_slug_already_exists(long_url: str, session: AsyncSession):
     query = select(ShortURL).where(long_url == ShortURL.long_url)
     res = await session.execute(query)
@@ -37,6 +40,7 @@ async def check_slug_already_exists(long_url: str, session: AsyncSession):
     if result:
         return result[0].slug
     return None
+
 
 async def generate_short_url(
         long_url: str,
@@ -63,8 +67,46 @@ async def generate_short_url(
                 raise SlugAlreadyExistsError from ex
     return slug
 
+
 async def get_url_by_slug(slug: str, session: AsyncSession):
     long_url = await get_long_url_by_slug_from_database(slug, session)
     if not long_url:
         raise LongUrlNotFoundError
     return long_url
+
+
+async def get_redirect_history_for_slug(slug: str, session: AsyncSession):
+    query = select(RedirectsHistory).where(slug == RedirectsHistory.slug)
+    res = await session.execute(query)
+    data = res.scalars().all()
+    if not data:
+        raise RedirectsHistoryNull
+    return data
+
+
+async def add_redirect_to_history(slug: str,
+                                  created_by: str,
+                                  long_url: str,
+                                  time: str,
+                                  session: AsyncSession):
+    new_redirect = RedirectsHistory(
+        slug=slug,
+        created_by=created_by,
+        long_url=long_url,
+        time=time,
+    )
+    session.add(new_redirect)
+    try:
+        await session.commit()
+    except IntegrityError:
+        raise AddRedirectHistoryToDatabaseError
+
+
+async def get_redirect_history_by_slug(slug: str, session: AsyncSession):
+    query = select(RedirectsHistory).where(slug == RedirectsHistory.slug)
+    res = await session.execute(query)
+    data = res.scalars().all()
+    if not data:
+        raise RedirectsHistoryNull
+    return data
+

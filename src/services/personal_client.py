@@ -17,10 +17,10 @@ async def get_short_urls(request: Request, session: Annotated[AsyncSession, Depe
     data = res.scalars().all()
     return data
 
+
 @router.get("/get_created_urls")
 async def get_short_urls(request: Request, session: Annotated[AsyncSession, Depends(get_session)]):
     user_id = await check_auth_account(request=request, session=session)
-    print(user_id)
     query = select(ShortURL).where(user_id == ShortURL.user_id)
     res = await session.execute(query)
     data = res.scalars().all()

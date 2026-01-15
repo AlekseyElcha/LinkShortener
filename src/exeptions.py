@@ -12,3 +12,11 @@ class LongUrlNotFoundError(ShortenerBaseException):
 
 class CriticalDatabaseError(ShortenerBaseException):
     pass
+
+
+class RedirectsHistoryNull(ShortenerBaseException):
+    pass
+
+
+class AddRedirectHistoryToDatabaseError(ShortenerBaseException):
+    pass

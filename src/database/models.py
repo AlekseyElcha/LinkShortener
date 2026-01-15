@@ -25,3 +25,15 @@ class UserModel(Base):
     login = Column(String(100), unique=True, nullable=False, index=True)
     password = Column(String(2048), nullable=False)
 
+
+class RedirectsHistory(Base):
+    __tablename__ = "redirects_history"
+
+    id = Column(Integer, Sequence('redirects_history_id_seq'), primary_key=True)
+    created_by = Column(String(), nullable=False, index=True)
+    slug = Column(String(2048), nullable=False, index=True)
+    long_url = Column(String(2048), nullable=False, index=True)
+    time = Column(String(2048), nullable=False, index=True)
+
+
+

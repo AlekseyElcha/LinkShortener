@@ -13,8 +13,8 @@
             <header class="header">
                 <div class="header-content">
                     <div class="brand-section">
-                        <h1 class="logo">Кликер</h1>
-                        <p class="description">Помогите клиентам быстро найти вашу страницу в интернете. Благодаря короткой ссылке клиентам не придётся видеть длинные url-адреса, занимающие много места.</p>
+                        <h1 class="logo">Сократитель ссылок</h1>
+                        <p class="description">Больше не будет уж очень длиииииииинных и запутанных url! :)</p>
                     </div>
                     <button class="login-button" onclick="showLoginPage()">Войти</button>
                 </div>
@@ -34,7 +34,7 @@
             <header class="header">
                 <div class="header-content">
                     <div class="brand-section">
-                        <h1 class="logo">Кликер</h1>
+                        <h1 class="logo">Сократитель ссылок</h1>
                         <p class="description">Войдите в свой аккаунт для доступа к дополнительным возможностям.</p>
                     </div>
                     <button class="back-link" onclick="showMainPage()">← Назад</button>
@@ -133,9 +133,295 @@
                 </div>
             </main>
         </div>
+        
+        <!-- Страница статистики ссылки -->
+        <div id="statistics-page" class="page" style="display: none;">
+            <header class="header">
+                <div class="header-content">
+                    <div class="brand-section">
+                        <button class="home-button" onclick="backToDashboard()">← Назад к кабинету</button>
+                        <p class="description" id="stats-description">Статистика переходов по ссылке</p>
+                    </div>
+                    <button class="logout-button" onclick="logout()">Выйти</button>
+                </div>
+            </header>
+            
+            <main class="main-content">
+                <div class="statistics-content">
+                    <h2 class="statistics-title" id="stats-title">Статистика</h2>
+                    
+                    <div class="statistics-info">
+                        <div class="stat-card">
+                            <div class="stat-label">Короткая ссылка:</div>
+                            <div class="stat-value" id="stats-short-url"></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Оригинальная ссылка:</div>
+                            <div class="stat-value" id="stats-long-url"></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Всего переходов:</div>
+                            <div class="stat-value" id="stats-total-clicks"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="statistics-history">
+                        <h3 class="history-title">История переходов</h3>
+                        <div id="statistics-list" class="statistics-list">
+                            <!-- Здесь будет список переходов -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
 
     <script>
+        console.log('=== Скрипт начал загрузку ===');
+        
+        // Переменные для автообновления статистики
+        let statisticsRefreshInterval = null;
+        let currentStatisticsSlug = null;
+        
+        // Функция сохранения текущей страницы в URL
+        function savePageState(page, data = {}) {
+            const state = { page, ...data };
+            window.location.hash = encodeURIComponent(JSON.stringify(state));
+        }
+        
+        // Функция загрузки состояния страницы из URL
+        function loadPageState() {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                try {
+                    return JSON.parse(decodeURIComponent(hash));
+                } catch (e) {
+                    console.error('Ошибка парсинга hash:', e);
+                    return null;
+                }
+            }
+            return null;
+        }
+        
+        // Функция отображения страницы статистики
+        function showStatisticsPage(slug, redirects) {
+            console.log('=== showStatisticsPage вызвана ===');
+            console.log('Slug:', slug);
+            console.log('Redirects:', redirects);
+            console.log('Redirects type:', typeof redirects);
+            console.log('Is array:', Array.isArray(redirects));
+            
+            // Сохраняем текущий slug для автообновления
+            currentStatisticsSlug = slug;
+            
+            // Сохраняем состояние в URL
+            savePageState('statistics', { slug });
+            
+            // Скрываем все страницы
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('register-page').style.display = 'none';
+            document.getElementById('dashboard-page').style.display = 'none';
+            document.getElementById('statistics-page').style.display = 'block';
+            
+            console.log('Страница статистики показана');
+            
+            // Заполняем информацию о ссылке
+            const shortUrl = window.location.origin + '/' + slug;
+            document.getElementById('stats-short-url').innerHTML = `<a href="${shortUrl}" target="_blank">${shortUrl}</a>`;
+            
+            // Получаем оригинальную ссылку
+            let longUrl = 'Неизвестно';
+            if (redirects && redirects.length > 0) {
+                longUrl = redirects[0].long_url;
+            } else {
+                // Если переходов нет, попробуем найти информацию в кэше истории
+                const historyContainer = document.getElementById('dashboard-history-list');
+                if (historyContainer) {
+                    const historyItems = historyContainer.querySelectorAll('.history-item');
+                    historyItems.forEach(item => {
+                        const button = item.querySelector('.details-button');
+                        if (button && button.getAttribute('data-slug') === slug) {
+                            const originalUrl = item.querySelector('.history-item-original');
+                            if (originalUrl) {
+                                longUrl = originalUrl.textContent;
+                            }
+                        }
+                    });
+                }
+            }
+            
+            document.getElementById('stats-long-url').textContent = longUrl;
+            
+            console.log('Long URL:', longUrl);
+            
+            // Количество переходов
+            const totalClicks = redirects ? redirects.length : 0;
+            document.getElementById('stats-total-clicks').textContent = totalClicks;
+            
+            console.log('Total clicks:', totalClicks);
+            
+            // Отображаем список переходов
+            displayStatisticsList(redirects);
+            
+            // Запускаем автообновление статистики каждые 5 секунд
+            startStatisticsAutoRefresh();
+            
+            console.log('=== showStatisticsPage завершена ===');
+        }
+
+        // Функция отображения списка переходов
+        function displayStatisticsList(redirects) {
+            const container = document.getElementById('statistics-list');
+            if (!container) return;
+
+            if (!redirects || redirects.length === 0) {
+                container.innerHTML = '<div class="statistics-empty">Переходов пока не было</div>';
+                return;
+            }
+
+            let html = '';
+            redirects.forEach((redirect, index) => {
+                const time = redirect.time || 'Неизвестно';
+                const userId = redirect.created_by || 'Неизвестно';
+                
+                html += `
+                    <div class="statistics-item">
+                        <div class="statistics-number">#${index + 1}</div>
+                        <div class="statistics-details">
+                            <div class="statistics-time">Время: ${time}</div>
+                            <div class="statistics-user">Пользователь: ${userId}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+        
+        // Функция запуска автообновления статистики
+        function startStatisticsAutoRefresh() {
+            // Останавливаем предыдущий интервал, если он был
+            stopStatisticsAutoRefresh();
+            
+            console.log('Запуск автообновления статистики');
+            
+            // Обновляем каждые 5 секунд
+            statisticsRefreshInterval = setInterval(async () => {
+                if (currentStatisticsSlug) {
+                    console.log('Автообновление статистики для slug:', currentStatisticsSlug);
+                    await refreshStatisticsData(currentStatisticsSlug);
+                }
+            }, 5000);
+        }
+        
+        // Функция остановки автообновления статистики
+        function stopStatisticsAutoRefresh() {
+            if (statisticsRefreshInterval) {
+                console.log('Остановка автообновления статистики');
+                clearInterval(statisticsRefreshInterval);
+                statisticsRefreshInterval = null;
+            }
+        }
+        
+        // Функция обновления данных статистики
+        async function refreshStatisticsData(slug) {
+            try {
+                const response = await fetch(`/slug_redirect_history/${slug}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Обновляем количество переходов
+                    const totalClicks = data ? data.length : 0;
+                    document.getElementById('stats-total-clicks').textContent = totalClicks;
+                    
+                    // Обновляем список переходов
+                    displayStatisticsList(data);
+                    
+                    console.log('Статистика обновлена:', totalClicks, 'переходов');
+                } else if (response.status === 404) {
+                    // Если переходов все еще нет, просто оставляем как есть
+                    console.log('Переходов пока нет');
+                } else {
+                    console.error('Ошибка обновления статистики:', response.status);
+                }
+            } catch (error) {
+                console.error('Ошибка при обновлении статистики:', error);
+            }
+        }
+        
+        // Функция отображения детальной истории переходов
+        async function showRedirectHistory(slug) {
+            console.log('Запрос истории для slug:', slug);
+            try {
+                const response = await fetch(`/slug_redirect_history/${slug}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                console.log('Статус ответа:', response.status);
+                console.log('Response OK:', response.ok);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('История переходов для slug:', slug);
+                    console.log('Полученные данные:', JSON.stringify(data, null, 2));
+                    console.log('Тип данных:', typeof data);
+                    console.log('Это массив?', Array.isArray(data));
+                    
+                    // Переходим на отдельную страницу статистики
+                    showStatisticsPage(slug, data);
+                } else {
+                    // Обрабатываем ошибки от сервера
+                    console.error('Ошибка загрузки истории переходов:', response.status);
+                    
+                    try {
+                        const errorData = await response.json();
+                        const errorMessage = errorData.detail || 'Неизвестная ошибка';
+                        console.log('Ответ сервера:', errorData);
+                        
+                        // Показываем страницу статистики с пустой историей и сообщением об ошибке
+                        if (response.status === 404) {
+                            // Для 404 показываем страницу с пустой историей
+                            showStatisticsPage(slug, []);
+                        } else {
+                            alert(`Ошибка загрузки истории переходов (${response.status}): ${errorMessage}`);
+                        }
+                    } catch (parseError) {
+                        // Если не удалось распарсить JSON
+                        const errorText = await response.text();
+                        console.log('Ответ сервера (текст):', errorText);
+                        alert(`Ошибка загрузки истории переходов. Статус: ${response.status}`);
+                    }
+                }
+            } catch (error) {
+                console.error('Ошибка при загрузке истории переходов:', error);
+                console.error('Тип ошибки:', error.name);
+                console.error('Сообщение ошибки:', error.message);
+                console.error('Stack trace:', error.stack);
+                alert('Ошибка соединения с сервером: ' + error.message);
+            }
+        }
+
+        // Функция возврата к личному кабинету
+        function backToDashboard() {
+            // Останавливаем автообновление статистики
+            stopStatisticsAutoRefresh();
+            currentStatisticsSlug = null;
+            
+            showDashboard();
+            // Обновляем историю
+            loadUrlHistory('dashboard-history-list');
+        }
+
         // Функция добавления новой ссылки в историю
         function addUrlToHistory(newUrl, containerId) {
             const container = document.getElementById(containerId);
@@ -153,6 +439,7 @@
                     <span class="history-item-clicks">Переходов: ${newUrl.hop_counts || 0}</span>
                     <span class="history-item-date">${date}</span>
                 </div>
+                <button class="details-button" onclick="showRedirectHistory('${newUrl.slug}')">Подробнее</button>
             `;
 
             // Добавляем в начало списка
@@ -207,7 +494,10 @@
             urls.forEach(url => {
                 const shortUrl = window.location.origin + '/' + url.slug;
                 const date = url.created_at ? new Date(url.created_at).toLocaleDateString('ru-RU') : '';
-                const clicks = url.hop_counts || 0; // Используем hop_counts вместо clicks
+                const clicks = url.hop_counts || 0;
+                
+                console.log('URL объект:', url);
+                console.log('Slug для кнопки:', url.slug);
                 
                 html += `
                     <div class="history-item">
@@ -217,11 +507,21 @@
                             <span class="history-item-clicks">Переходов: ${clicks}</span>
                             ${date ? `<span class="history-item-date">${date}</span>` : ''}
                         </div>
+                        <button class="details-button" data-slug="${url.slug}">Подробнее</button>
                     </div>
                 `;
             });
 
             container.innerHTML = html;
+            
+            // Добавляем обработчики событий для кнопок "Подробнее"
+            container.querySelectorAll('.details-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const slug = this.getAttribute('data-slug');
+                    console.log('Кнопка нажата, slug:', slug);
+                    showRedirectHistory(slug);
+                });
+            });
         }
 
         // Функция сокращения ссылок
@@ -279,30 +579,50 @@
 
         // Функции навигации
         function showMainPage() {
+            stopStatisticsAutoRefresh();
+            currentStatisticsSlug = null;
+            window.location.hash = '';
+            
             document.getElementById('main-page').style.display = 'block';
             document.getElementById('login-page').style.display = 'none';
             document.getElementById('register-page').style.display = 'none';
             document.getElementById('dashboard-page').style.display = 'none';
+            document.getElementById('statistics-page').style.display = 'none';
         }
 
         function showLoginPage() {
+            stopStatisticsAutoRefresh();
+            currentStatisticsSlug = null;
+            window.location.hash = '';
+            
             document.getElementById('main-page').style.display = 'none';
             document.getElementById('login-page').style.display = 'block';
             document.getElementById('register-page').style.display = 'none';
             document.getElementById('dashboard-page').style.display = 'none';
+            document.getElementById('statistics-page').style.display = 'none';
         }
 
         function showRegisterPage() {
+            stopStatisticsAutoRefresh();
+            currentStatisticsSlug = null;
+            window.location.hash = '';
+            
             document.getElementById('main-page').style.display = 'none';
             document.getElementById('login-page').style.display = 'none';
             document.getElementById('register-page').style.display = 'block';
             document.getElementById('dashboard-page').style.display = 'none';
+            document.getElementById('statistics-page').style.display = 'none';
         }
 
         function showDashboard() {
+            stopStatisticsAutoRefresh();
+            currentStatisticsSlug = null;
+            savePageState('dashboard');
+            
             document.getElementById('main-page').style.display = 'none';
             document.getElementById('login-page').style.display = 'none';
             document.getElementById('register-page').style.display = 'none';
+            document.getElementById('statistics-page').style.display = 'none';
             document.getElementById('dashboard-page').style.display = 'block';
             
             // Сразу загружаем историю при открытии личного кабинета
@@ -523,12 +843,30 @@
             if (isAuthenticated === 'true') {
                 // Если пользователь уже авторизован, настраиваем кнопку "Личный кабинет"
                 setupDashboardButton();
+                
+                // Восстанавливаем состояние страницы из URL hash
+                const pageState = loadPageState();
+                if (pageState) {
+                    console.log('Восстановление состояния страницы:', pageState);
+                    
+                    if (pageState.page === 'statistics' && pageState.slug) {
+                        // Восстанавливаем страницу статистики
+                        showRedirectHistory(pageState.slug);
+                    } else if (pageState.page === 'dashboard') {
+                        // Восстанавливаем личный кабинет
+                        showDashboard();
+                    }
+                }
             } else {
                 // Если не авторизован, показываем кнопку "Войти"
                 loginButton.textContent = 'Войти';
                 loginButton.onclick = showLoginPage;
             }
         });
+        
+        console.log('=== Скрипт загружен ===');
+        console.log('showStatisticsPage определена?', typeof showStatisticsPage);
+        console.log('showRedirectHistory определена?', typeof showRedirectHistory);
     </script>
 </body>
 </html>
