@@ -1,5 +1,3 @@
-from http.client import HTTPException
-
 from sqlalchemy import select, delete
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession

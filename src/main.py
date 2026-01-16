@@ -9,6 +9,7 @@ from typing import Annotated
 from tzlocal import get_localzone
 import uvicorn
 import logging
+import sys
 
 from src.get_session import get_session
 from src.authorization.auth import router as auth_router
@@ -22,6 +23,17 @@ from src.exeptions import LongUrlNotFoundError, AddRedirectHistoryToDatabaseErro
     ShortURLToDeleteNotFound
 from src.services.ops import generate_short_url, get_long_url_by_slug_from_database, add_redirect_to_history, \
     get_redirect_history_by_slug, delete_slug_from_database
+
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stderr),
+    ]
+)
+
+logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
@@ -57,6 +69,7 @@ async def create_slug(
     else:
         user_id = 0
     result = await generate_short_url(long_url=long_url, user_id=user_id, session=session)
+    logger.debug(f"Успешно создан slug: {result}")
     return result
 
 @app.get("/{slug}")
@@ -66,10 +79,10 @@ async def get_url_by_slug(
         request: Request
 ):
     user_login = await check_auth_get_login(request)
-    logging.debug("Обращение к ручке get_url_by_slug (src.main.py)")
+    logger.debug("Обращение к ручке get_url_by_slug (src.main.py)")
     try:
         long_url = await get_long_url_by_slug_from_database(slug, session)
-        logging.debug(f"Длинная ссылка возвращена из БД: {long_url}")
+        logger.debug(f"Длинная ссылка возвращена из БД: {long_url}.")
     except LongUrlNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -96,10 +109,10 @@ async def get_url_by_slug(
                                           location_city=location_city,
                                           location_country=location_country,
                                           session=session)
-            logging.debug(f"Добавлен редирект в БД: slug={slug},"
+            logger.info(f"Добавлен редирект в БД: slug={slug},"
                           f" long_url={long_url}, created_by={user_login}, time={redirected_at}")
         except AddRedirectHistoryToDatabaseError:
-            logging.warn(
+            logger.warn(
                 f"Ошибка при записи перехода в историю: slug: {slug}, "
                 f"long_url: {long_url}, created_by: {user_login}, time: {redirected_at} "
                 f"location_country: {location_country}, location_city: {location_city}"
@@ -113,10 +126,12 @@ async def get_slug_redirect_history(slug: str, session: Annotated[AsyncSession, 
         user_timezone = str(get_localzone())
     except:
         user_timezone = "UTC"
+    logger.debug(f"Получен часовой пояс пользователя: {user_timezone}.")
     try:
         data = await get_redirect_history_by_slug(slug=slug, user_timezone=user_timezone, session=session)
+        logger.debug(f"Успешное получение истории редиректов по slug: {slug}.")
     except RedirectsHistoryNull:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="История переходов пуста")
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="История переходов пуста.")
     return data
 
 
@@ -124,6 +139,7 @@ async def get_slug_redirect_history(slug: str, session: Annotated[AsyncSession, 
 async def delete_slug(slug: str, session: Annotated[AsyncSession, Depends(get_session)]):
     try:
         res = await delete_slug_from_database(slug=slug, session=session)
+        logger.debug(f"Slug: {slug} и история редиректов по нему удалены.")
     except ShortURLToDeleteNotFound:
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Ссылка для удаления не найдена.")
     return res
@@ -133,5 +149,5 @@ async def delete_slug(slug: str, session: Annotated[AsyncSession, Depends(get_se
 app.mount("/", StaticFiles(directory="./public", html=True), name="public")
 
 if __name__ == "__main__":
-    logging.info("Сервер uvicorn запущен")
+    logger.info("Сервер uvicorn запущен")
     uvicorn.run("main:app", host="0.0.0.0", port=8000)
