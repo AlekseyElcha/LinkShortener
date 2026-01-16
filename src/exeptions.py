@@ -20,3 +20,11 @@ class RedirectsHistoryNull(ShortenerBaseException):
 
 class AddRedirectHistoryToDatabaseError(ShortenerBaseException):
     pass
+
+
+class NoLocationData(ShortenerBaseException):
+    pass
+
+
+class ShortURLToDeleteNotFound(ShortenerBaseException):
+    pass

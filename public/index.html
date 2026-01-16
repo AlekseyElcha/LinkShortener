@@ -125,7 +125,13 @@
                     
                     <!-- История ссылок в личном кабинете -->
                     <div id="dashboard-history" class="url-history">
-                        <h3 class="history-title">История ваших ссылок</h3>
+                        <div class="history-header">
+                            <h3 class="history-title">История ваших ссылок</h3>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="dashboard-include-my-clicks" checked onchange="toggleDashboardMyClicks()">
+                                <span class="checkbox-label">Учитывать мои переходы</span>
+                            </label>
+                        </div>
                         <div id="dashboard-history-list" class="history-list">
                             <!-- Здесь будет список ссылок -->
                         </div>
@@ -166,13 +172,45 @@
                     </div>
                     
                     <div class="statistics-history">
-                        <h3 class="history-title">История переходов</h3>
+                        <div class="history-header">
+                            <h3 class="history-title">История переходов</h3>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="include-my-clicks" checked onchange="toggleMyClicks()">
+                                <span class="checkbox-label">Учитывать мои переходы</span>
+                            </label>
+                        </div>
                         <div id="statistics-list" class="statistics-list">
                             <!-- Здесь будет список переходов -->
                         </div>
                     </div>
                 </div>
             </main>
+        </div>
+        
+        <!-- Модальное окно подтверждения удаления -->
+        <div id="delete-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content delete-modal">
+                <div class="modal-header">
+                    <h3>Подтверждение удаления</h3>
+                    <button class="modal-close" onclick="closeDeleteModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="warning-icon">⚠️</div>
+                    <p class="warning-text">Вы уверены, что хотите удалить эту ссылку?</p>
+                    <div class="warning-details">
+                        <p>• Ссылка будет удалена без возможности восстановления</p>
+                        <p>• Никто больше не сможет перейти на изначальный сайт при помощи этой ссылки</p>
+                    </div>
+                    <div class="delete-url-info">
+                        <div class="delete-url-label">Короткая ссылка:</div>
+                        <div id="delete-url-short" class="delete-url-value"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="cancel-button" onclick="closeDeleteModal()">Отмена</button>
+                    <button class="delete-confirm-button" onclick="confirmDelete()">Удалить</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -182,6 +220,13 @@
         // Переменные для автообновления статистики
         let statisticsRefreshInterval = null;
         let currentStatisticsSlug = null;
+        
+        // Переменные для хранения данных
+        let currentStatisticsData = null; // Полные данные статистики
+        let currentDashboardData = null; // Полные данные личного кабинета
+        
+        // Переменная для удаления ссылки
+        let slugToDelete = null;
         
         // Функция сохранения текущей страницы в URL
         function savePageState(page, data = {}) {
@@ -210,6 +255,9 @@
             console.log('Redirects:', redirects);
             console.log('Redirects type:', typeof redirects);
             console.log('Is array:', Array.isArray(redirects));
+            
+            // Сохраняем данные для фильтрации
+            currentStatisticsData = redirects;
             
             // Сохраняем текущий slug для автообновления
             currentStatisticsSlug = slug;
@@ -255,14 +303,8 @@
             
             console.log('Long URL:', longUrl);
             
-            // Количество переходов
-            const totalClicks = redirects ? redirects.length : 0;
-            document.getElementById('stats-total-clicks').textContent = totalClicks;
-            
-            console.log('Total clicks:', totalClicks);
-            
-            // Отображаем список переходов
-            displayStatisticsList(redirects);
+            // Применяем фильтрацию и отображаем данные
+            updateStatisticsDisplay();
             
             // Запускаем автообновление статистики каждые 5 секунд
             startStatisticsAutoRefresh();
@@ -284,6 +326,22 @@
             redirects.forEach((redirect, index) => {
                 const time = redirect.time || 'Неизвестно';
                 const userId = redirect.created_by || 'Неизвестно';
+                const country = redirect.location_country || 'н/д';
+                const city = redirect.location_city || 'н/д';
+                
+                // Формируем строку локации
+                let location = '';
+                if (country !== 'н/д' || city !== 'н/д') {
+                    if (city !== 'н/д' && country !== 'н/д') {
+                        location = `${city}, ${country}`;
+                    } else if (city !== 'н/д') {
+                        location = city;
+                    } else {
+                        location = country;
+                    }
+                } else {
+                    location = 'н/д';
+                }
                 
                 html += `
                     <div class="statistics-item">
@@ -291,6 +349,7 @@
                         <div class="statistics-details">
                             <div class="statistics-time">Время: ${time}</div>
                             <div class="statistics-user">Пользователь: ${userId}</div>
+                            <div class="statistics-location">Локация: ${location}</div>
                         </div>
                     </div>
                 `;
@@ -337,14 +396,13 @@
                 if (response.ok) {
                     const data = await response.json();
                     
-                    // Обновляем количество переходов
-                    const totalClicks = data ? data.length : 0;
-                    document.getElementById('stats-total-clicks').textContent = totalClicks;
+                    // Сохраняем обновленные данные
+                    currentStatisticsData = data;
                     
-                    // Обновляем список переходов
-                    displayStatisticsList(data);
+                    // Применяем фильтрацию и обновляем отображение
+                    updateStatisticsDisplay();
                     
-                    console.log('Статистика обновлена:', totalClicks, 'переходов');
+                    console.log('Статистика обновлена');
                 } else if (response.status === 404) {
                     // Если переходов все еще нет, просто оставляем как есть
                     console.log('Переходов пока нет');
@@ -353,6 +411,49 @@
                 }
             } catch (error) {
                 console.error('Ошибка при обновлении статистики:', error);
+            }
+        }
+        
+        // Функция фильтрации данных статистики
+        function filterStatisticsData(data, includeMyClicks) {
+            if (!data || !Array.isArray(data)) return [];
+            
+            // Получаем имя текущего пользователя
+            const username = localStorage.getItem('username');
+            
+            if (includeMyClicks || !username) {
+                return data;
+            }
+            
+            // Фильтруем, исключая переходы текущего пользователя
+            return data.filter(redirect => redirect.created_by !== username);
+        }
+        
+        // Функция обновления отображения статистики
+        function updateStatisticsDisplay() {
+            const includeMyClicks = document.getElementById('include-my-clicks').checked;
+            const filteredData = filterStatisticsData(currentStatisticsData, includeMyClicks);
+            
+            // Обновляем количество переходов
+            const totalClicks = filteredData.length;
+            document.getElementById('stats-total-clicks').textContent = totalClicks;
+            
+            // Обновляем список переходов
+            displayStatisticsList(filteredData);
+            
+            console.log('Статистика обновлена. Всего переходов:', totalClicks);
+        }
+        
+        // Функция переключения фильтра "Учитывать мои переходы" на странице статистики
+        function toggleMyClicks() {
+            updateStatisticsDisplay();
+        }
+        
+        // Функция переключения фильтра "Учитывать мои переходы" в личном кабинете
+        async function toggleDashboardMyClicks() {
+            // Перезагружаем историю с учетом нового фильтра
+            if (currentDashboardData && currentDashboardData.length > 0) {
+                await displayUrlHistory(currentDashboardData, 'dashboard-history-list');
             }
         }
         
@@ -470,8 +571,11 @@
                     const data = await response.json();
                     console.log('История ссылок:', data);
                     
+                    // Сохраняем данные для фильтрации
+                    currentDashboardData = data;
+                    
                     if (data && data.length > 0) {
-                        displayUrlHistory(data, containerId);
+                        await displayUrlHistory(data, containerId);
                     } else {
                         container.innerHTML = '<div class="history-empty">У вас пока нет сокращенных ссылок</div>';
                     }
@@ -486,15 +590,42 @@
         }
 
         // Функция отображения истории ссылок
-        function displayUrlHistory(urls, containerId) {
+        async function displayUrlHistory(urls, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
 
+            const includeMyClicks = document.getElementById('dashboard-include-my-clicks').checked;
+            const username = localStorage.getItem('username');
+
             let html = '';
-            urls.forEach(url => {
+            
+            // Для каждой ссылки получаем детальную статистику
+            for (const url of urls) {
                 const shortUrl = window.location.origin + '/' + url.slug;
                 const date = url.created_at ? new Date(url.created_at).toLocaleDateString('ru-RU') : '';
-                const clicks = url.hop_counts || 0;
+                
+                // Получаем детальную статистику для подсчета переходов
+                let clicks = url.hop_counts || 0;
+                
+                if (!includeMyClicks && username) {
+                    // Запрашиваем детальную историю для фильтрации
+                    try {
+                        const response = await fetch(`/slug_redirect_history/${url.slug}`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            const history = await response.json();
+                            // Считаем переходы, исключая текущего пользователя
+                            clicks = history.filter(redirect => redirect.created_by !== username).length;
+                        }
+                    } catch (error) {
+                        console.log('Не удалось получить детальную статистику для', url.slug);
+                    }
+                }
                 
                 console.log('URL объект:', url);
                 console.log('Slug для кнопки:', url.slug);
@@ -507,10 +638,13 @@
                             <span class="history-item-clicks">Переходов: ${clicks}</span>
                             ${date ? `<span class="history-item-date">${date}</span>` : ''}
                         </div>
-                        <button class="details-button" data-slug="${url.slug}">Подробнее</button>
+                        <div class="history-item-actions">
+                            <button class="details-button" data-slug="${url.slug}">Подробнее</button>
+                            <button class="delete-button" data-slug="${url.slug}" data-short-url="${shortUrl}">Удалить</button>
+                        </div>
                     </div>
                 `;
-            });
+            }
 
             container.innerHTML = html;
             
@@ -520,6 +654,16 @@
                     const slug = this.getAttribute('data-slug');
                     console.log('Кнопка нажата, slug:', slug);
                     showRedirectHistory(slug);
+                });
+            });
+            
+            // Добавляем обработчики событий для кнопок "Удалить"
+            container.querySelectorAll('.delete-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const slug = this.getAttribute('data-slug');
+                    const shortUrl = this.getAttribute('data-short-url');
+                    console.log('Кнопка удаления нажата, slug:', slug);
+                    showDeleteModal(slug, shortUrl);
                 });
             });
         }
@@ -541,8 +685,23 @@
 
             const data = await response.json();
             const shortUrl = window.location.origin + '/' + data.slug;
-            document.getElementById('result').innerHTML =
-                `<a href="${shortUrl}">${shortUrl}</a>`;
+            
+            // Проверяем, авторизован ли пользователь
+            const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+            
+            // Формируем HTML для результата
+            let resultHtml = `<div class="result-link"><a href="${shortUrl}">${shortUrl}</a></div>`;
+            
+            // Если пользователь авторизован и ссылка была создана ранее, показываем предупреждение
+            if (isAuthenticated && data.created_before === true) {
+                resultHtml += `
+                    <div class="warning-message">
+                        ⚠️ Эта ссылка уже ранее была сгенерирована нашим сервисом, аналитика для неё не будет доступна
+                    </div>
+                `;
+            }
+            
+            document.getElementById('result').innerHTML = resultHtml;
 
             // Обновляем историю в личном кабинете если он открыт
             const dashboardPage = document.getElementById('dashboard-page');
@@ -834,6 +993,65 @@
             // Возвращаемся на главную страницу
             showMainPage();
         }
+
+        // Функция открытия модального окна удаления
+        function showDeleteModal(slug, shortUrl) {
+            slugToDelete = slug;
+            document.getElementById('delete-url-short').textContent = shortUrl;
+            document.getElementById('delete-modal').style.display = 'flex';
+        }
+
+        // Функция закрытия модального окна удаления
+        function closeDeleteModal() {
+            slugToDelete = null;
+            document.getElementById('delete-modal').style.display = 'none';
+        }
+
+        // Функция подтверждения удаления
+        async function confirmDelete() {
+            if (!slugToDelete) {
+                console.error('Нет slug для удаления');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/delete_slug/${slugToDelete}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (response.ok) {
+                    console.log('Ссылка успешно удалена:', slugToDelete);
+                    
+                    // Закрываем модальное окно
+                    closeDeleteModal();
+                    
+                    // Обновляем список ссылок
+                    await loadUrlHistory('dashboard-history-list');
+                    
+                    // Показываем уведомление об успехе
+                    alert('Ссылка успешно удалена');
+                } else {
+                    const errorData = await response.json().catch(() => ({}));
+                    const errorMessage = errorData.detail || 'Неизвестная ошибка';
+                    console.error('Ошибка удаления ссылки:', response.status, errorMessage);
+                    alert(`Ошибка при удалении ссылки: ${errorMessage}`);
+                }
+            } catch (error) {
+                console.error('Ошибка при удалении ссылки:', error);
+                alert('Ошибка соединения с сервером');
+            }
+        }
+
+        // Закрытие модального окна при клике вне его
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('delete-modal');
+            if (event.target === modal) {
+                closeDeleteModal();
+            }
+        });
 
         // Проверяем авторизацию при загрузке страницы
         window.addEventListener('load', function() {

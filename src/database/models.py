@@ -33,6 +33,8 @@ class RedirectsHistory(Base):
     created_by = Column(String(), nullable=False, index=True)
     slug = Column(String(2048), nullable=False, index=True)
     long_url = Column(String(2048), nullable=False, index=True)
+    location_city = Column(String(2048), nullable=False, index=True)
+    location_country = Column(String(2048), nullable=False, index=True)
     time = Column(String(2048), nullable=False, index=True)
 
 
