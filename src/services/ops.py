@@ -1,3 +1,5 @@
+from http.client import HTTPException
+
 from sqlalchemy import select, delete
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -5,7 +7,7 @@ import logging
 
 from src.database.models import ShortURL, RedirectsHistory
 from src.exeptions import SlugAlreadyExistsError, LongUrlNotFoundError, RedirectsHistoryNull, \
-    AddRedirectHistoryToDatabaseError, ShortURLToDeleteNotFound
+    AddRedirectHistoryToDatabaseError, ShortURLToDeleteNotFound, ShortURLToDeleteNotFoundHistoryClear
 from src.services.slug_service import generate_random_short_url
 from src.services.time_service import convert_utc_string_to_local
 
@@ -132,18 +134,19 @@ async def delete_slug_history(slug: str, session: AsyncSession):
     try:
         await session.execute(query)
         await session.commit()
-        await delete_slug_history()
     except:
-        await session.commit()
-        raise ShortURLToDeleteNotFound
+        raise ShortURLToDeleteNotFoundHistoryClear
 
 async def delete_slug_from_database(slug: str, session: AsyncSession):
     query = delete(ShortURL).where(ShortURL.slug == slug)
     try:
         await session.execute(query)
         await session.commit()
-        await delete_slug_history(slug, session)
+        try:
+            await delete_slug_history(slug, session)
+        except ShortURLToDeleteNotFoundHistoryClear:
+            raise ShortURLToDeleteNotFound
     except:
-        await session.commit()
         raise ShortURLToDeleteNotFound
+    return {"success": True}
 

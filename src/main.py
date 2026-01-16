@@ -123,9 +123,10 @@ async def get_slug_redirect_history(slug: str, session: Annotated[AsyncSession, 
 @app.delete("/delete_slug/{slug}")
 async def delete_slug(slug: str, session: Annotated[AsyncSession, Depends(get_session)]):
     try:
-        await delete_slug_from_database(slug=slug, session=session)
+        res = await delete_slug_from_database(slug=slug, session=session)
     except ShortURLToDeleteNotFound:
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Ссылка для удаления не найдена.")
+    return res
 
 
 

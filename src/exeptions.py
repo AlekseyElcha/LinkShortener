@@ -28,3 +28,8 @@ class NoLocationData(ShortenerBaseException):
 
 class ShortURLToDeleteNotFound(ShortenerBaseException):
     pass
+
+
+class ShortURLToDeleteNotFoundHistoryClear(ShortURLToDeleteNotFound):
+    pass
+
