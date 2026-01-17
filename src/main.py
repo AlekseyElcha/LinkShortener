@@ -1,4 +1,6 @@
-from fastapi import FastAPI, Depends, Body, HTTPException, status, Request
+import os
+
+from fastapi import FastAPI, Depends, Body, HTTPException, status, Request, Query
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -12,7 +14,8 @@ import logging
 import sys
 
 from src.get_session import get_session
-from src.authorization.auth import router as auth_router
+from src.authorization.auth import router as auth_router, create_link_with_token, \
+    send_reset_password_email_with_instructions, check_token_and_reset_password
 from src.authorization.auth import check_auth, check_auth_get_login
 from src.services.location import router as location_router
 from src.services.location import get_location
@@ -20,7 +23,7 @@ from src.services.personal_client import router as personal_router
 from src.database.models import Base
 from src.database.database import engine, new_session
 from src.exeptions import LongUrlNotFoundError, AddRedirectHistoryToDatabaseError, RedirectsHistoryNull, NoLocationData, \
-    ShortURLToDeleteNotFound
+    ShortURLToDeleteNotFound, CreateResetPasswordLinkError
 from src.services.ops import generate_short_url, get_long_url_by_slug_from_database, add_redirect_to_history, \
     get_redirect_history_by_slug, delete_slug_from_database
 
@@ -71,6 +74,7 @@ async def create_slug(
     result = await generate_short_url(long_url=long_url, user_id=user_id, session=session)
     logger.debug(f"Успешно создан slug: {result}")
     return result
+
 
 @app.get("/{slug}")
 async def get_url_by_slug(
@@ -144,6 +148,36 @@ async def delete_slug(slug: str, session: Annotated[AsyncSession, Depends(get_se
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Ссылка для удаления не найдена.")
     return res
 
+
+@app.post("/reset_password")
+async def create_reset_password_link(login: Annotated[str, Body(embed=True)], session: Annotated[AsyncSession, Depends(get_session)]):
+    try:
+        reset_url = await create_link_with_token(login=login, session=session)
+    except CreateResetPasswordLinkError:
+        raise HTTPException(
+            status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail = "Ошибка при создании ссылки с токеном и добавления в базу"
+        )
+    try:
+        await send_reset_password_email_with_instructions(email=login, reset_url=reset_url)
+    except:
+        raise HTTPException(
+            status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Не удалось отправить письмо"
+        )
+    return {"result": "success"}
+
+
+@app.put("/reset_password/{token}")
+async def reset_password(
+        token: str,
+        new_password: str,
+        session: Annotated[AsyncSession, Depends(get_session)]
+):
+    try:
+        await check_token_and_reset_password(token=token, new_password=new_password, session=session)
+    except:
+        raise
+    return {"message": "Пароль успешно обновлён!"}
 
 
 app.mount("/", StaticFiles(directory="./public", html=True), name="public")

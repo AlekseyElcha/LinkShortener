@@ -1,5 +1,5 @@
-from sqlalchemy import String, Column, Integer, Sequence
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import String, Column, Integer, Sequence, Boolean, DateTime, ForeignKey
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
 class Base(DeclarativeBase):
@@ -38,4 +38,16 @@ class RedirectsHistory(Base):
     time = Column(String(2048), nullable=False, index=True)
 
 
+class PasswordReset(Base):
+    __tablename__ = "password_reset"
+
+    id = Column(Integer, Sequence('password_reset_id_seq'), primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    token_hash = Column(String(2048), nullable=False, index=True)
+    email = Column(String(2048), nullable=False, index=True)
+    created_at = Column(DateTime, nullable=False, index=True)
+    expires_at = Column(DateTime, nullable=False, index=True)
+    is_used = Column(Boolean, nullable=False, default=False)
+
+    user = relationship("UserModel")
 

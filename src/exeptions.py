@@ -33,3 +33,10 @@ class ShortURLToDeleteNotFound(ShortenerBaseException):
 class ShortURLToDeleteNotFoundHistoryClear(ShortURLToDeleteNotFound):
     pass
 
+
+class SendEmailError(ShortenerBaseException):
+    pass
+
+
+class CreateResetPasswordLinkError(ShortenerBaseException):
+    pass

@@ -1,17 +1,24 @@
+import base64
+
 from fastapi import Depends, HTTPException, Response, APIRouter, Body, Request, status
 from authx import AuthXConfig, AuthX
-from sqlalchemy import select
+from sqlalchemy import select, update, delete
 from typing import Annotated
 from dotenv import load_dotenv
 import jwt
 import os
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
+from datetime import datetime, timedelta, timezone
+import secrets
+
+from sqlalchemy.sql.functions import user
 
 from src.get_session import get_session
-from src.database.models import UserModel
+from src.database.models import UserModel, PasswordReset
 from src.database.schemas import UserAddSchema, UserUpdateSchema
-from src.exeptions import CriticalDatabaseError
+from src.services.email_sender import send_reset_password_email, send_reset_password_email_notification
+from src.exeptions import SendEmailError, CreateResetPasswordLinkError
 
 router = APIRouter(prefix="/auth")
 
@@ -71,14 +78,96 @@ async def create_account(user: UserAddSchema,
         "message": "Аккаунт успешно создан!"
     }
 
-# async def admin_required(user = Depends(security.access_token_required)):
-#     try:
-#         is_admin = user.get("is_admin")
-#     except AttributeError:
-#         is_admin = getattr(user, 'is_admin', False)
-#     if not is_admin:
-#         raise HTTPException(status_code=403, detail="Требуются права администратора")
-#     return user
+
+def decode_token_urlsafe(token: str) -> bytes:
+    """
+    Декодирует URL-safe Base64 токен обратно в байты
+    """
+    # 1. Заменяем обратно URL-safe символы
+    token = token.replace('-', '+').replace('_', '/')
+
+    # 2. Добавляем padding ('=') если нужно
+    padding = 4 - (len(token) % 4)
+    if padding != 4:
+        token += '=' * padding
+
+    # 3. Декодируем Base64
+    return base64.urlsafe_b64decode(token)
+
+
+async def create_link_with_token(login: str, session: AsyncSession):
+    reset_token = secrets.token_urlsafe(32)
+    created_at = datetime.utcnow()
+    expires_at = created_at + timedelta(hours=1)
+    # reset_url = f"http://localhost:8000/reset_password?token={reset_token}"
+    reset_url = f"http://localhost:8000/?token={reset_token}"
+    print(reset_url)
+    user_id = await get_user_id_by_login(login, session)
+    reset_request = PasswordReset(
+        user_id=user_id,
+        token_hash=reset_token,
+        email=login,
+        created_at=created_at,
+        expires_at=expires_at,
+        is_used=False
+    )
+
+    session.add(reset_request)
+    try:
+        await session.commit()
+    except:
+        raise CreateResetPasswordLinkError
+
+    return reset_url
+
+
+async def send_reset_password_email_with_instructions(email: str, reset_url: str):
+    try:
+        await send_reset_password_email(email, reset_url)
+    except SendEmailError:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Ошибка при отправке письма.")
+
+
+async def check_token_and_reset_password(token: str, new_password: str, session: AsyncSession):
+    query = select(PasswordReset.expires_at).where(PasswordReset.token_hash == token)
+    try:
+        res = await session.execute(query)
+        expires_at = res.scalar_one_or_none()
+        await session.commit()
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Возникла ошибка при проверке токена")
+    exp = datetime.fromisoformat(str(expires_at))
+    now = datetime.fromisoformat(str(datetime.utcnow()))
+    if exp < now:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Время дейстаия ссылки истекло")
+
+    query = select(PasswordReset.email).where(PasswordReset.token_hash == token)
+    try:
+        res = await session.execute(query)
+        login = res.scalar_one_or_none()
+        await session.commit()
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Возникла ошибка при плучении логина")
+
+    query = update(UserModel).where(UserModel.login == login).values(password=new_password)
+    try:
+        await session.execute(query)
+        await session.commit()
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Не удалось обновить пароль")
+
+    query = delete(PasswordReset).where(PasswordReset.email == login)
+    try:
+        await session.execute(query)
+        await session.commit()
+    except:
+        raise HTTPException(
+            status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Не удалось удалить PasswordReset запрос из базы данных"
+        )
+    await send_reset_password_email_notification(user_email=login)
+
+
 
 def decode_token(token: str):
     try:
