@@ -135,6 +135,7 @@ async def delete_slug_history(slug: str, session: AsyncSession):
     except:
         raise ShortURLToDeleteNotFoundHistoryClear
 
+
 async def delete_slug_from_database(slug: str, session: AsyncSession):
     query = delete(ShortURL).where(ShortURL.slug == slug)
     try:
