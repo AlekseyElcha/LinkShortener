@@ -1075,3 +1075,78 @@ body {
     width: 100%;
   }
 }
+
+/* Success Message Styles */
+.success-message {
+  text-align: center;
+  padding: var(--spacing-xl);
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.success-message h2 {
+  color: var(--text-color);
+  font-size: 1.8rem;
+  margin-bottom: var(--spacing-md);
+  font-weight: 500;
+}
+
+.success-message p {
+  color: var(--secondary-color);
+  font-size: 1rem;
+  margin-bottom: var(--spacing-md);
+  line-height: 1.6;
+}
+
+.success-message .submit-button {
+  margin-top: var(--spacing-lg);
+}
+
+/* Account Info Styles */
+.account-info {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: var(--spacing-xl);
+}
+
+.account-card {
+  background-color: white;
+  border: 2px solid white;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.account-card:hover {
+  box-shadow: var(--box-shadow);
+}
+
+.account-label {
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+.account-email {
+  font-size: 1rem;
+  color: var(--primary-color);
+  font-weight: 500;
+  word-break: break-all;
+}
+
+@media (max-width: 480px) {
+  .account-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+}

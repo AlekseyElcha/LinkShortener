@@ -24,6 +24,7 @@ class UserModel(Base):
     id = Column(Integer, Sequence('users_id_seq'), primary_key=True)
     login = Column(String(100), unique=True, nullable=False, index=True)
     password = Column(String(2048), nullable=False)
+    email_is_valid = Column(Boolean, nullable=False, default=False)
 
 
 class RedirectsHistory(Base):
@@ -47,7 +48,17 @@ class PasswordReset(Base):
     email = Column(String(2048), nullable=False, index=True)
     created_at = Column(DateTime, nullable=False, index=True)
     expires_at = Column(DateTime, nullable=False, index=True)
-    is_used = Column(Boolean, nullable=False, default=False)
 
     user = relationship("UserModel")
+
+
+class EmailValidation(Base):
+    __tablename__ = "email_validations"
+
+    id = Column(Integer, Sequence('email_validations_id_seq'), primary_key=True)
+    token_hash = Column(String(2048), nullable=False, index=True)
+    email = Column(String(2048), nullable=False, index=True)
+    created_at = Column(DateTime, nullable=False, index=True)
+    expires_at = Column(DateTime, nullable=False, index=True)
+
 

@@ -46,7 +46,7 @@
                 <div class="login-form-section">
                     <form id="loginForm" class="login-form">
                         <div class="form-group">
-                            <input type="text" id="username" class="form-input" placeholder="Логин" required>
+                            <input type="text" id="username" class="form-input" placeholder="Адрес электронной почты" required>
                         </div>
                         <div class="form-group">
                             <div class="password-input-wrapper">
@@ -84,7 +84,7 @@
                 <div class="login-form-section">
                     <form id="registerForm" class="login-form">
                         <div class="form-group">
-                            <input type="text" id="reg-username" class="form-input" placeholder="Логин" required>
+                            <input type="text" id="reg-username" class="form-input" placeholder="Адрес электронной почты" required>
                         </div>
                         <div class="form-group">
                             <div class="password-input-wrapper">
@@ -176,6 +176,30 @@
             </main>
         </div>
 
+        <!-- Страница подтверждения email -->
+        <div id="email-confirmed-page" class="page" style="display: none;">
+            <header class="header">
+                <div class="header-content">
+                    <div class="brand-section">
+                        <h1 class="logo">Кликер</h1>
+                        <p class="description">Ваш адрес электронной почты подтвержден!</p>
+                    </div>
+                </div>
+            </header>
+            
+            <main class="main-content">
+                <div class="login-form-section">
+                    <div class="success-message">
+                        <div class="success-icon">✅</div>
+                        <h2>Поздравляем!</h2>
+                        <p>Ваш адрес электронной почты успешно подтвержден.</p>
+                        <p>Теперь вы можете войти в свой аккаунт.</p>
+                        <button class="submit-button" onclick="showLoginPage()">Войти в аккаунт</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+
         <!-- Личный кабинет -->
         <div id="dashboard-page" class="page" style="display: none;">
             <header class="header">
@@ -194,6 +218,14 @@
             <main class="main-content">
                 <div class="dashboard-content">
                     <h2 class="dashboard-title">Личный кабинет</h2>
+                    
+                    <!-- Информация о текущем аккаунте -->
+                    <div class="account-info">
+                        <div class="account-card">
+                            <div class="account-label">Ваш аккаунт:</div>
+                            <div class="account-email" id="current-user-email">loading...</div>
+                        </div>
+                    </div>
 
                     <!-- История ссылок в личном кабинете -->
                     <div id="dashboard-history" class="url-history">
@@ -879,6 +911,7 @@
             document.getElementById('register-page').style.display = 'none';
             document.getElementById('dashboard-page').style.display = 'none';
             document.getElementById('statistics-page').style.display = 'none';
+            document.getElementById('email-confirmed-page').style.display = 'none';
         }
 
         function showLoginPage() {
@@ -895,6 +928,7 @@
             document.getElementById('register-page').style.display = 'none';
             document.getElementById('dashboard-page').style.display = 'none';
             document.getElementById('statistics-page').style.display = 'none';
+            document.getElementById('email-confirmed-page').style.display = 'none';
         }
 
         function showRegisterPage() {
@@ -930,6 +964,13 @@
             document.getElementById('forgot-password-page').style.display = 'none';
             document.getElementById('reset-password-page').style.display = 'none';
             document.getElementById('change-password-page').style.display = 'none';
+            document.getElementById('email-confirmed-page').style.display = 'none';
+
+            // Отображаем email текущего пользователя
+            const userEmail = localStorage.getItem('username');
+            if (userEmail) {
+                document.getElementById('current-user-email').textContent = userEmail;
+            }
 
             loadUrlHistory('dashboard-history-list');
         }
@@ -986,7 +1027,27 @@
             document.getElementById('statistics-page').style.display = 'none';
             document.getElementById('forgot-password-page').style.display = 'none';
             document.getElementById('reset-password-page').style.display = 'none';
+            document.getElementById('email-confirmed-page').style.display = 'none';
             document.getElementById('change-password-page').style.display = 'block';
+        }
+
+        function showEmailConfirmedPage() {
+            stopStatisticsAutoRefresh();
+            currentStatisticsSlug = null;
+            if (chartInstance) {
+                chartInstance.destroy();
+                chartInstance = null;
+            }
+            
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('register-page').style.display = 'none';
+            document.getElementById('dashboard-page').style.display = 'none';
+            document.getElementById('statistics-page').style.display = 'none';
+            document.getElementById('forgot-password-page').style.display = 'none';
+            document.getElementById('reset-password-page').style.display = 'none';
+            document.getElementById('change-password-page').style.display = 'none';
+            document.getElementById('email-confirmed-page').style.display = 'block';
         }
 
         // Функция отправки письма для смены пароля (без показа формы)
@@ -1015,6 +1076,31 @@
                 }
             } catch (error) {
                 console.error('Ошибка соединения с сервером:', error);
+                alert('Ошибка соединения с сервером');
+            }
+        }
+
+        // Функция валидации email токена
+        async function validateEmailToken(token) {
+            try {
+                const response = await fetch(`/validate_email/${token}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (response.ok) {
+                    // Успешная валидация email
+                    showEmailConfirmedPage();
+                    // Очищаем URL от токена
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                } else {
+                    const errorData = await response.json();
+                    alert(errorData.detail || 'Ошибка при подтверждении email');
+                }
+            } catch (error) {
+                console.error('Ошибка при валидации email:', error);
                 alert('Ошибка соединения с сервером');
             }
         }
@@ -1155,7 +1241,7 @@
                         const errorText = await response.text();
                         try {
                             const errorData = JSON.parse(errorText);
-                            alert(errorData.message || errorData.detail || 'Неверный логин или пароль');
+                            alert(errorData.message || errorData.detail || 'Неверный адрес электронной почты или пароль');
                         } catch (e) {
                             alert('Ошибка сервера: ' + errorText);
                         }
@@ -1199,7 +1285,25 @@
 
                     if (response.ok) {
                         const data = await response.json();
-                        alert('Аккаунт успешно создан! Теперь вы можете войти.');
+                        
+                        // Сразу отправляем письмо для подтверждения email
+                        try {
+                            const validateResponse = await fetch('/validate_email', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({ login: username })
+                            });
+                            
+                            if (validateResponse.ok) {
+                                alert('Аккаунт успешно создан! Проверьте вашу электронную почту для подтверждения аккаунта.');
+                            } else {
+                                alert('Аккаунт создан, но не удалось отправить письмо подтверждения. Попробуйте войти позже.');
+                            }
+                        } catch (emailError) {
+                            alert('Аккаунт создан, но возникла ошибка при отправке письма подтверждения.');
+                        }
 
                         document.getElementById('reg-username').value = '';
                         document.getElementById('reg-password').value = '';
@@ -1444,12 +1548,20 @@
 
         // Проверяем авторизацию при загрузке страницы
         window.addEventListener('load', function() {
-            // Проверяем, есть ли токен в URL для сброса пароля
+            // Проверяем, есть ли токены в URL
             const urlParams = new URLSearchParams(window.location.search);
             const resetToken = urlParams.get('token');
+            const validateToken = urlParams.get('validate_token');
+            
+            if (validateToken) {
+                // Токен валидации email
+                console.log('Найден токен валидации email:', validateToken);
+                validateEmailToken(validateToken);
+                return;
+            }
             
             if (resetToken) {
-                // Если есть токен, показываем страницу сброса пароля
+                // Токен сброса пароля
                 console.log('Найден токен сброса пароля:', resetToken);
                 showResetPasswordPage();
                 return;

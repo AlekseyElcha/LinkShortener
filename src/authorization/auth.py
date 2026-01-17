@@ -1,10 +1,12 @@
 import base64
 
+import bcrypt
 from fastapi import Depends, HTTPException, Response, APIRouter, Body, Request, status
 from authx import AuthXConfig, AuthX
 from sqlalchemy import select, update, delete
 from typing import Annotated
 from dotenv import load_dotenv
+from passlib.context import CryptContext
 import jwt
 import os
 from sqlalchemy.exc import IntegrityError
@@ -12,13 +14,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime, timedelta, timezone
 import secrets
 
+from sqlalchemy.orm import session
 from sqlalchemy.sql.functions import user
-
 from src.get_session import get_session
-from src.database.models import UserModel, PasswordReset
+from src.database.models import UserModel, PasswordReset, EmailValidation
 from src.database.schemas import UserAddSchema, UserUpdateSchema
-from src.services.email_sender import send_reset_password_email, send_reset_password_email_notification
-from src.exeptions import SendEmailError, CreateResetPasswordLinkError
+from src.services.email_sender import send_reset_password_email, send_reset_password_email_notification, \
+    send_email_validation
+from src.exeptions import SendEmailError, CreateResetPasswordLinkError, CreateEmailValidationLinkError
 
 router = APIRouter(prefix="/auth")
 
@@ -31,6 +34,20 @@ config.JWT_ACCESS_COOKIE_NAME = "auth_cookies"
 config.JWT_COOKIE_CSRF_PROTECT = False
 security = AuthX(config=config)
 
+def hash_data(password: str) -> str:
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
+    return hashed.decode('utf-8')
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    try:
+        return bcrypt.checkpw(
+            plain_password.encode('utf-8'),
+            hashed_password.encode('utf-8')
+        )
+    except Exception:
+        return False
+
 @router.post("/login")
 async def login(
         session: Annotated[AsyncSession, Depends(get_session)],
@@ -38,21 +55,24 @@ async def login(
         password: Annotated[str, Body(embed=True)],
         response: Response = None,
 ):
-    query = select(UserModel).where(login == UserModel.login).where(password == UserModel.password)
+    query = select(UserModel).where(login == UserModel.login)
     result = await session.execute(query)
     data = result.scalar_one_or_none()
     if data:
+        if not verify_password(password, data.password):
+            raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Неверный логин или пароль.")
         token = security.create_access_token(uid=login)
         response.set_cookie(config.JWT_ACCESS_COOKIE_NAME, token)
         security.set_access_cookies(token, response)
-
-        return {
-            "access_token": token,
-            "user": {
-                "login": data.login,
-                "password": data.password,
+        if data.email_is_valid:
+            return {
+                "access_token": token,
+                "user": {
+                    "login": data.login,
+                }
             }
-        }
+        else:
+            raise HTTPException(status_code=401, detail="Почта не была подтверждена! Подтвердите почту.")
     raise HTTPException(status_code=401, detail="Неверный логин или пароль")
 
 
@@ -62,18 +82,22 @@ async def create_account(user: UserAddSchema,
     try:
         new_user = UserModel(
             login=user.login,
-            password=user.password,
+            password=hash_data(user.password),
+            email_is_valid=False,
         )
         session.add(new_user)
-        await session.commit()
-        await session.refresh(new_user)
+        try:
+            await session.commit()
+            await session.refresh(new_user)
+        except:
+            raise HTTPException(status.HTTP_306_RESERVED, detail="Аккаунт с такой почтой уже сущетсвует")
     except Exception as e:
         await session.rollback()
         raise HTTPException(status_code=500, detail="Ошибка при создании аккаунта")
     return {
         "new_user": {
             "login": new_user.login,
-            "password": new_user.password,
+            "password": hash_data(new_user.password),
         },
         "message": "Аккаунт успешно создан!"
     }
@@ -95,6 +119,19 @@ def decode_token_urlsafe(token: str) -> bytes:
     return base64.urlsafe_b64decode(token)
 
 
+async def validate_user_email(email: str, session: AsyncSession):
+    query = select(UserModel.email_is_valid).where(UserModel.login == email)
+    try:
+        res = await session.execute(query)
+        is_valid = res.scalar_one_or_none()
+        if is_valid:
+            return True
+        return False
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Ошибка сервера при проверке авторизации.")
+
+
+
 async def create_link_with_token(login: str, session: AsyncSession):
     reset_token = secrets.token_urlsafe(32)
     created_at = datetime.utcnow()
@@ -109,7 +146,6 @@ async def create_link_with_token(login: str, session: AsyncSession):
         email=login,
         created_at=created_at,
         expires_at=expires_at,
-        is_used=False
     )
 
     session.add(reset_request)
@@ -119,6 +155,68 @@ async def create_link_with_token(login: str, session: AsyncSession):
         raise CreateResetPasswordLinkError
 
     return reset_url
+
+
+async def create_validation_link(login: str, session: AsyncSession):
+    validate_token = secrets.token_urlsafe(32)
+    created_at = datetime.utcnow()
+    expires_at = created_at + timedelta(hours=1)
+    validate_email_url = f"http://localhost:8000/?validate_token={validate_token}"
+    print(validate_email_url)
+    validate_email_request = EmailValidation(
+        token_hash=validate_token,
+        email=login,
+        created_at=created_at,
+        expires_at=expires_at
+    )
+    session.add(validate_email_request)
+    try:
+        await session.commit()
+    except:
+        raise CreateEmailValidationLinkError
+
+    return validate_email_url
+
+
+
+async def check_token_and_validate_user_email(token: str, session: AsyncSession):
+    query = select(EmailValidation.expires_at).where(EmailValidation.token_hash == token)
+    try:
+        res = await session.execute(query)
+        expires_at = res.scalar_one_or_none()
+        await session.commit()
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Возникла ошибка при проверке токена")
+    exp = datetime.fromisoformat(str(expires_at))
+    now = datetime.fromisoformat(str(datetime.utcnow()))
+    if exp < now:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Время действия ссылки истекло")
+
+    query = select(EmailValidation.email).where(EmailValidation.token_hash == token)
+    try:
+        res = await session.execute(query)
+        login = res.scalar_one_or_none()
+        await session.commit()
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Возникла ошибка при получении логина")
+
+    query = update(UserModel).where(UserModel.login == login).values(email_is_valid=True)
+    try:
+        await session.execute(query)
+        await session.commit()
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Не удалось обновить статус почты")
+
+    query = delete(EmailValidation).where(EmailValidation.email == login)
+    try:
+        await session.execute(query)
+        await session.commit()
+    except:
+        raise HTTPException(
+            status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Не удалось удалить EmailValidation запрос из базы данных"
+        )
+    return {"message": "Почта успешно подтверждена."}
 
 
 async def send_reset_password_email_with_instructions(email: str, reset_url: str):
@@ -147,7 +245,7 @@ async def check_token_and_reset_password(token: str, new_password: str, session:
         login = res.scalar_one_or_none()
         await session.commit()
     except:
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Возникла ошибка при плучении логина")
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Возникла ошибка при получении логина")
 
     query = update(UserModel).where(UserModel.login == login).values(password=new_password)
     try:
@@ -166,6 +264,7 @@ async def check_token_and_reset_password(token: str, new_password: str, session:
             detail="Не удалось удалить PasswordReset запрос из базы данных"
         )
     await send_reset_password_email_notification(user_email=login)
+
 
 
 

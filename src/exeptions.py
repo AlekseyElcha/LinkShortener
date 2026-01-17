@@ -40,3 +40,7 @@ class SendEmailError(ShortenerBaseException):
 
 class CreateResetPasswordLinkError(ShortenerBaseException):
     pass
+
+
+class CreateEmailValidationLinkError(ShortenerBaseException):
+    pass

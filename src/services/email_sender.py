@@ -195,3 +195,29 @@ async def send_reset_password_email_notification(user_email: str):
 
     except Exception as e:
         raise SendEmailError
+
+
+async def send_email_validation(user_email: str, validate_url: str):
+    fromaddr = "alekseyelcha07@mail.ru"
+    toaddr = f"{user_email}"
+    passw = os.getenv("MAIL_SERVICE_SECRET")
+
+    msg = MIMEMultipart()
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = "LinkShortener // Подтвердите email для создания аккаунта"
+
+    body = (f"Перейдите по ссылке: {validate_url} для завершения регистрации!")
+    msg.attach(MIMEText(body, 'plain', 'utf-8'))
+
+    try:
+        server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
+
+        server.login(fromaddr, passw)
+
+        text = msg.as_string()
+        server.sendmail(fromaddr, toaddr, text)
+        print("Письмо успешно отправлено!")
+
+    except Exception as e:
+        raise SendEmailError
