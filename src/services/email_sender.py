@@ -211,7 +211,7 @@ async def send_email_validation(user_email: str, validate_url: str):
     msg.attach(MIMEText(body, 'plain', 'utf-8'))
 
     try:
-        server = smtplib.SMTP_SSL('smtp.mail.ru', 465)
+        server = smtplib.SMTP_SSL('smtp.mail.ru', 465, timeout=30)
 
         server.login(fromaddr, passw)
 

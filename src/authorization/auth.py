@@ -21,7 +21,8 @@ from src.database.models import UserModel, PasswordReset, EmailValidation
 from src.database.schemas import UserAddSchema, UserUpdateSchema
 from src.services.email_sender import send_reset_password_email, send_reset_password_email_notification, \
     send_email_validation
-from src.exeptions import SendEmailError, CreateResetPasswordLinkError, CreateEmailValidationLinkError
+from src.exeptions import SendEmailError, CreateResetPasswordLinkError, CreateEmailValidationLinkError, \
+    UserIdByLoginNotFoundError, UserNotFoundError
 
 router = APIRouter(prefix="/auth")
 
@@ -55,7 +56,7 @@ async def login(
         password: Annotated[str, Body(embed=True)],
         response: Response = None,
 ):
-    query = select(UserModel).where(login == UserModel.login)
+    query = select(UserModel).where(UserModel.login == login)
     result = await session.execute(query)
     data = result.scalar_one_or_none()
     if data:
@@ -90,7 +91,7 @@ async def create_account(user: UserAddSchema,
             await session.commit()
             await session.refresh(new_user)
         except:
-            raise HTTPException(status.HTTP_306_RESERVED, detail="Аккаунт с такой почтой уже сущетсвует")
+            raise HTTPException(status.HTTP_306_RESERVED, detail="Аккаунт с такой почтой уже сущеcтсвует")
     except Exception as e:
         await session.rollback()
         raise HTTPException(status_code=500, detail="Ошибка при создании аккаунта")
@@ -140,6 +141,8 @@ async def create_link_with_token(login: str, session: AsyncSession):
     reset_url = f"http://localhost:8000/?token={reset_token}"
     print(reset_url)
     user_id = await get_user_id_by_login(login, session)
+    if user_id is None:
+        raise UserIdByLoginNotFoundError
     reset_request = PasswordReset(
         user_id=user_id,
         token_hash=reset_token,
@@ -303,4 +306,6 @@ async def check_auth_get_login(request: Request):
 async def get_user_id_by_login(login: str, session: AsyncSession):
     query = select(UserModel.id).where(login == UserModel.login)
     res = await session.execute(query)
-    return res.scalar_one_or_none()
+    if res:
+        return res.scalar_one_or_none()
+    raise UserNotFoundError

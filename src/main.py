@@ -25,7 +25,7 @@ from src.services.personal_client import router as personal_router
 from src.database.models import Base
 from src.database.database import engine, new_session
 from src.exeptions import LongUrlNotFoundError, AddRedirectHistoryToDatabaseError, RedirectsHistoryNull, NoLocationData, \
-    ShortURLToDeleteNotFound, CreateResetPasswordLinkError, CreateEmailValidationLinkError
+    ShortURLToDeleteNotFound, CreateResetPasswordLinkError, CreateEmailValidationLinkError, UserIdByLoginNotFoundError
 from src.services.ops import generate_short_url, get_long_url_by_slug_from_database, add_redirect_to_history, \
     get_redirect_history_by_slug, delete_slug_from_database
 
@@ -155,16 +155,21 @@ async def delete_slug(slug: str, session: Annotated[AsyncSession, Depends(get_se
 async def create_reset_password_link(login: Annotated[str, Body(embed=True)], session: Annotated[AsyncSession, Depends(get_session)]):
     try:
         reset_url = await create_link_with_token(login=login, session=session)
+    except UserIdByLoginNotFoundError:
+        raise HTTPException(
+            status.HTTP_404_NOT_FOUND,
+            detail = "Не удалось найти аккаунт с данным email."
+        )
     except CreateResetPasswordLinkError:
         raise HTTPException(
             status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail = "Ошибка при создании ссылки с токеном и добавлении в базу"
+            detail = "Ошибка при создании ссылки с токеном и добавлении в базу."
         )
     try:
         await send_reset_password_email_with_instructions(email=login, reset_url=reset_url)
     except:
         raise HTTPException(
-            status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Не удалось отправить письмо"
+            status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Не удалось отправить письмо."
         )
     return {"result": "success"}
 

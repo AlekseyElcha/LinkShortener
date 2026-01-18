@@ -44,3 +44,11 @@ class CreateResetPasswordLinkError(ShortenerBaseException):
 
 class CreateEmailValidationLinkError(ShortenerBaseException):
     pass
+
+
+class UserNotFoundError(ShortURLToDeleteNotFound):
+    pass
+
+
+class UserIdByLoginNotFoundError(ShortURLToDeleteNotFound):
+    pass
