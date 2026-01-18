@@ -603,6 +603,7 @@
         // Функция обновления данных статистики
         async function refreshStatisticsData(slug) {
             try {
+                // const response = await fetch(`api/slug_redirect_history/${slug}`, {
                 const response = await fetch(`/slug_redirect_history/${slug}`, {
                     method: 'GET',
                     headers: {
@@ -716,6 +717,7 @@
         // Функция отображения детальной истории переходов
         async function showRedirectHistory(slug) {
             try {
+                // const response = await fetch(`/api/slug_redirect_history/${slug}`, {
                 const response = await fetch(`/slug_redirect_history/${slug}`, {
                     method: 'GET',
                     headers: {
@@ -791,6 +793,7 @@
             container.innerHTML = '<div class="history-loading">Загрузка истории...</div>';
 
             try {
+                // const response = await fetch('/api/account/get_created_urls', {
                 const response = await fetch('/account/get_created_urls', {
                     method: 'GET',
                     headers: {
@@ -833,6 +836,7 @@
 
                 if (!includeMyClicks && username) {
                     try {
+                        // const response = await fetch(`/api/slug_redirect_history/${url.slug}`, {
                         const response = await fetch(`/slug_redirect_history/${url.slug}`, {
                             method: 'GET',
                             headers: {
@@ -888,6 +892,7 @@
         async function create() {
             const url = document.getElementById('url').value;
 
+            // const response = await fetch('/api/create_slug', {
             const response = await fetch('/create_slug', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -1109,6 +1114,7 @@
             }
 
             try {
+                // const response = await fetch('/api/reset_password', {
                 const response = await fetch('/reset_password', {
                     method: 'POST',
                     headers: {
@@ -1141,6 +1147,7 @@
         // Функция валидации email токена
         async function validateEmailToken(token) {
             try {
+                // const response = await fetch(`api/validate_email/${token}`, {
                 const response = await fetch(`/validate_email/${token}`, {
                     method: 'PUT',
                     headers: {
@@ -1311,6 +1318,7 @@
         // Функция повторной отправки письма валидации
         async function resendValidationEmail(email) {
             try {
+                // const response = await fetch('/api/validate_email', {
                 const response = await fetch('/validate_email', {
                     method: 'POST',
                     headers: {
@@ -1499,6 +1507,7 @@
                         password: password
                     };
 
+                    // const response = await fetch('/api/auth/login', {
                     const response = await fetch('/auth/login', {
                         method: 'POST',
                         headers: {
@@ -1564,6 +1573,7 @@
                         password: password
                     };
 
+                    // const response = await fetch('/api/auth/create_account', {
                     const response = await fetch('/auth/create_account', {
                         method: 'POST',
                         headers: {
@@ -1585,6 +1595,7 @@
                         
                         // Пытаемся отправить письмо для подтверждения email в фоне
                         try {
+                            // const validateResponse = await fetch('/api/validate_email', {
                             const validateResponse = await fetch('/validate_email', {
                                 method: 'POST',
                                 headers: {
@@ -1631,6 +1642,7 @@
 
                 try {
                     // Отправляем в теле запроса как JSON
+                    // const response = await fetch('/api/reset_password', {
                     const response = await fetch('/reset_password', {
                         method: 'POST',
                         headers: {
@@ -1694,6 +1706,7 @@
                 }
 
                 try {
+                    // const response = await fetch(`/api/reset_password/${token}?new_password=${encodeURIComponent(newPassword)}`, {
                     const response = await fetch(`/reset_password/${token}?new_password=${encodeURIComponent(newPassword)}`, {
                         method: 'PUT',
                         headers: {
@@ -1742,6 +1755,7 @@
 
                 try {
                     // Сначала запрашиваем ссылку для сброса
+                    // const response = await fetch('/api/reset_password', {
                     const response = await fetch('/reset_password', {
                         method: 'POST',
                         headers: {
@@ -1785,6 +1799,7 @@
         // Функция выхода
         async function logout() {
             try {
+                // await fetch('/api/logout', {
                 await fetch('/logout', {
                     method: 'POST',
                     headers: {
@@ -1826,6 +1841,7 @@
             }
 
             try {
+                // const response = await fetch(`/api/delete_slug/${slugToDelete}`, {
                 const response = await fetch(`/delete_slug/${slugToDelete}`, {
                     method: 'DELETE',
                     headers: {

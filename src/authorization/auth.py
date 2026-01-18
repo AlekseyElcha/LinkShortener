@@ -138,6 +138,7 @@ async def create_link_with_token(login: str, session: AsyncSession):
     created_at = datetime.utcnow()
     expires_at = created_at + timedelta(hours=1)
     # reset_url = f"http://localhost:8000/reset_password?token={reset_token}"
+    # reset_url = f"http://localhost:8080/api/?token={reset_token}"   для работы с nginx
     reset_url = f"http://localhost:8000/?token={reset_token}"
     print(reset_url)
     user_id = await get_user_id_by_login(login, session)
@@ -164,7 +165,8 @@ async def create_validation_link(login: str, session: AsyncSession):
     validate_token = secrets.token_urlsafe(32)
     created_at = datetime.utcnow()
     expires_at = created_at + timedelta(hours=1)
-    validate_email_url = f"http://localhost:8000/?validate_token={validate_token}"
+    # validate_email_url = f"http://localhost:8080/api/?validate_token={validate_token}" для работы с nginx
+    validate_email_url = f"http://localhost:8080/?validate_token={validate_token}"
     print(validate_email_url)
     validate_email_request = EmailValidation(
         token_hash=validate_token,
