@@ -408,7 +408,7 @@
             const grouped = {};
             data.forEach(click => {
                 if (click.time) {
-                    const date = click.time.split(' ')[0]; // "2026-01-17 12:00:59" -> "2026-01-17"
+                    const date = click.time.split(' ')[0];
                     grouped[date] = (grouped[date] || 0) + 1;
                 }
             });

@@ -14,6 +14,7 @@ class ShortURL(Base):
     id = Column(Integer, Sequence('short_urls_id_seq'), primary_key=True)
     slug = Column(String(100), unique=True, nullable=False, index=True)
     long_url = Column(String(2048), nullable=False, index=True)
+    expiration_date = Column(DateTime, index=True)
     user_id = Column(Integer, nullable=False)
     hop_counts = Column(Integer, default=0, nullable=False)
 

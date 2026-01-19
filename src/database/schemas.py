@@ -14,6 +14,14 @@ class UserAddSchema(BaseModel):
     password: str
 
 
+class SetExpirationTimeForSlug(BaseModel):
+    year: int
+    month: int
+    day: int
+    hour: int
+    minute: int
+
+
 class UserUpdateSchema(BaseModel):
     login: Optional[EmailStr] = Field(default=UserModel.login)
     password: Optional[str] = Field(default=UserModel.password)

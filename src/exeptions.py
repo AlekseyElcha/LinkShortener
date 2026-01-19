@@ -52,3 +52,11 @@ class UserNotFoundError(ShortURLToDeleteNotFound):
 
 class UserIdByLoginNotFoundError(ShortURLToDeleteNotFound):
     pass
+
+
+class SetSlugExpirationDate(ShortenerBaseException):
+    pass
+
+
+class ShortLinkExpired(ShortenerBaseException):
+    pass

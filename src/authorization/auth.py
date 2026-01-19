@@ -33,6 +33,8 @@ config.JWT_TOKEN_LOCATION = ["cookies"]
 config.JWT_ALGORITHM = "HS256"
 config.JWT_ACCESS_COOKIE_NAME = "auth_cookies"
 config.JWT_COOKIE_CSRF_PROTECT = False
+config.JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=15)
+config.JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
 security = AuthX(config=config)
 
 def hash_data(password: str) -> str:

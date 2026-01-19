@@ -1,11 +1,14 @@
-from sqlalchemy import select, delete
+from datetime import datetime
+
+from sqlalchemy import select, delete, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 import logging
 
 from src.database.models import ShortURL, RedirectsHistory
 from src.exeptions import SlugAlreadyExistsError, LongUrlNotFoundError, RedirectsHistoryNull, \
-    AddRedirectHistoryToDatabaseError, ShortURLToDeleteNotFound, ShortURLToDeleteNotFoundHistoryClear
+    AddRedirectHistoryToDatabaseError, ShortURLToDeleteNotFound, ShortURLToDeleteNotFoundHistoryClear, \
+    SetSlugExpirationDate, ShortLinkExpired
 from src.services.slug_service import generate_random_short_url
 from src.services.time_service import convert_utc_string_to_local
 
@@ -28,11 +31,19 @@ async def get_long_url_by_slug_from_database(slug: str, session: AsyncSession):
     res = await session.execute(query)
     result = res.scalar_one_or_none()
     if result:
-        result.hop_counts += 1
-        await session.commit()
-        return result.long_url
+        exp = result.expiration_date
+        now = datetime.utcnow()
+        if now > exp:
+            result.hop_counts += 1
+            await session.commit()
+            return result.long_url
+        raise ShortLinkExpired
     else:
         raise LongUrlNotFoundError
+
+
+async def check_expiration_of_slug():
+
 
 
 async def check_slug_already_exists(long_url: str, session: AsyncSession):
@@ -147,5 +158,15 @@ async def delete_slug_from_database(slug: str, session: AsyncSession):
             raise ShortURLToDeleteNotFound
     except:
         raise ShortURLToDeleteNotFound
+    return {"success": True}
+
+
+async def set_expiration_date_for_slug(slug: str, exp_time: datetime, session: AsyncSession):
+    query = update(ShortURL).where(ShortURL.slug == slug).values(expiration_date=exp_time)
+    try:
+        await session.execute(query)
+        await session.commit()
+    except:
+        raise SetSlugExpirationDate
     return {"success": True}
 

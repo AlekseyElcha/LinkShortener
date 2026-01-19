@@ -13,6 +13,7 @@ import uvicorn
 import logging
 import sys
 
+from src.database.schemas import SetExpirationTimeForSlug
 from src.get_session import get_session
 from src.authorization.auth import router as auth_router, create_link_with_token, \
     send_reset_password_email_with_instructions, check_token_and_reset_password, check_token_and_validate_user_email, \
@@ -25,10 +26,10 @@ from src.services.personal_client import router as personal_router
 from src.database.models import Base
 from src.database.database import engine, new_session
 from src.exeptions import LongUrlNotFoundError, AddRedirectHistoryToDatabaseError, RedirectsHistoryNull, NoLocationData, \
-    ShortURLToDeleteNotFound, CreateResetPasswordLinkError, CreateEmailValidationLinkError, UserIdByLoginNotFoundError
+    ShortURLToDeleteNotFound, CreateResetPasswordLinkError, CreateEmailValidationLinkError, UserIdByLoginNotFoundError, \
+    SetSlugExpirationDate, ShortLinkExpired
 from src.services.ops import generate_short_url, get_long_url_by_slug_from_database, add_redirect_to_history, \
-    get_redirect_history_by_slug, delete_slug_from_database
-
+    get_redirect_history_by_slug, delete_slug_from_database, set_expiration_date_for_slug
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -94,6 +95,8 @@ async def get_url_by_slug(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Мы не смогли найти запрашиваемую ссылку в нашей базе! Возможно, она была удалена её создателем."
         )
+    except ShortLinkExpired:
+        raise HTTPException
     try:
         location_data = await get_location(request)
         location_city = location_data.get("city")
@@ -139,6 +142,19 @@ async def get_slug_redirect_history(slug: str, session: Annotated[AsyncSession, 
     except RedirectsHistoryNull:
         raise HTTPException(status.HTTP_404_NOT_FOUND, detail="История переходов пуста.")
     return data
+
+
+@app.put("/set_expiration_date/{slug}")
+async def set_expiration_date(slug: str, exp_time: SetExpirationTimeForSlug, session: Annotated[AsyncSession, Depends(get_session)]):
+    expir_time = datetime(year=exp_time.year, month=exp_time.month, day=exp_time.day, hour=exp_time.hour, minute=exp_time.minute)
+    try:
+        print(expir_time)
+        res = await set_expiration_date_for_slug(slug=slug, exp_time=expir_time, session=session)
+        print(res)
+    except SetSlugExpirationDate:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Ошибка при изменении времени истечения ссылки.")
+    return res
+
 
 
 @app.delete("/delete_slug/{slug}")
