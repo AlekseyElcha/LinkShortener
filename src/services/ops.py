@@ -42,9 +42,6 @@ async def get_long_url_by_slug_from_database(slug: str, session: AsyncSession):
         raise LongUrlNotFoundError
 
 
-async def check_expiration_of_slug():
-
-
 
 async def check_slug_already_exists(long_url: str, session: AsyncSession):
     query = select(ShortURL).where(ShortURL.long_url == long_url)
