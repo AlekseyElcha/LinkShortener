@@ -157,6 +157,7 @@ async def create_link_with_token(login: str, session: AsyncSession):
     session.add(reset_request)
     try:
         await session.commit()
+        await session.close()
     except:
         raise CreateResetPasswordLinkError
 
@@ -179,6 +180,7 @@ async def create_validation_link(login: str, session: AsyncSession):
     session.add(validate_email_request)
     try:
         await session.commit()
+        await session.close()
     except:
         raise CreateEmailValidationLinkError
 
@@ -218,6 +220,7 @@ async def check_token_and_validate_user_email(token: str, session: AsyncSession)
     try:
         await session.execute(query)
         await session.commit()
+        await session.close()
     except:
         raise HTTPException(
             status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -265,6 +268,7 @@ async def check_token_and_reset_password(token: str, new_password: str, session:
     try:
         await session.execute(query)
         await session.commit()
+        await session.close()
     except:
         raise HTTPException(
             status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -310,6 +314,7 @@ async def check_auth_get_login(request: Request):
 async def get_user_id_by_login(login: str, session: AsyncSession):
     query = select(UserModel.id).where(login == UserModel.login)
     res = await session.execute(query)
+    await session.close()
     if res:
         return res.scalar_one_or_none()
     raise UserNotFoundError

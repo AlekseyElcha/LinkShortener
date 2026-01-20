@@ -1150,3 +1150,257 @@ body {
     gap: var(--spacing-xs);
   }
 }
+/* Expiration Management Styles */
+.expiration-modal {
+  max-width: 600px;
+}
+
+.expiration-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form-section h4 {
+  color: var(--text-color);
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-md);
+  font-weight: 500;
+}
+
+.datetime-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.date-inputs,
+.time-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.date-inputs label,
+.time-inputs label {
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+.date-row,
+.time-row {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.date-input,
+.time-input {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid white;
+  border-radius: var(--border-radius);
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  color: var(--text-color);
+  background-color: white;
+  transition: all 0.2s ease;
+  outline: none;
+  text-align: center;
+}
+
+.date-input:focus,
+.time-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 0, 255, 0.1);
+}
+
+.date-input:hover,
+.time-input:hover {
+  border-color: #e8e8e8;
+}
+
+.quick-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-top: var(--spacing-md);
+}
+
+.quick-button {
+  background-color: #f8f9fa;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quick-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.current-expiration {
+  background-color: #f8f9fa;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+}
+
+.current-expiration h4 {
+  color: var(--text-color);
+  font-size: 1rem;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
+}
+
+.current-exp-text {
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+}
+
+.remove-expiration-button {
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.remove-expiration-button:hover {
+  background-color: #e0a800;
+}
+
+/* Expiration Status Indicators */
+.expiration-status {
+  font-size: 0.85rem;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius);
+  margin: var(--spacing-xs) 0;
+  font-weight: 500;
+  display: inline-block;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.expiration-status.expired {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.expiration-status.active {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.expiration-status.permanent {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+/* History Item Expiration States */
+.history-item.expired-link {
+  opacity: 0.7;
+  border-color: #dc3545;
+}
+
+.history-item.expired-link .history-item-short {
+  color: #dc3545;
+  text-decoration: line-through;
+}
+
+.history-item.expiring-link {
+  border-color: #ffc107;
+}
+
+.history-item.expiring-link .history-item-short {
+  color: #856404;
+}
+
+/* Expiration Button */
+.expiration-button {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+}
+
+.expiration-button:hover {
+  background-color: #138496;
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments for expiration modal */
+@media (max-width: 768px) {
+  .datetime-inputs {
+    gap: var(--spacing-sm);
+  }
+  
+  .date-row,
+  .time-row {
+    flex-direction: column;
+  }
+  
+  .quick-actions {
+    justify-content: center;
+  }
+  
+  .modal-footer {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .modal-footer button {
+    width: 100%;
+  }
+  
+  .expiration-status {
+    font-size: 0.8rem;
+    padding: var(--spacing-xs);
+  }
+  
+  .history-item-actions {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  
+  .history-item-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .expiration-modal {
+    margin: var(--spacing-sm);
+  }
+  
+  .quick-button {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .expiration-status {
+    font-size: 0.75rem;
+    line-height: 1.3;
+  }
+}

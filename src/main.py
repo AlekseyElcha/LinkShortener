@@ -1,5 +1,6 @@
 import os
 
+import pytz
 from fastapi import FastAPI, Depends, Body, HTTPException, status, Request, Query
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -27,9 +28,11 @@ from src.database.models import Base
 from src.database.database import engine, new_session
 from src.exeptions import LongUrlNotFoundError, AddRedirectHistoryToDatabaseError, RedirectsHistoryNull, NoLocationData, \
     ShortURLToDeleteNotFound, CreateResetPasswordLinkError, CreateEmailValidationLinkError, UserIdByLoginNotFoundError, \
-    SetSlugExpirationDate, ShortLinkExpired
+    SetSlugExpirationDateError, ShortLinkExpired, RemoveSlugExpirationDateError
 from src.services.ops import generate_short_url, get_long_url_by_slug_from_database, add_redirect_to_history, \
-    get_redirect_history_by_slug, delete_slug_from_database, set_expiration_date_for_slug
+    get_redirect_history_by_slug, delete_slug_from_database, set_expiration_date_for_slug, \
+    remove_expiration_date_from_database
+from src.services.time_service import convert_local_str_to_utc
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -96,7 +99,11 @@ async def get_url_by_slug(
             detail="Мы не смогли найти запрашиваемую ссылку в нашей базе! Возможно, она была удалена её создателем."
         )
     except ShortLinkExpired:
-        raise HTTPException
+        raise HTTPException(
+            status_code=status.HTTP_410_GONE,
+            detail="Ссылка недоступна, т.к. у неё истек срок действия. "
+                   "Если Вы являетесь создателем этой ссылки - продлите её действие в личном кабинете нашего сервиса."
+        )
     try:
         location_data = await get_location(request)
         location_city = location_data.get("city")
@@ -145,16 +152,41 @@ async def get_slug_redirect_history(slug: str, session: Annotated[AsyncSession, 
 
 
 @app.put("/set_expiration_date/{slug}")
-async def set_expiration_date(slug: str, exp_time: SetExpirationTimeForSlug, session: Annotated[AsyncSession, Depends(get_session)]):
-    expir_time = datetime(year=exp_time.year, month=exp_time.month, day=exp_time.day, hour=exp_time.hour, minute=exp_time.minute)
+async def set_expiration_date(slug: str,
+                              user_tz: Annotated[str, Query()],
+                              exp_time: SetExpirationTimeForSlug,
+                              session: Annotated[AsyncSession, Depends(get_session)]):
+    expire_time = datetime(
+        year=exp_time.year, month=exp_time.month, day=exp_time.day, hour=exp_time.hour, minute=exp_time.minute
+    )
+    us_tz = pytz.timezone(user_tz)
+    new_expiration_time_aware = expire_time.astimezone(us_tz)
+    expire_time_naive = new_expiration_time_aware.astimezone(pytz.UTC).replace(tzinfo=None)
+    datetime_now = datetime.now(us_tz)
+    if new_expiration_time_aware < datetime_now:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Время истечения ссылки не может быть в прошлом.",
+        )
     try:
-        print(expir_time)
-        res = await set_expiration_date_for_slug(slug=slug, exp_time=expir_time, session=session)
-        print(res)
-    except SetSlugExpirationDate:
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Ошибка при изменении времени истечения ссылки.")
-    return res
+        res = await set_expiration_date_for_slug(slug=slug, exp_time=expire_time_naive, session=session)
+        return res
+    except SetSlugExpirationDateError:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Произошла ошибка при установке даты истечения ссылки."
+        )
 
+
+@app.put("/remove_expiration_date/{slug}")
+async def remove_expiration_date(slug: str, session: Annotated[AsyncSession, Depends(get_session)]):
+    try:
+        res = await remove_expiration_date_from_database(slug=slug, session=session)
+        return res
+    except RemoveSlugExpirationDateError:
+        raise HTTPException(
+            status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Не удалось удалить срок истечения ссылки."
+        )
 
 
 @app.delete("/delete_slug/{slug}")

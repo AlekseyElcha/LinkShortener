@@ -317,7 +317,8 @@
                     <!-- График переходов по дням -->
                     <div class="statistics-chart">
                         <h3 class="chart-title">График переходов по дням</h3>
-                        <div id="clicks-chart" class="chart-container">
+                        <!-- <div id="clicks-chart" class="chart-container"> -->
+                            <div class="chart-container"> В разработке</div>
                             <!-- Здесь будет график -->
                         </div>
                     </div>
@@ -360,6 +361,55 @@
                 <div class="modal-footer">
                     <button class="cancel-button" onclick="closeDeleteModal()">Отмена</button>
                     <button class="delete-confirm-button" onclick="confirmDelete()">Удалить</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно управления временем истечения -->
+        <div id="expiration-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-content expiration-modal">
+                <div class="modal-header">
+                    <h3 id="expiration-modal-title">Управление сроком действия ссылки</h3>
+                    <button class="modal-close" onclick="closeExpirationModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="expiration-form">
+                        <div class="form-section">
+                            <h4>Установить срок действия</h4>
+                            <div class="datetime-inputs">
+                                <div class="date-inputs">
+                                    <label>Дата:</label>
+                                    <div class="date-row">
+                                        <input type="number" id="exp-day" placeholder="День" min="1" max="31" class="date-input">
+                                        <input type="number" id="exp-month" placeholder="Месяц" min="1" max="12" class="date-input">
+                                        <input type="number" id="exp-year" placeholder="Год" min="2024" class="date-input">
+                                    </div>
+                                </div>
+                                <div class="time-inputs">
+                                    <label>Время:</label>
+                                    <div class="time-row">
+                                        <input type="number" id="exp-hour" placeholder="Час" min="0" max="23" class="time-input">
+                                        <input type="number" id="exp-minute" placeholder="Минута" min="0" max="59" class="time-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="quick-actions">
+                                <button class="quick-button" onclick="setQuickExpiration(1)">+1 день</button>
+                                <button class="quick-button" onclick="setQuickExpiration(7)">+1 неделя</button>
+                                <button class="quick-button" onclick="setQuickExpiration(30)">+1 месяц</button>
+                            </div>
+                        </div>
+                        
+                        <div class="current-expiration" id="current-expiration-info" style="display: none;">
+                            <h4>Текущий срок действия</h4>
+                            <div id="current-expiration-text" class="current-exp-text"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="cancel-button" onclick="closeExpirationModal()">Отмена</button>
+                    <button class="remove-expiration-button" id="remove-exp-btn" onclick="removeExpiration()" style="display: none;">Сделать постоянной</button>
+                    <button class="submit-button" onclick="setExpiration()">Установить срок</button>
                 </div>
             </div>
         </div>
@@ -793,8 +843,11 @@
             container.innerHTML = '<div class="history-loading">Загрузка истории...</div>';
 
             try {
+                // Получаем временную зону пользователя
+                const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                
                 // const response = await fetch('/api/account/get_created_urls', {
-                const response = await fetch('/account/get_created_urls', {
+                const response = await fetch(`/account/get_created_urls?user_tz=${encodeURIComponent(userTimezone)}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -853,16 +906,53 @@
                     }
                 }
 
+                // Обработка времени истечения
+                let expirationInfo = '';
+                let expirationClass = '';
+                if (url.expiration_date) {
+                    const expirationDate = new Date(url.expiration_date);
+                    const now = new Date();
+                    const isExpired = now >= expirationDate;
+                    
+                    if (isExpired) {
+                        expirationInfo = `<div class="expiration-status expired">⚠️ Истекла: ${expirationDate.toLocaleString('ru-RU')}</div>`;
+                        expirationClass = 'expired-link';
+                    } else {
+                        // Вычисляем оставшееся время
+                        const timeDiff = expirationDate - now;
+                        const daysLeft = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                        const hoursLeft = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        
+                        let timeLeftText = '';
+                        if (daysLeft > 0) {
+                            timeLeftText = `(осталось ${daysLeft} дн.)`;
+                        } else if (hoursLeft > 0) {
+                            timeLeftText = `(осталось ${hoursLeft} ч.)`;
+                        } else {
+                            timeLeftText = '(менее часа)';
+                        }
+                        
+                        expirationInfo = `<div class="expiration-status active">⏰ Истекает: ${expirationDate.toLocaleString('ru-RU')} ${timeLeftText}</div>`;
+                        expirationClass = 'expiring-link';
+                    }
+                } else {
+                    expirationInfo = `<div class="expiration-status permanent">♾️ Постоянная ссылка</div>`;
+                }
+
                 html += `
-                    <div class="history-item">
+                    <div class="history-item ${expirationClass}">
                         <div class="history-item-original">${url.long_url || url.original_url}</div>
                         <a href="${shortUrl}" class="history-item-short" target="_blank">${shortUrl}</a>
+                        ${expirationInfo}
                         <div class="history-item-meta">
                             <span class="history-item-clicks">Переходов: ${clicks}</span>
                             ${date ? `<span class="history-item-date">${date}</span>` : ''}
                         </div>
                         <div class="history-item-actions">
                             <button class="details-button" data-slug="${url.slug}">Подробнее</button>
+                            <button class="expiration-button" data-slug="${url.slug}" data-has-expiration="${url.expiration_date ? 'true' : 'false'}">
+                                ${url.expiration_date ? 'Изменить срок' : 'Установить срок'}
+                            </button>
                             <button class="delete-button" data-slug="${url.slug}" data-short-url="${shortUrl}">Удалить</button>
                         </div>
                     </div>
@@ -876,6 +966,19 @@
                 button.addEventListener('click', function() {
                     const slug = this.getAttribute('data-slug');
                     showRedirectHistory(slug);
+                });
+            });
+
+            container.querySelectorAll('.expiration-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const slug = this.getAttribute('data-slug');
+                    const hasExpiration = this.getAttribute('data-has-expiration') === 'true';
+                    
+                    // Находим соответствующую ссылку в данных для получения точного времени истечения
+                    const urlData = urls.find(url => url.slug === slug);
+                    const currentExpiration = urlData ? urlData.expiration_date : null;
+                    
+                    showExpirationModal(slug, hasExpiration, currentExpiration);
                 });
             });
 
@@ -954,6 +1057,7 @@
         // Функции навигации
         function showMainPage() {
             stopStatisticsAutoRefresh();
+            stopExpirationStatusUpdate();
             currentStatisticsSlug = null;
             if (chartInstance) {
                 chartInstance.destroy();
@@ -971,6 +1075,7 @@
 
         function showLoginPage() {
             stopStatisticsAutoRefresh();
+            stopExpirationStatusUpdate();
             currentStatisticsSlug = null;
             if (chartInstance) {
                 chartInstance.destroy();
@@ -1026,6 +1131,9 @@
             if (userEmail) {
                 document.getElementById('current-user-email').textContent = userEmail;
             }
+
+            // Запускаем автообновление статуса истечения
+            startExpirationStatusUpdate();
 
             loadUrlHistory('dashboard-history-list');
         }
@@ -1863,12 +1971,356 @@
             }
         }
 
+        // Переменные для управления временем истечения
+        let currentExpirationSlug = null;
+        let expirationUpdateInterval = null;
+
+        // Функция для запуска автообновления статуса истечения
+        function startExpirationStatusUpdate() {
+            // Обновляем каждые 30 секунд
+            expirationUpdateInterval = setInterval(() => {
+                updateExpirationStatuses();
+            }, 30000);
+        }
+
+        // Функция для остановки автообновления
+        function stopExpirationStatusUpdate() {
+            if (expirationUpdateInterval) {
+                clearInterval(expirationUpdateInterval);
+                expirationUpdateInterval = null;
+            }
+        }
+
+        // Функция обновления статусов истечения без перезагрузки
+        function updateExpirationStatuses() {
+            const expirationElements = document.querySelectorAll('.expiration-status.active');
+            const now = new Date();
+            
+            expirationElements.forEach(element => {
+                const text = element.textContent;
+                const dateMatch = text.match(/(\d{2}\.\d{2}\.\d{4}, \d{2}:\d{2}:\d{2})/);
+                
+                if (dateMatch) {
+                    const dateStr = dateMatch[1];
+                    const [datePart, timePart] = dateStr.split(', ');
+                    const [day, month, year] = datePart.split('.');
+                    const [hour, minute, second] = timePart.split(':');
+                    
+                    const expirationDate = new Date(year, month - 1, day, hour, minute, second);
+                    
+                    if (now >= expirationDate) {
+                        // Ссылка истекла, обновляем отображение
+                        element.className = 'expiration-status expired';
+                        element.innerHTML = `⚠️ Истекла: ${expirationDate.toLocaleString('ru-RU')}`;
+                        
+                        // Обновляем класс родительского элемента
+                        const historyItem = element.closest('.history-item');
+                        if (historyItem) {
+                            historyItem.classList.remove('expiring-link');
+                            historyItem.classList.add('expired-link');
+                        }
+                    } else {
+                        // Обновляем оставшееся время
+                        const timeDiff = expirationDate - now;
+                        const daysLeft = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                        const hoursLeft = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        
+                        let timeLeftText = '';
+                        if (daysLeft > 0) {
+                            timeLeftText = `(осталось ${daysLeft} дн.)`;
+                        } else if (hoursLeft > 0) {
+                            timeLeftText = `(осталось ${hoursLeft} ч.)`;
+                        } else {
+                            timeLeftText = '(менее часа)';
+                        }
+                        
+                        element.innerHTML = `⏰ Истекает: ${expirationDate.toLocaleString('ru-RU')} ${timeLeftText}`;
+                    }
+                }
+            });
+        }
+
+        // Функции управления временем истечения
+        function showExpirationModal(slug, hasExpiration, currentExpiration = null) {
+            currentExpirationSlug = slug;
+            
+            // Показываем/скрываем кнопку удаления срока
+            const removeBtn = document.getElementById('remove-exp-btn');
+            const currentInfo = document.getElementById('current-expiration-info');
+            const currentText = document.getElementById('current-expiration-text');
+            
+            if (hasExpiration && currentExpiration) {
+                removeBtn.style.display = 'inline-block';
+                currentInfo.style.display = 'block';
+                
+                // Отображаем текущий срок действия
+                const expDate = new Date(currentExpiration);
+                currentText.textContent = `Текущий срок: ${expDate.toLocaleString('ru-RU')}`;
+                
+                // Заполняем поля текущими значениями
+                document.getElementById('exp-day').value = expDate.getDate();
+                document.getElementById('exp-month').value = expDate.getMonth() + 1;
+                document.getElementById('exp-year').value = expDate.getFullYear();
+                document.getElementById('exp-hour').value = expDate.getHours();
+                document.getElementById('exp-minute').value = expDate.getMinutes();
+            } else {
+                removeBtn.style.display = 'none';
+                currentInfo.style.display = 'none';
+                
+                // Устанавливаем значения по умолчанию (завтра в 12:00)
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                tomorrow.setHours(12, 0, 0, 0);
+                
+                document.getElementById('exp-day').value = tomorrow.getDate();
+                document.getElementById('exp-month').value = tomorrow.getMonth() + 1;
+                document.getElementById('exp-year').value = tomorrow.getFullYear();
+                document.getElementById('exp-hour').value = 12;
+                document.getElementById('exp-minute').value = 0;
+            }
+            
+            document.getElementById('expiration-modal').style.display = 'flex';
+        }
+
+        function closeExpirationModal() {
+            currentExpirationSlug = null;
+            document.getElementById('expiration-modal').style.display = 'none';
+        }
+
+        function setQuickExpiration(days) {
+            const date = new Date();
+            date.setDate(date.getDate() + days);
+            date.setHours(12, 0, 0, 0);
+            
+            document.getElementById('exp-day').value = date.getDate();
+            document.getElementById('exp-month').value = date.getMonth() + 1;
+            document.getElementById('exp-year').value = date.getFullYear();
+            document.getElementById('exp-hour').value = 12;
+            document.getElementById('exp-minute').value = 0;
+        }
+
+        // Функция валидации полей даты и времени
+        function validateDateTimeInputs() {
+            const day = parseInt(document.getElementById('exp-day').value);
+            const month = parseInt(document.getElementById('exp-month').value);
+            const year = parseInt(document.getElementById('exp-year').value);
+            const hour = parseInt(document.getElementById('exp-hour').value);
+            const minute = parseInt(document.getElementById('exp-minute').value);
+            
+            // Проверяем заполненность полей
+            if (!day || !month || !year || hour === undefined || minute === undefined) {
+                return { valid: false, message: 'Пожалуйста, заполните все поля' };
+            }
+            
+            // Проверяем диапазоны значений
+            if (day < 1 || day > 31) {
+                return { valid: false, message: 'День должен быть от 1 до 31' };
+            }
+            
+            if (month < 1 || month > 12) {
+                return { valid: false, message: 'Месяц должен быть от 1 до 12' };
+            }
+            
+            if (year < 2024) {
+                return { valid: false, message: 'Год не может быть меньше 2024' };
+            }
+            
+            if (hour < 0 || hour > 23) {
+                return { valid: false, message: 'Час должен быть от 0 до 23' };
+            }
+            
+            if (minute < 0 || minute > 59) {
+                return { valid: false, message: 'Минута должна быть от 0 до 59' };
+            }
+            
+            // Проверяем валидность даты
+            const testDate = new Date(year, month - 1, day, hour, minute);
+            if (testDate.getDate() !== day || testDate.getMonth() !== month - 1 || testDate.getFullYear() !== year) {
+                return { valid: false, message: 'Указанная дата не существует' };
+            }
+            
+            // Проверяем, что дата в будущем
+            const now = new Date();
+            if (testDate <= now) {
+                return { valid: false, message: 'Дата истечения должна быть в будущем' };
+            }
+            
+            return { valid: true, date: testDate };
+        }
+
+        async function setExpiration() {
+            if (!currentExpirationSlug) return;
+            
+            // Валидируем введенные данные
+            const validation = validateDateTimeInputs();
+            if (!validation.valid) {
+                alert(validation.message);
+                return;
+            }
+            
+            const expirationDate = validation.date;
+            const day = expirationDate.getDate();
+            const month = expirationDate.getMonth() + 1;
+            const year = expirationDate.getFullYear();
+            const hour = expirationDate.getHours();
+            const minute = expirationDate.getMinutes();
+
+            // Получаем временную зону пользователя
+            const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            console.log('Определенная временная зона пользователя:', userTimezone);
+            
+            try {
+                const response = await fetch(`/set_expiration_date/${currentExpirationSlug}?user_tz=${encodeURIComponent(userTimezone)}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        year: year,
+                        month: month,
+                        day: day,
+                        hour: hour,
+                        minute: minute
+                    })
+                });
+
+                if (response.ok) {
+                    closeExpirationModal();
+                    await loadUrlHistory('dashboard-history-list');
+                    showNotification('Срок действия ссылки успешно установлен', 'success');
+                } else {
+                    const errorData = await response.json().catch(() => ({}));
+                    showNotification(errorData.detail || 'Ошибка при установке срока действия', 'error');
+                }
+            } catch (error) {
+                alert('Ошибка соединения с сервером');
+            }
+        }
+
+        async function removeExpiration() {
+            if (!currentExpirationSlug) return;
+            
+            try {
+                const response = await fetch(`/remove_expiration_date/${currentExpirationSlug}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (response.ok) {
+                    closeExpirationModal();
+                    await loadUrlHistory('dashboard-history-list');
+                    showNotification('Ссылка сделана постоянной', 'success');
+                } else {
+                    const errorData = await response.json().catch(() => ({}));
+                    showNotification(errorData.detail || 'Ошибка при удалении срока действия', 'error');
+                }
+            } catch (error) {
+                console.error('Ошибка при удалении срока действия:', error);
+                showNotification('Ошибка соединения с сервером', 'error');
+            }
+        }
+
+        // Функция для показа уведомлений пользователю
+        function showNotification(message, type = 'info') {
+            // Создаем элемент уведомления
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            
+            // Добавляем стили
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 10000;
+                max-width: 300px;
+                word-wrap: break-word;
+                transition: all 0.3s ease;
+            `;
+            
+            // Устанавливаем цвет в зависимости от типа
+            switch (type) {
+                case 'success':
+                    notification.style.backgroundColor = '#28a745';
+                    break;
+                case 'error':
+                    notification.style.backgroundColor = '#dc3545';
+                    break;
+                case 'warning':
+                    notification.style.backgroundColor = '#ffc107';
+                    notification.style.color = '#212529';
+                    break;
+                default:
+                    notification.style.backgroundColor = '#17a2b8';
+            }
+            
+            // Добавляем на страницу
+            document.body.appendChild(notification);
+            
+            // Удаляем через 4 секунды
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
         // Закрытие модального окна при клике вне его
         document.addEventListener('click', function(event) {
-            const modal = document.getElementById('delete-modal');
-            if (event.target === modal) {
+            const deleteModal = document.getElementById('delete-modal');
+            const expirationModal = document.getElementById('expiration-modal');
+            
+            if (event.target === deleteModal) {
                 closeDeleteModal();
             }
+            
+            if (event.target === expirationModal) {
+                closeExpirationModal();
+            }
+        });
+
+        // Добавляем обработчики для автокоррекции полей ввода даты и времени
+        document.addEventListener('DOMContentLoaded', function() {
+            // Обработчики для полей даты
+            document.getElementById('exp-day').addEventListener('input', function() {
+                let value = parseInt(this.value);
+                if (value > 31) this.value = 31;
+                if (value < 1 && this.value !== '') this.value = 1;
+            });
+            
+            document.getElementById('exp-month').addEventListener('input', function() {
+                let value = parseInt(this.value);
+                if (value > 12) this.value = 12;
+                if (value < 1 && this.value !== '') this.value = 1;
+            });
+            
+            document.getElementById('exp-year').addEventListener('input', function() {
+                let value = parseInt(this.value);
+                if (value < 2024 && this.value !== '') this.value = 2024;
+            });
+            
+            // Обработчики для полей времени
+            document.getElementById('exp-hour').addEventListener('input', function() {
+                let value = parseInt(this.value);
+                if (value > 23) this.value = 23;
+                if (value < 0 && this.value !== '') this.value = 0;
+            });
+            
+            document.getElementById('exp-minute').addEventListener('input', function() {
+                let value = parseInt(this.value);
+                if (value > 59) this.value = 59;
+                if (value < 0 && this.value !== '') this.value = 0;
+            });
         });
 
         // Проверяем авторизацию при загрузке страницы

@@ -8,7 +8,7 @@ import logging
 from src.database.models import ShortURL, RedirectsHistory
 from src.exeptions import SlugAlreadyExistsError, LongUrlNotFoundError, RedirectsHistoryNull, \
     AddRedirectHistoryToDatabaseError, ShortURLToDeleteNotFound, ShortURLToDeleteNotFoundHistoryClear, \
-    SetSlugExpirationDate, ShortLinkExpired
+    SetSlugExpirationDateError, ShortLinkExpired, RemoveSlugExpirationDateError
 from src.services.slug_service import generate_random_short_url
 from src.services.time_service import convert_utc_string_to_local
 
@@ -33,11 +33,15 @@ async def get_long_url_by_slug_from_database(slug: str, session: AsyncSession):
     if result:
         exp = result.expiration_date
         now = datetime.utcnow()
-        if now > exp:
-            result.hop_counts += 1
-            await session.commit()
-            return result.long_url
-        raise ShortLinkExpired
+        
+        # Проверяем истечение только если дата установлена
+        if exp is not None and now > exp:
+            raise ShortLinkExpired
+            
+        # Если ссылка не истекла, увеличиваем счетчик и возвращаем URL
+        result.hop_counts += 1
+        await session.commit()
+        return result.long_url
     else:
         raise LongUrlNotFoundError
 
@@ -149,6 +153,7 @@ async def delete_slug_from_database(slug: str, session: AsyncSession):
     try:
         await session.execute(query)
         await session.commit()
+        await session.close()
         try:
             await delete_slug_history(slug, session)
         except ShortURLToDeleteNotFoundHistoryClear:
@@ -163,7 +168,19 @@ async def set_expiration_date_for_slug(slug: str, exp_time: datetime, session: A
     try:
         await session.execute(query)
         await session.commit()
+        await session.close()
     except:
-        raise SetSlugExpirationDate
+        raise SetSlugExpirationDateError
+    return {"success": True}
+
+
+async def remove_expiration_date_from_database(slug: str, session: AsyncSession):
+    query = update(ShortURL).where(ShortURL.slug == slug).values(expiration_date=None)
+    try:
+        await session.execute(query)
+        await session.commit()
+        await session.close()
+    except:
+        raise RemoveSlugExpirationDateError
     return {"success": True}
 
