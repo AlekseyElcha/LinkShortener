@@ -435,10 +435,7 @@
                             <h4>Новый адрес</h4>
                             <div class="new-slug-input-wrapper">
                                 <span class="domain-part" id="new-domain"></span>
-                                <input type="text" id="new-slug-input" class="slug-input" placeholder="введите-новый-адрес" maxlength="50">
-                            </div>
-                            <div class="slug-help-text">
-                                Используйте только буквы, цифры и дефисы. Длина: 3-50 символов.
+                                <input type="text" id="new-slug-input" class="slug-input" placeholder="введите-новый-адрес">
                             </div>
                         </div>
                         
@@ -2371,37 +2368,12 @@
             }
         }
 
-        function validateSlug(slug) {
-            // Проверка длины
-            if (slug.length < 3 || slug.length > 50) {
-                return { valid: false, message: 'Длина адреса должна быть от 3 до 50 символов' };
-            }
-            
-            // Проверка символов (только буквы, цифры, дефисы)
-            const slugRegex = /^[a-zA-Z0-9-]+$/;
-            if (!slugRegex.test(slug)) {
-                return { valid: false, message: 'Используйте только буквы, цифры и дефисы' };
-            }
-            
-            // Проверка что не начинается и не заканчивается дефисом
-            if (slug.startsWith('-') || slug.endsWith('-')) {
-                return { valid: false, message: 'Адрес не может начинаться или заканчиваться дефисом' };
-            }
-            
-            // Проверка что не содержит двойных дефисов
-            if (slug.includes('--')) {
-                return { valid: false, message: 'Адрес не может содержать двойные дефисы' };
-            }
-            
-            return { valid: true };
-        }
-
         async function customizeSlug() {
             if (!currentSlugToCustomize) return;
             
             const newSlug = document.getElementById('new-slug-input').value.trim();
             
-            // Валидация
+            // Минимальная проверка
             if (!newSlug) {
                 showNotification('Введите новый адрес ссылки', 'error');
                 return;
@@ -2409,12 +2381,6 @@
             
             if (newSlug === currentSlugToCustomize) {
                 showNotification('Новый адрес должен отличаться от текущего', 'warning');
-                return;
-            }
-            
-            const validation = validateSlug(newSlug);
-            if (!validation.valid) {
-                showNotification(validation.message, 'error');
                 return;
             }
             

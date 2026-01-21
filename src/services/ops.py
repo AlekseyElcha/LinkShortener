@@ -1,14 +1,17 @@
 from datetime import datetime
-from validators import url as url_validator
+from string import ascii_letters
+
+from sqlalchemy.testing.pickleable import User
+from validators import url as url_validator, ValidationError
 from sqlalchemy import select, delete, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 import logging
 
-from src.database.models import ShortURL, RedirectsHistory
+from src.database.models import ShortURL, RedirectsHistory, UserModel
 from src.exeptions import SlugAlreadyExistsError, LongUrlNotFoundError, RedirectsHistoryNull, \
     AddRedirectHistoryToDatabaseError, ShortURLToDeleteNotFound, ShortURLToDeleteNotFoundHistoryClear, \
-    SetSlugExpirationDateError, ShortLinkExpired, RemoveSlugExpirationDateError
+    SetSlugExpirationDateError, ShortLinkExpired, RemoveSlugExpirationDateError, UserIdBySlugNotFoundError
 from src.services.slug_service import generate_random_short_url
 from src.services.time_service import convert_utc_string_to_local
 
@@ -184,11 +187,11 @@ async def remove_expiration_date_from_database(slug: str, session: AsyncSession)
 
 
 def validate_url(url: str):
-    if "http://" not in url[:7] or "https://" not in url[:8]:
+    if ("http://" not in url[:7]) and ("https://" not in url[:8]):
         url = "https://" + url
     try:
         res = url_validator(url)
-        if res:
+        if res is True:
             return True
         else:
             return False
@@ -197,5 +200,25 @@ def validate_url(url: str):
 
 
 
+letters = ascii_letters + "цукенгшщзхъфывапролджэячсмитьбюёЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ"
+numbers = "0123456789"
+symbols = ["-", "_"]
+
+def validate_custom_slug(slug: str):
+    if all((i in letters) or (i in symbols) or (i in numbers) for i in slug):
+        return True
+    else:
+        return False
 
 
+async def get_user_id_by_slug(slug: str, session: AsyncSession):
+    query = select(ShortURL).where(ShortURL.slug == slug)
+    try:
+        res = await session.execute(query)
+        await session.commit()
+        data = res.scalar_one_or_none()
+        if not data:
+            return None
+        return data.user_id
+    except:
+        raise UserIdBySlugNotFoundError

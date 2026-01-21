@@ -8,6 +8,7 @@ from typing import Annotated
 from src.get_session import get_session
 from src.authorization.auth import check_auth_account, check_auth, security, check_user_auth
 from src.database.models import ShortURL
+from src.services.ops import validate_custom_slug, get_user_id_by_slug
 from src.services.time_service import convert_utc_string_to_local
 
 router = APIRouter(prefix="/account")
@@ -43,32 +44,44 @@ async def customize_slug(slug: str,
                          session: Annotated[AsyncSession, Depends(get_session)],
                          request: Request
     ):
+    custom_slug_is_valid = validate_custom_slug(new_slug)
+    user_id_required = await get_user_id_by_slug(slug=slug, session=session)
+    if user_id_required is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Не удается найти пользователя по ссылке.")
+    user_is_valid = await check_user_auth(request=request, session=session, id_to_check=user_id_required)
+    if not user_is_valid:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, detail="Нет доступа.")
+    if not custom_slug_is_valid:
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail="Ссылка не должна содержать иных симоволов, кроме русских, латинских букв, цифр, символов  «-» и «_»"
+        )
     query = select(ShortURL).where(slug == ShortURL.slug)
     try:
         res = await session.execute(query)
         old_slug_data = res.scalars().one_or_none()
-        if old_slug_data:
-            new_slug = ShortURL(
-                id=old_slug_data.id,
-                slug=old_slug_data.slug,
-                long_url=old_slug_data.long_url,
-                expiration_date=old_slug_data.expiration_date,
-                user_id=old_slug_data.user_id,
-                hop_counts=old_slug_data.hop_counts,
+        if old_slug_data is None:
+            raise HTTPException(
+                status.HTTP_404_NOT_FOUND,
+                detail="Соответствие не найдено."
             )
-        check_user = check_user_auth(request=request, session=session, id_to_check=new_slug.user_id)
-        if not check_user:
-            raise HTTPException(status.HTTP_403_FORBIDDEN, detail="Нет доступа.")
     except:
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Не удалось обновить ссылку.")
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Ошибка при поиске соответствия в базе данных.")
+    if old_slug_data:
+        new_custom_slug = ShortURL(
+            slug=new_slug,
+            long_url=old_slug_data.long_url,
+            expiration_date=old_slug_data.expiration_date,
+            user_id=old_slug_data.user_id,
+            hop_counts=old_slug_data.hop_counts,
+        )
+        try:
+            session.add(new_custom_slug)
+            await session.commit()
+            await session.close()
+        except:
+            raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Непредвиденная ошибка.")
 
-    query = update(ShortURL).where(ShortURL.slug == slug).values(slug=new_slug)
-    try:
-        await session.execute(query)
-        await session.commit()
-        await session.close()
-    except:
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail="Не удалось установить кастомную короткую ссылку.")
     return {"success": True}
 

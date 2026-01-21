@@ -65,3 +65,7 @@ class ShortLinkExpired(ShortenerBaseException):
 class RemoveSlugExpirationDateError(ShortenerBaseException):
     pass
 
+
+class UserIdBySlugNotFoundError(ShortURLToDeleteNotFound):
+    pass
+

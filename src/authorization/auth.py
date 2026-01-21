@@ -169,7 +169,7 @@ async def create_validation_link(login: str, session: AsyncSession):
     created_at = datetime.utcnow()
     expires_at = created_at + timedelta(hours=1)
     # validate_email_url = f"http://localhost:8080/api/?validate_token={validate_token}" для работы с nginx
-    validate_email_url = f"http://localhost:8080/?validate_token={validate_token}"
+    validate_email_url = f"http://localhost:8000/?validate_token={validate_token}"
     print(validate_email_url)
     validate_email_request = EmailValidation(
         token_hash=validate_token,
