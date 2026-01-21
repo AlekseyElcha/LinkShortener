@@ -33,7 +33,7 @@ config.JWT_TOKEN_LOCATION = ["cookies"]
 config.JWT_ALGORITHM = "HS256"
 config.JWT_ACCESS_COOKIE_NAME = "auth_cookies"
 config.JWT_COOKIE_CSRF_PROTECT = False
-config.JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=15)
+config.JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=1)
 config.JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
 security = AuthX(config=config)
 
@@ -93,7 +93,7 @@ async def create_account(user: UserAddSchema,
             await session.commit()
             await session.refresh(new_user)
         except:
-            raise HTTPException(status.HTTP_306_RESERVED, detail="Аккаунт с такой почтой уже сущеcтсвует")
+            raise HTTPException(status.HTTP_306_RESERVED, detail="Аккаунт с такой почтой уже сущеcтвует")
     except Exception as e:
         await session.rollback()
         raise HTTPException(status_code=500, detail="Ошибка при создании аккаунта")
@@ -303,6 +303,19 @@ async def check_auth_account(request: Request, session: AsyncSession):
         login = decode_token(token).get("sub")
         return await get_user_id_by_login(login, session)
     raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Авторизация неверна.")
+
+
+async def check_user_auth(request: Request, session: AsyncSession, id_to_check: int):
+    token = request.cookies.get(config.JWT_ACCESS_COOKIE_NAME)
+    if token:
+        login = decode_token(token).get("sub")
+        user_id_required = await get_user_id_by_login(login, session)
+        if user_id_required == id_to_check:
+            return True
+        return False
+    raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Авторизация неверна.")
+
+
 
 async def check_auth_get_login(request: Request):
     token = request.cookies.get(config.JWT_ACCESS_COOKIE_NAME)

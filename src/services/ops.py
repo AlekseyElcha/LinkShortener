@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from validators import url as url_validator
 from sqlalchemy import select, delete, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -33,12 +33,10 @@ async def get_long_url_by_slug_from_database(slug: str, session: AsyncSession):
     if result:
         exp = result.expiration_date
         now = datetime.utcnow()
-        
-        # Проверяем истечение только если дата установлена
+
         if exp is not None and now > exp:
             raise ShortLinkExpired
-            
-        # Если ссылка не истекла, увеличиваем счетчик и возвращаем URL
+
         result.hop_counts += 1
         await session.commit()
         return result.long_url
@@ -183,4 +181,21 @@ async def remove_expiration_date_from_database(slug: str, session: AsyncSession)
     except:
         raise RemoveSlugExpirationDateError
     return {"success": True}
+
+
+def validate_url(url: str):
+    if "http://" not in url[:7] or "https://" not in url[:8]:
+        url = "https://" + url
+    try:
+        res = url_validator(url)
+        if res:
+            return True
+        else:
+            return False
+    except:
+        return False
+
+
+
+
 

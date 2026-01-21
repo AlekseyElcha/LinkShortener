@@ -18,7 +18,7 @@ from src.database.schemas import SetExpirationTimeForSlug
 from src.get_session import get_session
 from src.authorization.auth import router as auth_router, create_link_with_token, \
     send_reset_password_email_with_instructions, check_token_and_reset_password, check_token_and_validate_user_email, \
-    create_validation_link, hash_data
+    create_validation_link, hash_data, security
 from src.authorization.auth import check_auth, check_auth_get_login
 from src.services.email_sender import send_email_validation
 from src.services.location import router as location_router
@@ -31,7 +31,7 @@ from src.exeptions import LongUrlNotFoundError, AddRedirectHistoryToDatabaseErro
     SetSlugExpirationDateError, ShortLinkExpired, RemoveSlugExpirationDateError
 from src.services.ops import generate_short_url, get_long_url_by_slug_from_database, add_redirect_to_history, \
     get_redirect_history_by_slug, delete_slug_from_database, set_expiration_date_for_slug, \
-    remove_expiration_date_from_database
+    remove_expiration_date_from_database, validate_url
 from src.services.time_service import convert_local_str_to_utc
 
 logging.basicConfig(
@@ -70,8 +70,14 @@ app.add_middleware(
 async def create_slug(
         long_url: Annotated[str, Body(embed=True)],
         session: Annotated[AsyncSession, Depends(get_session)],
-        request: Request
+        request: Request,
 ):
+    long_url_is_valid = validate_url(long_url)
+    if not long_url_is_valid:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail="Проверьте ссылку на правильность."
+        )
     check_res = await check_auth(request, session)
     if check_res:
         user_id = check_res
@@ -136,7 +142,7 @@ async def get_url_by_slug(
     return RedirectResponse(url=long_url, status_code=status.HTTP_302_FOUND)
 
 
-@app.get("/slug_redirect_history/{slug}")
+@app.get("/slug_redirect_history/{slug}", dependencies=[Depends(security.access_token_required)])
 async def get_slug_redirect_history(slug: str, session: Annotated[AsyncSession, Depends(get_session)]):
     try:
         user_timezone = str(get_localzone())
@@ -151,7 +157,7 @@ async def get_slug_redirect_history(slug: str, session: Annotated[AsyncSession, 
     return data
 
 
-@app.put("/set_expiration_date/{slug}")
+@app.put("/set_expiration_date/{slug}", dependencies=[Depends(security.access_token_required)])
 async def set_expiration_date(slug: str,
                               user_tz: Annotated[str, Query()],
                               exp_time: SetExpirationTimeForSlug,
@@ -177,7 +183,7 @@ async def set_expiration_date(slug: str,
         )
 
 
-@app.put("/remove_expiration_date/{slug}")
+@app.put("/remove_expiration_date/{slug}", dependencies=[Depends(security.access_token_required)])
 async def remove_expiration_date(slug: str, session: Annotated[AsyncSession, Depends(get_session)]):
     try:
         res = await remove_expiration_date_from_database(slug=slug, session=session)
@@ -189,7 +195,7 @@ async def remove_expiration_date(slug: str, session: Annotated[AsyncSession, Dep
         )
 
 
-@app.delete("/delete_slug/{slug}")
+@app.delete("/delete_slug/{slug}", dependencies=[Depends(security.access_token_required)])
 async def delete_slug(slug: str, session: Annotated[AsyncSession, Depends(get_session)]):
     try:
         res = await delete_slug_from_database(slug=slug, session=session)
@@ -199,8 +205,9 @@ async def delete_slug(slug: str, session: Annotated[AsyncSession, Depends(get_se
     return res
 
 
-@app.post("/reset_password")
-async def create_reset_password_link(login: Annotated[str, Body(embed=True)], session: Annotated[AsyncSession, Depends(get_session)]):
+@app.post("/reset_password", dependencies=[Depends(security.access_token_required)])
+async def create_reset_password_link(login: Annotated[str, Body(embed=True)],
+                    session: Annotated[AsyncSession, Depends(get_session)]):
     try:
         reset_url = await create_link_with_token(login=login, session=session)
     except UserIdByLoginNotFoundError:
@@ -264,6 +271,7 @@ async def validate_email(
     except:
         raise
     return {"message": "Пароль успешно обновлён!"}
+
 
 
 app.mount("/", StaticFiles(directory="./public", html=True), name="public")
