@@ -1,0 +1,1314 @@
+2026/01/18 17:33:42 [error] 26248#5668: *1 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 17:53:16 [error] 26248#5668: *6 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 17:53:25 [error] 26248#5668: *9 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/html/psots" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /psots HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:53:25 [error] 26248#5668: *9 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/psots"
+2026/01/18 17:57:57 [error] 23012#23004: *1 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:58:01 [error] 23012#23004: *1 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:58:51 [error] 23012#23004: *1 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:58:51 [error] 23012#23004: *4 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:58:51 [error] 23012#23004: *4 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:58:52 [error] 23012#23004: *4 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:58:52 [error] 23012#23004: *1 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:58:52 [error] 23012#23004: *4 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:58:52 [error] 23012#23004: *4 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:58:52 [error] 23012#23004: *4 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:58:52 [error] 23012#23004: *1 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:58:53 [error] 23012#23004: *1 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:59:15 [error] 29360#31292: *2 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:59:16 [error] 29360#31292: *1 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 17:59:24 [error] 29360#31292: *2 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:01:16 [error] 29360#31292: *5 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:03:11 [error] 29752#4924: *1 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 18:06:29 [notice] 35528#15048: signal process started
+2026/01/18 18:10:21 [error] 32676#38728: *7 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:10:24 [error] 32676#38728: *7 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:12:02 [emerg] 7300#5032: invalid number of arguments in "gzip" directive in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:12:13 [emerg] 33756#4552: invalid number of arguments in "gzip" directive in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:12:27 [notice] 18012#34588: signal process started
+2026/01/18 18:12:30 [error] 28648#20716: *9 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:12:33 [error] 28648#20716: *10 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:12:49 [notice] 8916#38036: signal process started
+2026/01/18 18:12:56 [error] 24492#25800: *12 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:13:39 [error] 24492#25800: *13 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:14:20 [warn] 35624#18652: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:14:21 [warn] 4920#25092: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:14:21 [notice] 4920#25092: signal process started
+2026/01/18 18:14:21 [warn] 15032#24752: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:14:27 [error] 15032#38528: *14 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:14:28 [error] 15032#38528: *14 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:14:34 [error] 15032#38528: *14 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:14:37 [error] 15032#38528: *14 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:15:00 [warn] 14348#11040: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:15:27 [error] 15032#38528: *15 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:15:29 [error] 15032#38528: *15 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:28:03 [warn] 24580#37328: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:28:13 [warn] 25936#12596: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:28:13 [notice] 25936#12596: signal process started
+2026/01/18 18:28:13 [warn] 4612#7824: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:28:28 [error] 4612#35664: *16 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/auth/login" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "POST /auth/login HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 18:28:42 [error] 4612#35664: *16 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/auth/login" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "POST /auth/login HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 18:28:45 [error] 4612#35664: *16 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/auth/login" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "POST /auth/login HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 18:32:07 [warn] 11296#14852: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:32:28 [warn] 14796#38640: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:32:42 [error] 4612#35664: *18 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/auth/login" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "POST /auth/login HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 18:32:46 [error] 4612#35664: *18 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:32:58 [error] 4612#35664: *18 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/auth/login" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "POST /auth/login HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 18:37:37 [warn] 29540#29072: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:37:37 [emerg] 29540#29072: invalid number of arguments in "upstream" directive in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:22
+2026/01/18 18:37:59 [warn] 2800#15100: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:38:00 [warn] 34488#4640: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:38:00 [notice] 34488#4640: signal process started
+2026/01/18 18:38:00 [warn] 33820#14096: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:38:03 [error] 33820#15836: *20 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:38:14 [error] 33820#15836: *21 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:38:19 [error] 33820#15836: *21 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/auth/login" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "POST /auth/login HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 18:38:56 [warn] 22748#34352: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:38:56 [emerg] 22748#34352: no host in upstream "/" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:42
+2026/01/18 18:38:58 [warn] 32668#21000: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:38:58 [emerg] 32668#21000: no host in upstream "/" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:42
+2026/01/18 18:39:08 [warn] 20352#26048: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:39:08 [emerg] 20352#26048: invalid number of arguments in "proxy_pass" directive in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:42
+2026/01/18 18:40:40 [warn] 18832#23544: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:40:42 [warn] 18312#5964: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:40:42 [notice] 18312#5964: signal process started
+2026/01/18 18:40:42 [warn] 26664#14236: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 18:40:45 [error] 26664#23300: *23 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 18:40:52 [error] 26664#23300: *24 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api//auth/login HTTP/1.1", upstream: "http://[::1]:1111//auth/login", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 18:41:06 [error] 26664#23300: *24 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api//auth/login HTTP/1.1", upstream: "http://[::1]:2222//auth/login", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:02:25 [error] 26664#23300: *34 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 19:02:33 [error] 26664#23300: *34 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/auth/login HTTP/1.1", upstream: "http://[::1]:2222//auth/login", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:02:35 [error] 26664#23300: *34 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/auth/login HTTP/1.1", upstream: "http://[::1]:1111//auth/login", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:05:28 [warn] 25420#33140: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 19:05:28 [notice] 25420#33140: signal process started
+2026/01/18 19:05:28 [warn] 20984#17324: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 19:05:32 [error] 20984#18032: *41 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 19:05:37 [error] 20984#18032: *41 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/create_slug HTTP/1.1", upstream: "http://[::1]:1111//create_slug", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:13:25 [warn] 14396#26096: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 19:13:25 [notice] 14396#26096: signal process started
+2026/01/18 19:13:25 [warn] 21196#18712: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 19:13:28 [warn] 23380#25596: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 19:13:30 [warn] 27024#36260: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 19:13:30 [notice] 27024#36260: signal process started
+2026/01/18 19:13:30 [warn] 8636#26152: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 19:13:33 [error] 8636#6488: *45 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 19:13:36 [error] 8636#6488: *45 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/create_slug HTTP/1.1", upstream: "http://[::1]:1111/api/create_slug", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:13:40 [error] 8636#6488: *45 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/create_slug HTTP/1.1", upstream: "http://[::1]:2222/api/create_slug", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:14:28 [warn] 27568#22996: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 19:14:30 [warn] 13480#38012: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 19:14:31 [warn] 11908#34352: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 19:14:31 [notice] 11908#34352: signal process started
+2026/01/18 19:14:31 [warn] 28052#15640: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:19
+2026/01/18 19:14:34 [error] 28052#20396: *52 CreateFile() "C:\Users\alesh\PycharmProjects\url-shortener\public/.well-known/appspecific/com.chrome.devtools.json" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1", host: "localhost:8080"
+2026/01/18 19:14:38 [error] 28052#20396: *52 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/create_slug HTTP/1.1", upstream: "http://[::1]:1111/api/create_slug", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:15:35 [error] 28052#20396: *52 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/create_slug HTTP/1.1", upstream: "http://[::1]:2222/api/create_slug", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:18:36 [warn] 21956#30712: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:15
+2026/01/18 19:18:44 [warn] 30708#30200: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:15
+2026/01/18 19:18:44 [notice] 30708#30200: signal process started
+2026/01/18 19:18:45 [warn] 23916#38108: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:15
+2026/01/18 19:18:52 [error] 23916#35748: *58 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/create_slug HTTP/1.1", upstream: "http://[::1]:1111/api/create_slug", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:20:30 [warn] 8448#13884: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:15
+2026/01/18 19:20:32 [warn] 23484#26204: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:15
+2026/01/18 19:20:32 [notice] 23484#26204: signal process started
+2026/01/18 19:20:32 [warn] 23968#20620: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:15
+2026/01/18 19:20:44 [error] 23968#5640: *63 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/create_slug HTTP/1.1", upstream: "http://[::1]:1111/api/create_slug", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:21:24 [emerg] 36288#9168: "server" directive is not allowed here in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:1
+2026/01/18 19:21:52 [warn] 33280#23300: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:15
+2026/01/18 19:21:54 [warn] 18816#2016: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:15
+2026/01/18 19:21:54 [notice] 18816#2016: signal process started
+2026/01/18 19:21:54 [warn] 29468#33160: duplicate MIME type "text/html" in C:\Users\alesh\PycharmProjects\url-shortener\nginx-1.28.1/conf/nginx.conf:15
+2026/01/18 19:22:03 [error] 29468#22656: *68 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/create_slug HTTP/1.1", upstream: "http://[::1]:1111/api/create_slug", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:22:59 [notice] 21852#14512: signal process started
+2026/01/18 19:22:59 [debug] 11696#21412: select add event fd:564 ev:768
+2026/01/18 19:23:01 [notice] 28652#4644: signal process started
+2026/01/18 19:23:01 [debug] 18444#36916: select add event fd:556 ev:768
+2026/01/18 19:23:02 [debug] 11696#21412: select del event fd:564 ev:768
+2026/01/18 19:23:04 [debug] 18444#36916: post event 0171EB00
+2026/01/18 19:23:04 [debug] 18444#36916: delete posted event 0171EB00
+2026/01/18 19:23:04 [debug] 18444#36916: accept on 0.0.0.0:8080, ready: 0
+2026/01/18 19:23:04 [debug] 18444#36916: malloc: 016C8750:256
+2026/01/18 19:23:04 [debug] 18444#36916: *73 accept: 127.0.0.1:54599 fd:608
+2026/01/18 19:23:04 [debug] 18444#36916: *73 event timer add: 608: 60000:3521885547
+2026/01/18 19:23:04 [debug] 18444#36916: *73 reusable connection: 1
+2026/01/18 19:23:04 [debug] 18444#36916: *73 select add event fd:608 ev:768
+2026/01/18 19:23:04 [debug] 18444#36916: post event 0171EB00
+2026/01/18 19:23:04 [debug] 18444#36916: delete posted event 0171EB00
+2026/01/18 19:23:04 [debug] 18444#36916: accept on 0.0.0.0:8080, ready: 0
+2026/01/18 19:23:04 [debug] 18444#36916: malloc: 016E6A38:256
+2026/01/18 19:23:04 [debug] 18444#36916: *74 accept: 127.0.0.1:65068 fd:612
+2026/01/18 19:23:04 [debug] 18444#36916: *74 event timer add: 612: 60000:3521885548
+2026/01/18 19:23:04 [debug] 18444#36916: *74 reusable connection: 1
+2026/01/18 19:23:04 [debug] 18444#36916: *74 select add event fd:612 ev:768
+2026/01/18 19:23:04 [debug] 18444#36916: *73 post event 0171EB50
+2026/01/18 19:23:04 [debug] 18444#36916: *73 delete posted event 0171EB50
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http wait request handler
+2026/01/18 19:23:04 [debug] 18444#36916: *73 malloc: 016E6B40:1024
+2026/01/18 19:23:04 [debug] 18444#36916: *73 WSARecv: fd:608 rc:0 1024 of 1024
+2026/01/18 19:23:04 [debug] 18444#36916: *73 WSARecv: avail:570
+2026/01/18 19:23:04 [debug] 18444#36916: *73 reusable connection: 0
+2026/01/18 19:23:04 [debug] 18444#36916: *73 malloc: 016E6F48:4096
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http process request line
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http request line: "GET / HTTP/1.1"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http uri: "/"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http args: ""
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http exten: ""
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http process request header line
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Host: localhost:8080"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Connection: keep-alive"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Pragma: no-cache"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Cache-Control: no-cache"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24""
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "sec-ch-ua-mobile: ?0"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "sec-ch-ua-platform: "Windows""
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Upgrade-Insecure-Requests: 1"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Sec-Fetch-Site: none"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Sec-Fetch-Mode: navigate"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Sec-Fetch-User: ?1"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Sec-Fetch-Dest: document"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Accept-Encoding: gzip, deflate, br, zstd"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http alloc large header buffer
+2026/01/18 19:23:04 [debug] 18444#36916: *73 malloc: 016E7F50:256
+2026/01/18 19:23:04 [debug] 18444#36916: *73 malloc: 01746B10:8192
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http large header alloc: 01746B10 8192
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http large header copy: 298
+2026/01/18 19:23:04 [debug] 18444#36916: *73 WSARecv: fd:608 rc:0 570 of 7894
+2026/01/18 19:23:04 [debug] 18444#36916: *73 WSARecv: avail:0
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Cookie: Webstorm-df7b7af9=778e14db-b635-4f69-b0a2-1df8b8bb853b; _ym_uid=1750951294973855952; _ym_d=1750951294; csrf_access_token=993a760f-bc98-4ff4-b603-0a6ed8fbc39e; Pycharm-cffab074=56949a2a-3e29-4a34-8202-2c5bf861a9db; access_token_cookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0MkBxLmNvbSIsImp0aSI6IjM0ZmVhM2RiLWU2N2MtNGU0Ni05M2VkLWYzMjk0NjA3N2M3YyIsInR5cGUiOiJhY2Nlc3MiLCJmcmVzaCI6ZmFsc2UsImNzcmYiOiIiLCJpYXQiOjE3NjcwMzEyNDUsImV4cCI6MTc2NzAzMjE0NS4yNzg1ODUsImxvZ2luIjoidDJAcS5jb20iLCJpc19hZG1pbiI6MH0.MxAV1tzLALPYW5iMFlVRM_mGxMUisL3dAQsAMmKYAtk; auth_cookies=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGVzaHVzMjAwN0BnbWFpbC5jb20iLCJqdGkiOiJiODk1NGQ0MC0wZTdlLTRhYTItYTU3Ni0yMWQxYTM4MzgxY2EiLCJ0eXBlIjoiYWNjZXNzIiwiZnJlc2giOmZhbHNlLCJjc3JmIjoiIiwiaWF0IjoxNzY4NzI4NTMxLCJleHAiOjE3Njg3Mjk0MzEuODUxNDEyfQ.wjvaebdfBOFAq0Y3LKoTRKK19VN15qJ6ZEzxFZBKwCE"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header done
+2026/01/18 19:23:04 [debug] 18444#36916: *73 event timer del: 608: 3521885547
+2026/01/18 19:23:04 [debug] 18444#36916: *73 generic phase: 0
+2026/01/18 19:23:04 [debug] 18444#36916: *73 rewrite phase: 1
+2026/01/18 19:23:04 [debug] 18444#36916: *73 test location: "/"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 using configuration "/"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http cl:-1 max:1048576
+2026/01/18 19:23:04 [debug] 18444#36916: *73 rewrite phase: 3
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http set discard body
+2026/01/18 19:23:04 [debug] 18444#36916: *73 HTTP/1.1 404 Not Found
+Server: nginx/1.28.1
+Date: Sun, 18 Jan 2026 16:23:04 GMT
+Content-Type: application/octet-stream
+Content-Length: 163
+Connection: keep-alive
+X-Nginx-Location: ROOT-404
+
+2026/01/18 19:23:04 [debug] 18444#36916: *73 write new buf t:1 f:0 016E7A60, pos 016E7A60, size: 198 file: 0, size: 0
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http write filter: l:0 f:0 s:198
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http output filter "/?"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http copy filter: "/?"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http postpone filter "/?" 0392F8F4
+2026/01/18 19:23:04 [debug] 18444#36916: *73 write old buf t:1 f:0 016E7A60, pos 016E7A60, size: 198 file: 0, size: 0
+2026/01/18 19:23:04 [debug] 18444#36916: *73 write new buf t:0 f:0 00000000, pos 016F4D7B, size: 163 file: 0, size: 0
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http write filter: l:1 f:0 s:361
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http write filter limit 2097152
+2026/01/18 19:23:04 [debug] 18444#36916: *73 WSASend: fd:608, s:361
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http write filter 00000000
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http copy filter: 0 "/?"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http finalize request: 0, "/?" a:1, c:1
+2026/01/18 19:23:04 [debug] 18444#36916: *73 set http keepalive handler
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http close request
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http log handler
+2026/01/18 19:23:04 [debug] 18444#36916: *73 free: 016E6F48, unused: 748
+2026/01/18 19:23:04 [debug] 18444#36916: *73 free: 016E6B40
+2026/01/18 19:23:04 [debug] 18444#36916: *73 hc free: 00000000
+2026/01/18 19:23:04 [debug] 18444#36916: *73 hc busy: 016C8840 1
+2026/01/18 19:23:04 [debug] 18444#36916: *73 free: 01746B10
+2026/01/18 19:23:04 [debug] 18444#36916: *73 tcp_nodelay
+2026/01/18 19:23:04 [debug] 18444#36916: *73 reusable connection: 1
+2026/01/18 19:23:04 [debug] 18444#36916: *73 event timer add: 608: 75000:3521900549
+2026/01/18 19:23:04 [debug] 18444#36916: *73 post event 0171EB50
+2026/01/18 19:23:04 [debug] 18444#36916: *73 delete posted event 0171EB50
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http keepalive handler
+2026/01/18 19:23:04 [debug] 18444#36916: *73 malloc: 016E8058:1024
+2026/01/18 19:23:04 [debug] 18444#36916: *73 WSARecv: fd:608 rc:0 1024 of 1024
+2026/01/18 19:23:04 [debug] 18444#36916: *73 WSARecv: avail:570
+2026/01/18 19:23:04 [debug] 18444#36916: *73 reusable connection: 0
+2026/01/18 19:23:04 [debug] 18444#36916: *73 malloc: 016E6B40:4096
+2026/01/18 19:23:04 [debug] 18444#36916: *73 event timer del: 608: 3521900549
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http process request line
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http request line: "GET / HTTP/1.1"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http uri: "/"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http args: ""
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http exten: ""
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http process request header line
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Host: localhost:8080"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Connection: keep-alive"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Pragma: no-cache"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Cache-Control: no-cache"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24""
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "sec-ch-ua-mobile: ?0"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "sec-ch-ua-platform: "Windows""
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Upgrade-Insecure-Requests: 1"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Sec-Fetch-Site: none"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Sec-Fetch-Mode: navigate"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Sec-Fetch-User: ?1"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Sec-Fetch-Dest: document"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Accept-Encoding: gzip, deflate, br, zstd"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http alloc large header buffer
+2026/01/18 19:23:04 [debug] 18444#36916: *73 malloc: 01746B10:8192
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http large header alloc: 01746B10 8192
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http large header copy: 298
+2026/01/18 19:23:04 [debug] 18444#36916: *73 WSARecv: fd:608 rc:0 570 of 7894
+2026/01/18 19:23:04 [debug] 18444#36916: *73 WSARecv: avail:0
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header: "Cookie: Webstorm-df7b7af9=778e14db-b635-4f69-b0a2-1df8b8bb853b; _ym_uid=1750951294973855952; _ym_d=1750951294; csrf_access_token=993a760f-bc98-4ff4-b603-0a6ed8fbc39e; Pycharm-cffab074=56949a2a-3e29-4a34-8202-2c5bf861a9db; access_token_cookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0MkBxLmNvbSIsImp0aSI6IjM0ZmVhM2RiLWU2N2MtNGU0Ni05M2VkLWYzMjk0NjA3N2M3YyIsInR5cGUiOiJhY2Nlc3MiLCJmcmVzaCI6ZmFsc2UsImNzcmYiOiIiLCJpYXQiOjE3NjcwMzEyNDUsImV4cCI6MTc2NzAzMjE0NS4yNzg1ODUsImxvZ2luIjoidDJAcS5jb20iLCJpc19hZG1pbiI6MH0.MxAV1tzLALPYW5iMFlVRM_mGxMUisL3dAQsAMmKYAtk; auth_cookies=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGVzaHVzMjAwN0BnbWFpbC5jb20iLCJqdGkiOiJiODk1NGQ0MC0wZTdlLTRhYTItYTU3Ni0yMWQxYTM4MzgxY2EiLCJ0eXBlIjoiYWNjZXNzIiwiZnJlc2giOmZhbHNlLCJjc3JmIjoiIiwiaWF0IjoxNzY4NzI4NTMxLCJleHAiOjE3Njg3Mjk0MzEuODUxNDEyfQ.wjvaebdfBOFAq0Y3LKoTRKK19VN15qJ6ZEzxFZBKwCE"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http header done
+2026/01/18 19:23:04 [debug] 18444#36916: *73 generic phase: 0
+2026/01/18 19:23:04 [debug] 18444#36916: *73 rewrite phase: 1
+2026/01/18 19:23:04 [debug] 18444#36916: *73 test location: "/"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 using configuration "/"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http cl:-1 max:1048576
+2026/01/18 19:23:04 [debug] 18444#36916: *73 rewrite phase: 3
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http set discard body
+2026/01/18 19:23:04 [debug] 18444#36916: *73 HTTP/1.1 404 Not Found
+Server: nginx/1.28.1
+Date: Sun, 18 Jan 2026 16:23:04 GMT
+Content-Type: application/octet-stream
+Content-Length: 163
+Connection: keep-alive
+X-Nginx-Location: ROOT-404
+
+2026/01/18 19:23:04 [debug] 18444#36916: *73 write new buf t:1 f:0 016E7658, pos 016E7658, size: 198 file: 0, size: 0
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http write filter: l:0 f:0 s:198
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http output filter "/?"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http copy filter: "/?"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http postpone filter "/?" 0392F8F4
+2026/01/18 19:23:04 [debug] 18444#36916: *73 write old buf t:1 f:0 016E7658, pos 016E7658, size: 198 file: 0, size: 0
+2026/01/18 19:23:04 [debug] 18444#36916: *73 write new buf t:0 f:0 00000000, pos 016F4D7B, size: 163 file: 0, size: 0
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http write filter: l:1 f:0 s:361
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http write filter limit 2097152
+2026/01/18 19:23:04 [debug] 18444#36916: *73 WSASend: fd:608, s:361
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http write filter 00000000
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http copy filter: 0 "/?"
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http finalize request: 0, "/?" a:1, c:1
+2026/01/18 19:23:04 [debug] 18444#36916: *73 set http keepalive handler
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http close request
+2026/01/18 19:23:04 [debug] 18444#36916: *73 http log handler
+2026/01/18 19:23:04 [debug] 18444#36916: *73 free: 016E6B40, unused: 748
+2026/01/18 19:23:04 [debug] 18444#36916: *73 free: 016E8058
+2026/01/18 19:23:04 [debug] 18444#36916: *73 hc free: 00000000
+2026/01/18 19:23:04 [debug] 18444#36916: *73 hc busy: 016C8840 1
+2026/01/18 19:23:04 [debug] 18444#36916: *73 free: 01746B10
+2026/01/18 19:23:04 [debug] 18444#36916: *73 reusable connection: 1
+2026/01/18 19:23:04 [debug] 18444#36916: *73 event timer add: 608: 75000:3521900742
+2026/01/18 19:23:04 [debug] 18444#36916: post event 0171EB00
+2026/01/18 19:23:04 [debug] 18444#36916: delete posted event 0171EB00
+2026/01/18 19:23:04 [debug] 18444#36916: accept on 0.0.0.0:8080, ready: 0
+2026/01/18 19:23:04 [debug] 18444#36916: malloc: 016E8150:256
+2026/01/18 19:23:04 [debug] 18444#36916: *75 accept: 127.0.0.1:52867 fd:156
+2026/01/18 19:23:04 [debug] 18444#36916: *75 event timer add: 156: 60000:3521885813
+2026/01/18 19:23:04 [debug] 18444#36916: *75 reusable connection: 1
+2026/01/18 19:23:04 [debug] 18444#36916: *75 select add event fd:156 ev:768
+2026/01/18 19:23:05 [debug] 18444#36916: *73 post event 0171EB50
+2026/01/18 19:23:05 [debug] 18444#36916: *73 delete posted event 0171EB50
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http keepalive handler
+2026/01/18 19:23:05 [debug] 18444#36916: *73 malloc: 016E8258:1024
+2026/01/18 19:23:05 [debug] 18444#36916: *73 WSARecv: fd:608 rc:0 1024 of 1024
+2026/01/18 19:23:05 [debug] 18444#36916: *73 WSARecv: avail:570
+2026/01/18 19:23:05 [debug] 18444#36916: *73 reusable connection: 0
+2026/01/18 19:23:05 [debug] 18444#36916: *73 malloc: 016E6B40:4096
+2026/01/18 19:23:05 [debug] 18444#36916: *73 event timer del: 608: 3521900742
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http process request line
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http request line: "GET / HTTP/1.1"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http uri: "/"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http args: ""
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http exten: ""
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http process request header line
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Host: localhost:8080"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Connection: keep-alive"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Pragma: no-cache"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Cache-Control: no-cache"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24""
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "sec-ch-ua-mobile: ?0"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "sec-ch-ua-platform: "Windows""
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Upgrade-Insecure-Requests: 1"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Sec-Fetch-Site: none"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Sec-Fetch-Mode: navigate"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Sec-Fetch-User: ?1"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Sec-Fetch-Dest: document"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Accept-Encoding: gzip, deflate, br, zstd"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http alloc large header buffer
+2026/01/18 19:23:05 [debug] 18444#36916: *73 malloc: 01746B10:8192
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http large header alloc: 01746B10 8192
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http large header copy: 298
+2026/01/18 19:23:05 [debug] 18444#36916: *73 WSARecv: fd:608 rc:0 570 of 7894
+2026/01/18 19:23:05 [debug] 18444#36916: *73 WSARecv: avail:0
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Cookie: Webstorm-df7b7af9=778e14db-b635-4f69-b0a2-1df8b8bb853b; _ym_uid=1750951294973855952; _ym_d=1750951294; csrf_access_token=993a760f-bc98-4ff4-b603-0a6ed8fbc39e; Pycharm-cffab074=56949a2a-3e29-4a34-8202-2c5bf861a9db; access_token_cookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0MkBxLmNvbSIsImp0aSI6IjM0ZmVhM2RiLWU2N2MtNGU0Ni05M2VkLWYzMjk0NjA3N2M3YyIsInR5cGUiOiJhY2Nlc3MiLCJmcmVzaCI6ZmFsc2UsImNzcmYiOiIiLCJpYXQiOjE3NjcwMzEyNDUsImV4cCI6MTc2NzAzMjE0NS4yNzg1ODUsImxvZ2luIjoidDJAcS5jb20iLCJpc19hZG1pbiI6MH0.MxAV1tzLALPYW5iMFlVRM_mGxMUisL3dAQsAMmKYAtk; auth_cookies=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGVzaHVzMjAwN0BnbWFpbC5jb20iLCJqdGkiOiJiODk1NGQ0MC0wZTdlLTRhYTItYTU3Ni0yMWQxYTM4MzgxY2EiLCJ0eXBlIjoiYWNjZXNzIiwiZnJlc2giOmZhbHNlLCJjc3JmIjoiIiwiaWF0IjoxNzY4NzI4NTMxLCJleHAiOjE3Njg3Mjk0MzEuODUxNDEyfQ.wjvaebdfBOFAq0Y3LKoTRKK19VN15qJ6ZEzxFZBKwCE"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header done
+2026/01/18 19:23:05 [debug] 18444#36916: *73 generic phase: 0
+2026/01/18 19:23:05 [debug] 18444#36916: *73 rewrite phase: 1
+2026/01/18 19:23:05 [debug] 18444#36916: *73 test location: "/"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 using configuration "/"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http cl:-1 max:1048576
+2026/01/18 19:23:05 [debug] 18444#36916: *73 rewrite phase: 3
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http set discard body
+2026/01/18 19:23:05 [debug] 18444#36916: *73 HTTP/1.1 404 Not Found
+Server: nginx/1.28.1
+Date: Sun, 18 Jan 2026 16:23:05 GMT
+Content-Type: application/octet-stream
+Content-Length: 163
+Connection: keep-alive
+X-Nginx-Location: ROOT-404
+
+2026/01/18 19:23:05 [debug] 18444#36916: *73 write new buf t:1 f:0 016E7658, pos 016E7658, size: 198 file: 0, size: 0
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http write filter: l:0 f:0 s:198
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http output filter "/?"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http copy filter: "/?"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http postpone filter "/?" 0392F8F4
+2026/01/18 19:23:05 [debug] 18444#36916: *73 write old buf t:1 f:0 016E7658, pos 016E7658, size: 198 file: 0, size: 0
+2026/01/18 19:23:05 [debug] 18444#36916: *73 write new buf t:0 f:0 00000000, pos 016F4D7B, size: 163 file: 0, size: 0
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http write filter: l:1 f:0 s:361
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http write filter limit 2097152
+2026/01/18 19:23:05 [debug] 18444#36916: *73 WSASend: fd:608, s:361
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http write filter 00000000
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http copy filter: 0 "/?"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http finalize request: 0, "/?" a:1, c:1
+2026/01/18 19:23:05 [debug] 18444#36916: *73 set http keepalive handler
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http close request
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http log handler
+2026/01/18 19:23:05 [debug] 18444#36916: *73 free: 016E6B40, unused: 748
+2026/01/18 19:23:05 [debug] 18444#36916: *73 free: 016E8258
+2026/01/18 19:23:05 [debug] 18444#36916: *73 hc free: 00000000
+2026/01/18 19:23:05 [debug] 18444#36916: *73 hc busy: 016C8840 1
+2026/01/18 19:23:05 [debug] 18444#36916: *73 free: 01746B10
+2026/01/18 19:23:05 [debug] 18444#36916: *73 reusable connection: 1
+2026/01/18 19:23:05 [debug] 18444#36916: *73 event timer add: 608: 75000:3521901769
+2026/01/18 19:23:05 [debug] 18444#36916: *73 post event 0171EB50
+2026/01/18 19:23:05 [debug] 18444#36916: *73 delete posted event 0171EB50
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http keepalive handler
+2026/01/18 19:23:05 [debug] 18444#36916: *73 malloc: 016E8258:1024
+2026/01/18 19:23:05 [debug] 18444#36916: *73 WSARecv: fd:608 rc:0 1024 of 1024
+2026/01/18 19:23:05 [debug] 18444#36916: *73 WSARecv: avail:570
+2026/01/18 19:23:05 [debug] 18444#36916: *73 reusable connection: 0
+2026/01/18 19:23:05 [debug] 18444#36916: *73 malloc: 016E6B40:4096
+2026/01/18 19:23:05 [debug] 18444#36916: *73 event timer del: 608: 3521901769
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http process request line
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http request line: "GET / HTTP/1.1"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http uri: "/"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http args: ""
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http exten: ""
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http process request header line
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Host: localhost:8080"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Connection: keep-alive"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Pragma: no-cache"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Cache-Control: no-cache"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24""
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "sec-ch-ua-mobile: ?0"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "sec-ch-ua-platform: "Windows""
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Upgrade-Insecure-Requests: 1"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Sec-Fetch-Site: none"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Sec-Fetch-Mode: navigate"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Sec-Fetch-User: ?1"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Sec-Fetch-Dest: document"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Accept-Encoding: gzip, deflate, br, zstd"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http alloc large header buffer
+2026/01/18 19:23:05 [debug] 18444#36916: *73 malloc: 01746B10:8192
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http large header alloc: 01746B10 8192
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http large header copy: 298
+2026/01/18 19:23:05 [debug] 18444#36916: *73 WSARecv: fd:608 rc:0 570 of 7894
+2026/01/18 19:23:05 [debug] 18444#36916: *73 WSARecv: avail:0
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header: "Cookie: Webstorm-df7b7af9=778e14db-b635-4f69-b0a2-1df8b8bb853b; _ym_uid=1750951294973855952; _ym_d=1750951294; csrf_access_token=993a760f-bc98-4ff4-b603-0a6ed8fbc39e; Pycharm-cffab074=56949a2a-3e29-4a34-8202-2c5bf861a9db; access_token_cookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0MkBxLmNvbSIsImp0aSI6IjM0ZmVhM2RiLWU2N2MtNGU0Ni05M2VkLWYzMjk0NjA3N2M3YyIsInR5cGUiOiJhY2Nlc3MiLCJmcmVzaCI6ZmFsc2UsImNzcmYiOiIiLCJpYXQiOjE3NjcwMzEyNDUsImV4cCI6MTc2NzAzMjE0NS4yNzg1ODUsImxvZ2luIjoidDJAcS5jb20iLCJpc19hZG1pbiI6MH0.MxAV1tzLALPYW5iMFlVRM_mGxMUisL3dAQsAMmKYAtk; auth_cookies=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGVzaHVzMjAwN0BnbWFpbC5jb20iLCJqdGkiOiJiODk1NGQ0MC0wZTdlLTRhYTItYTU3Ni0yMWQxYTM4MzgxY2EiLCJ0eXBlIjoiYWNjZXNzIiwiZnJlc2giOmZhbHNlLCJjc3JmIjoiIiwiaWF0IjoxNzY4NzI4NTMxLCJleHAiOjE3Njg3Mjk0MzEuODUxNDEyfQ.wjvaebdfBOFAq0Y3LKoTRKK19VN15qJ6ZEzxFZBKwCE"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http header done
+2026/01/18 19:23:05 [debug] 18444#36916: *73 generic phase: 0
+2026/01/18 19:23:05 [debug] 18444#36916: *73 rewrite phase: 1
+2026/01/18 19:23:05 [debug] 18444#36916: *73 test location: "/"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 using configuration "/"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http cl:-1 max:1048576
+2026/01/18 19:23:05 [debug] 18444#36916: *73 rewrite phase: 3
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http set discard body
+2026/01/18 19:23:05 [debug] 18444#36916: *73 HTTP/1.1 404 Not Found
+Server: nginx/1.28.1
+Date: Sun, 18 Jan 2026 16:23:05 GMT
+Content-Type: application/octet-stream
+Content-Length: 163
+Connection: keep-alive
+X-Nginx-Location: ROOT-404
+
+2026/01/18 19:23:05 [debug] 18444#36916: *73 write new buf t:1 f:0 016E7658, pos 016E7658, size: 198 file: 0, size: 0
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http write filter: l:0 f:0 s:198
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http output filter "/?"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http copy filter: "/?"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http postpone filter "/?" 0392F8F4
+2026/01/18 19:23:05 [debug] 18444#36916: *73 write old buf t:1 f:0 016E7658, pos 016E7658, size: 198 file: 0, size: 0
+2026/01/18 19:23:05 [debug] 18444#36916: *73 write new buf t:0 f:0 00000000, pos 016F4D7B, size: 163 file: 0, size: 0
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http write filter: l:1 f:0 s:361
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http write filter limit 2097152
+2026/01/18 19:23:05 [debug] 18444#36916: *73 WSASend: fd:608, s:361
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http write filter 00000000
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http copy filter: 0 "/?"
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http finalize request: 0, "/?" a:1, c:1
+2026/01/18 19:23:05 [debug] 18444#36916: *73 set http keepalive handler
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http close request
+2026/01/18 19:23:05 [debug] 18444#36916: *73 http log handler
+2026/01/18 19:23:05 [debug] 18444#36916: *73 free: 016E6B40, unused: 748
+2026/01/18 19:23:05 [debug] 18444#36916: *73 free: 016E8258
+2026/01/18 19:23:05 [debug] 18444#36916: *73 hc free: 00000000
+2026/01/18 19:23:05 [debug] 18444#36916: *73 hc busy: 016C8840 1
+2026/01/18 19:23:05 [debug] 18444#36916: *73 free: 01746B10
+2026/01/18 19:23:05 [debug] 18444#36916: *73 reusable connection: 1
+2026/01/18 19:23:05 [debug] 18444#36916: *73 event timer add: 608: 75000:3521902214
+2026/01/18 19:23:08 [debug] 18444#36916: *73 post event 0171EB50
+2026/01/18 19:23:08 [debug] 18444#36916: *73 delete posted event 0171EB50
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http keepalive handler
+2026/01/18 19:23:08 [debug] 18444#36916: *73 malloc: 016E8258:1024
+2026/01/18 19:23:08 [debug] 18444#36916: *73 WSARecv: fd:608 rc:0 1024 of 1024
+2026/01/18 19:23:08 [debug] 18444#36916: *73 WSARecv: avail:570
+2026/01/18 19:23:08 [debug] 18444#36916: *73 reusable connection: 0
+2026/01/18 19:23:08 [debug] 18444#36916: *73 malloc: 016E6B40:4096
+2026/01/18 19:23:08 [debug] 18444#36916: *73 event timer del: 608: 3521902214
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http process request line
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http request line: "GET / HTTP/1.1"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http uri: "/"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http args: ""
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http exten: ""
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http process request header line
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "Host: localhost:8080"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "Connection: keep-alive"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "Pragma: no-cache"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "Cache-Control: no-cache"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24""
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "sec-ch-ua-mobile: ?0"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "sec-ch-ua-platform: "Windows""
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "Upgrade-Insecure-Requests: 1"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "Sec-Fetch-Site: none"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "Sec-Fetch-Mode: navigate"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "Sec-Fetch-User: ?1"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "Sec-Fetch-Dest: document"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "Accept-Encoding: gzip, deflate, br, zstd"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http alloc large header buffer
+2026/01/18 19:23:08 [debug] 18444#36916: *73 malloc: 016E7B48:256
+2026/01/18 19:23:08 [debug] 18444#36916: *73 malloc: 01746B10:8192
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http large header alloc: 01746B10 8192
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http large header copy: 298
+2026/01/18 19:23:08 [debug] 18444#36916: *73 WSARecv: fd:608 rc:0 570 of 7894
+2026/01/18 19:23:08 [debug] 18444#36916: *73 WSARecv: avail:0
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header: "Cookie: Webstorm-df7b7af9=778e14db-b635-4f69-b0a2-1df8b8bb853b; _ym_uid=1750951294973855952; _ym_d=1750951294; csrf_access_token=993a760f-bc98-4ff4-b603-0a6ed8fbc39e; Pycharm-cffab074=56949a2a-3e29-4a34-8202-2c5bf861a9db; access_token_cookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0MkBxLmNvbSIsImp0aSI6IjM0ZmVhM2RiLWU2N2MtNGU0Ni05M2VkLWYzMjk0NjA3N2M3YyIsInR5cGUiOiJhY2Nlc3MiLCJmcmVzaCI6ZmFsc2UsImNzcmYiOiIiLCJpYXQiOjE3NjcwMzEyNDUsImV4cCI6MTc2NzAzMjE0NS4yNzg1ODUsImxvZ2luIjoidDJAcS5jb20iLCJpc19hZG1pbiI6MH0.MxAV1tzLALPYW5iMFlVRM_mGxMUisL3dAQsAMmKYAtk; auth_cookies=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGVzaHVzMjAwN0BnbWFpbC5jb20iLCJqdGkiOiJiODk1NGQ0MC0wZTdlLTRhYTItYTU3Ni0yMWQxYTM4MzgxY2EiLCJ0eXBlIjoiYWNjZXNzIiwiZnJlc2giOmZhbHNlLCJjc3JmIjoiIiwiaWF0IjoxNzY4NzI4NTMxLCJleHAiOjE3Njg3Mjk0MzEuODUxNDEyfQ.wjvaebdfBOFAq0Y3LKoTRKK19VN15qJ6ZEzxFZBKwCE"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http header done
+2026/01/18 19:23:08 [debug] 18444#36916: *73 generic phase: 0
+2026/01/18 19:23:08 [debug] 18444#36916: *73 rewrite phase: 1
+2026/01/18 19:23:08 [debug] 18444#36916: *73 test location: "/"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 using configuration "/"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http cl:-1 max:1048576
+2026/01/18 19:23:08 [debug] 18444#36916: *73 rewrite phase: 3
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http set discard body
+2026/01/18 19:23:08 [debug] 18444#36916: *73 HTTP/1.1 404 Not Found
+Server: nginx/1.28.1
+Date: Sun, 18 Jan 2026 16:23:08 GMT
+Content-Type: application/octet-stream
+Content-Length: 163
+Connection: keep-alive
+X-Nginx-Location: ROOT-404
+
+2026/01/18 19:23:08 [debug] 18444#36916: *73 write new buf t:1 f:0 016E7658, pos 016E7658, size: 198 file: 0, size: 0
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http write filter: l:0 f:0 s:198
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http output filter "/?"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http copy filter: "/?"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http postpone filter "/?" 0392F8F4
+2026/01/18 19:23:08 [debug] 18444#36916: *73 write old buf t:1 f:0 016E7658, pos 016E7658, size: 198 file: 0, size: 0
+2026/01/18 19:23:08 [debug] 18444#36916: *73 write new buf t:0 f:0 00000000, pos 016F4D7B, size: 163 file: 0, size: 0
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http write filter: l:1 f:0 s:361
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http write filter limit 2097152
+2026/01/18 19:23:08 [debug] 18444#36916: *73 WSASend: fd:608, s:361
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http write filter 00000000
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http copy filter: 0 "/?"
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http finalize request: 0, "/?" a:1, c:1
+2026/01/18 19:23:08 [debug] 18444#36916: *73 set http keepalive handler
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http close request
+2026/01/18 19:23:08 [debug] 18444#36916: *73 http log handler
+2026/01/18 19:23:08 [debug] 18444#36916: *73 free: 016E6B40, unused: 748
+2026/01/18 19:23:08 [debug] 18444#36916: *73 free: 016E8258
+2026/01/18 19:23:08 [debug] 18444#36916: *73 hc free: 00000000
+2026/01/18 19:23:08 [debug] 18444#36916: *73 hc busy: 016C8840 1
+2026/01/18 19:23:08 [debug] 18444#36916: *73 free: 01746B10
+2026/01/18 19:23:08 [debug] 18444#36916: *73 reusable connection: 1
+2026/01/18 19:23:08 [debug] 18444#36916: *73 event timer add: 608: 75000:3521905206
+2026/01/18 19:23:42 [debug] 18444#36916: post event 0171EB00
+2026/01/18 19:23:42 [debug] 18444#36916: delete posted event 0171EB00
+2026/01/18 19:23:42 [debug] 18444#36916: accept on 0.0.0.0:8080, ready: 0
+2026/01/18 19:23:42 [debug] 18444#36916: malloc: 016E7A18:256
+2026/01/18 19:23:42 [debug] 18444#36916: *76 accept: 127.0.0.1:60988 fd:624
+2026/01/18 19:23:42 [debug] 18444#36916: *76 event timer add: 624: 60000:3521923466
+2026/01/18 19:23:42 [debug] 18444#36916: *76 reusable connection: 1
+2026/01/18 19:23:42 [debug] 18444#36916: *76 select add event fd:624 ev:768
+2026/01/18 19:23:42 [debug] 18444#36916: *76 post event 0171EC40
+2026/01/18 19:23:42 [debug] 18444#36916: *76 delete posted event 0171EC40
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http wait request handler
+2026/01/18 19:23:42 [debug] 18444#36916: *76 malloc: 016F8F38:1024
+2026/01/18 19:23:42 [debug] 18444#36916: *76 WSARecv: fd:624 rc:0 83 of 1024
+2026/01/18 19:23:42 [debug] 18444#36916: *76 reusable connection: 0
+2026/01/18 19:23:42 [debug] 18444#36916: *76 malloc: 016E00C8:4096
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http process request line
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http request line: "GET /nginx HTTP/1.1"
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http uri: "/nginx"
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http args: ""
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http exten: ""
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http process request header line
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http header: "Host: localhost:8080"
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http header: "User-Agent: curl/8.16.0"
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http header: "Accept: */*"
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http header done
+2026/01/18 19:23:42 [debug] 18444#36916: *76 event timer del: 624: 3521923466
+2026/01/18 19:23:42 [debug] 18444#36916: *76 generic phase: 0
+2026/01/18 19:23:42 [debug] 18444#36916: *76 rewrite phase: 1
+2026/01/18 19:23:42 [debug] 18444#36916: *76 test location: "/"
+2026/01/18 19:23:42 [debug] 18444#36916: *76 test location: "nginx-test"
+2026/01/18 19:23:42 [debug] 18444#36916: *76 test location: "api/"
+2026/01/18 19:23:42 [debug] 18444#36916: *76 using configuration "/"
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http cl:-1 max:1048576
+2026/01/18 19:23:42 [debug] 18444#36916: *76 rewrite phase: 3
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http set discard body
+2026/01/18 19:23:42 [debug] 18444#36916: *76 HTTP/1.1 404 Not Found
+Server: nginx/1.28.1
+Date: Sun, 18 Jan 2026 16:23:42 GMT
+Content-Type: application/octet-stream
+Content-Length: 163
+Connection: keep-alive
+X-Nginx-Location: ROOT-404
+
+2026/01/18 19:23:42 [debug] 18444#36916: *76 write new buf t:1 f:0 016E0B20, pos 016E0B20, size: 198 file: 0, size: 0
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http write filter: l:0 f:0 s:198
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http output filter "/nginx?"
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http copy filter: "/nginx?"
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http postpone filter "/nginx?" 0392F8F4
+2026/01/18 19:23:42 [debug] 18444#36916: *76 write old buf t:1 f:0 016E0B20, pos 016E0B20, size: 198 file: 0, size: 0
+2026/01/18 19:23:42 [debug] 18444#36916: *76 write new buf t:0 f:0 00000000, pos 016F4D7B, size: 163 file: 0, size: 0
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http write filter: l:1 f:0 s:361
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http write filter limit 2097152
+2026/01/18 19:23:42 [debug] 18444#36916: *76 WSASend: fd:624, s:361
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http write filter 00000000
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http copy filter: 0 "/nginx?"
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http finalize request: 0, "/nginx?" a:1, c:1
+2026/01/18 19:23:42 [debug] 18444#36916: *76 set http keepalive handler
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http close request
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http log handler
+2026/01/18 19:23:42 [debug] 18444#36916: *76 free: 016E00C8, unused: 1035
+2026/01/18 19:23:42 [debug] 18444#36916: *76 free: 016F8F38
+2026/01/18 19:23:42 [debug] 18444#36916: *76 hc free: 00000000
+2026/01/18 19:23:42 [debug] 18444#36916: *76 hc busy: 00000000 0
+2026/01/18 19:23:42 [debug] 18444#36916: *76 tcp_nodelay
+2026/01/18 19:23:42 [debug] 18444#36916: *76 reusable connection: 1
+2026/01/18 19:23:42 [debug] 18444#36916: *76 event timer add: 624: 75000:3521938479
+2026/01/18 19:23:42 [debug] 18444#36916: *76 post event 0171EC40
+2026/01/18 19:23:42 [debug] 18444#36916: *76 delete posted event 0171EC40
+2026/01/18 19:23:42 [debug] 18444#36916: *76 http keepalive handler
+2026/01/18 19:23:42 [debug] 18444#36916: *76 malloc: 016F8F38:1024
+2026/01/18 19:23:42 [debug] 18444#36916: *76 WSARecv: fd:624 rc:0 0 of 1024
+2026/01/18 19:23:42 [info] 18444#36916: *76 client 127.0.0.1 closed keepalive connection
+2026/01/18 19:23:42 [debug] 18444#36916: *76 close http connection: 624
+2026/01/18 19:23:42 [debug] 18444#36916: *76 event timer del: 624: 3521938479
+2026/01/18 19:23:42 [debug] 18444#36916: *76 select del event fd:624 ev:768
+2026/01/18 19:23:42 [debug] 18444#36916: *76 reusable connection: 0
+2026/01/18 19:23:42 [debug] 18444#36916: *76 free: 016F8F38
+2026/01/18 19:23:42 [debug] 18444#36916: *76 free: 016E7A18, unused: 24
+2026/01/18 19:23:52 [debug] 18444#36916: post event 0171EB00
+2026/01/18 19:23:52 [debug] 18444#36916: delete posted event 0171EB00
+2026/01/18 19:23:52 [debug] 18444#36916: accept on 0.0.0.0:8080, ready: 0
+2026/01/18 19:23:52 [debug] 18444#36916: malloc: 016E7A18:256
+2026/01/18 19:23:52 [debug] 18444#36916: *77 accept: 127.0.0.1:54890 fd:624
+2026/01/18 19:23:52 [debug] 18444#36916: *77 event timer add: 624: 60000:3521933494
+2026/01/18 19:23:52 [debug] 18444#36916: *77 reusable connection: 1
+2026/01/18 19:23:52 [debug] 18444#36916: *77 select add event fd:624 ev:768
+2026/01/18 19:23:52 [debug] 18444#36916: *77 post event 0171EC40
+2026/01/18 19:23:52 [debug] 18444#36916: *77 delete posted event 0171EC40
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http wait request handler
+2026/01/18 19:23:52 [debug] 18444#36916: *77 malloc: 016F8F38:1024
+2026/01/18 19:23:52 [debug] 18444#36916: *77 WSARecv: fd:624 rc:0 94 of 1024
+2026/01/18 19:23:52 [debug] 18444#36916: *77 reusable connection: 0
+2026/01/18 19:23:52 [debug] 18444#36916: *77 malloc: 016E00C8:4096
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http process request line
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http request line: "POST /api/create_slug HTTP/1.1"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http uri: "/api/create_slug"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http args: ""
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http exten: ""
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http process request header line
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http header: "Host: localhost:8080"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http header: "User-Agent: curl/8.16.0"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http header: "Accept: */*"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http header done
+2026/01/18 19:23:52 [debug] 18444#36916: *77 event timer del: 624: 3521933494
+2026/01/18 19:23:52 [debug] 18444#36916: *77 generic phase: 0
+2026/01/18 19:23:52 [debug] 18444#36916: *77 rewrite phase: 1
+2026/01/18 19:23:52 [debug] 18444#36916: *77 test location: "/"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 test location: "nginx-test"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 test location: "api/"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 using configuration "/api/"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http cl:-1 max:1048576
+2026/01/18 19:23:52 [debug] 18444#36916: *77 rewrite phase: 3
+2026/01/18 19:23:52 [debug] 18444#36916: *77 post rewrite phase: 4
+2026/01/18 19:23:52 [debug] 18444#36916: *77 generic phase: 5
+2026/01/18 19:23:52 [debug] 18444#36916: *77 generic phase: 6
+2026/01/18 19:23:52 [debug] 18444#36916: *77 generic phase: 7
+2026/01/18 19:23:52 [debug] 18444#36916: *77 access phase: 8
+2026/01/18 19:23:52 [debug] 18444#36916: *77 access phase: 9
+2026/01/18 19:23:52 [debug] 18444#36916: *77 access phase: 10
+2026/01/18 19:23:52 [debug] 18444#36916: *77 post access phase: 11
+2026/01/18 19:23:52 [debug] 18444#36916: *77 generic phase: 12
+2026/01/18 19:23:52 [debug] 18444#36916: *77 generic phase: 13
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http init upstream, client timer: 0
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http script copy: "Host"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http script var: "localhost"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http script copy: "X-Real-IP"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http script var: "127.0.0.1"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http script copy: ""
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http script copy: ""
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http proxy header: "User-Agent: curl/8.16.0"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http proxy header: "Accept: */*"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http proxy header:
+"POST /create_slug HTTP/1.1
+Host: localhost
+X-Real-IP: 127.0.0.1
+User-Agent: curl/8.16.0
+Accept: */*
+
+"
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http cleanup add: 016E0EC4
+2026/01/18 19:23:52 [debug] 18444#36916: *77 get rr peer, try: 2
+2026/01/18 19:23:52 [debug] 18444#36916: *77 get rr peer, current: 016F5C6C -1
+2026/01/18 19:23:52 [debug] 18444#36916: *77 stream socket 628
+2026/01/18 19:23:52 [debug] 18444#36916: *77 connect to [::1]:1111, fd:628 #78
+2026/01/18 19:23:52 [debug] 18444#36916: *77 select add event fd:628 ev:768
+2026/01/18 19:23:52 [debug] 18444#36916: *77 select add event fd:628 ev:16
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http upstream connect: -2
+2026/01/18 19:23:52 [debug] 18444#36916: *77 malloc: 016FA468:128
+2026/01/18 19:23:52 [debug] 18444#36916: *77 event timer add: 628: 60000:3521933510
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http finalize request: -4, "/api/create_slug?" a:1, c:2
+2026/01/18 19:23:52 [debug] 18444#36916: *77 http request count:2 blk:0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 post event 01732C98
+2026/01/18 19:23:54 [debug] 18444#36916: *77 delete posted event 01732C98
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream request: "/api/create_slug?"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream send request handler
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream send request
+2026/01/18 19:23:54 [error] 18444#36916: *77 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/create_slug HTTP/1.1", upstream: "http://[::1]:1111/create_slug", host: "localhost:8080"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http next upstream, 2
+2026/01/18 19:23:54 [debug] 18444#36916: *77 free rr peer 2 4
+2026/01/18 19:23:54 [warn] 18444#36916: *77 upstream server temporarily disabled while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/create_slug HTTP/1.1", upstream: "http://[::1]:1111/create_slug", host: "localhost:8080"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 free rr peer failed: 016F5C6C 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 close http upstream connection: 628
+2026/01/18 19:23:54 [debug] 18444#36916: *77 free: 016FA468, unused: 88
+2026/01/18 19:23:54 [debug] 18444#36916: *77 event timer del: 628: 3521933510
+2026/01/18 19:23:54 [debug] 18444#36916: *77 select del event fd:628 ev:768
+2026/01/18 19:23:54 [debug] 18444#36916: *77 select del event fd:628 ev:16
+2026/01/18 19:23:54 [debug] 18444#36916: *77 reusable connection: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 get rr peer, try: 1
+2026/01/18 19:23:54 [debug] 18444#36916: *77 get rr peer, current: 016F5CE4 1
+2026/01/18 19:23:54 [debug] 18444#36916: *77 stream socket 628
+2026/01/18 19:23:54 [debug] 18444#36916: *77 connect to 127.0.0.1:1111, fd:628 #79
+2026/01/18 19:23:54 [debug] 18444#36916: *77 select add event fd:628 ev:768
+2026/01/18 19:23:54 [debug] 18444#36916: *77 select add event fd:628 ev:16
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream connect: -2
+2026/01/18 19:23:54 [debug] 18444#36916: *77 malloc: 016FA468:128
+2026/01/18 19:23:54 [debug] 18444#36916: *77 event timer add: 628: 60000:3521935543
+2026/01/18 19:23:54 [debug] 18444#36916: *77 post event 01732C98
+2026/01/18 19:23:54 [debug] 18444#36916: *77 delete posted event 01732C98
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream request: "/api/create_slug?"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream send request handler
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream send request
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream send request body
+2026/01/18 19:23:54 [debug] 18444#36916: *77 chain writer buf fl:1 s:107
+2026/01/18 19:23:54 [debug] 18444#36916: *77 chain writer in: 016E0F54
+2026/01/18 19:23:54 [debug] 18444#36916: *77 WSASend: fd:628, s:107
+2026/01/18 19:23:54 [debug] 18444#36916: *77 chain writer out: 00000000
+2026/01/18 19:23:54 [debug] 18444#36916: *77 event timer del: 628: 3521935543
+2026/01/18 19:23:54 [debug] 18444#36916: *77 select del event fd:628 ev:16
+2026/01/18 19:23:54 [debug] 18444#36916: *77 event timer add: 628: 60000:3521935544
+2026/01/18 19:23:54 [debug] 18444#36916: *77 post event 0171EC90
+2026/01/18 19:23:54 [debug] 18444#36916: *77 delete posted event 0171EC90
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream request: "/api/create_slug?"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream process header
+2026/01/18 19:23:54 [debug] 18444#36916: *77 malloc: 016F7410:4096
+2026/01/18 19:23:54 [debug] 18444#36916: *77 WSARecv: fd:628 rc:0 144 of 4096
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http proxy status 422 "422 Unprocessable Content"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http proxy header: "date: Sun, 18 Jan 2026 16:23:54 GMT"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 malloc: 01746B10:4096
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http proxy header: "server: uvicorn"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http proxy header: "content-length: 93"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http proxy header: "content-type: application/json"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http proxy header done
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http script var: "/api/create_slug"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 HTTP/1.1 422 Unprocessable Content
+Server: nginx/1.28.1
+Date: Sun, 18 Jan 2026 16:23:54 GMT
+Content-Type: application/json
+Content-Length: 93
+Connection: keep-alive
+X-Nginx-Location: API-LOCATION
+X-Proxy-Pass: http://localhost:1111/
+X-Request-URI: /api/create_slug
+
+2026/01/18 19:23:54 [debug] 18444#36916: *77 write new buf t:1 f:0 01746BC8, pos 01746BC8, size: 276 file: 0, size: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http write filter: l:0 f:0 s:276
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http cacheable: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http proxy filter init s:422 h:0 c:0 l:93
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream process upstream
+2026/01/18 19:23:54 [debug] 18444#36916: *77 pipe read upstream: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 pipe preread: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 pipe buf free s:0 t:1 f:0 016F7410, pos 016F74A0, size: 0 file: 0, size: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 pipe length: 93
+2026/01/18 19:23:54 [debug] 18444#36916: *77 event timer: 628, old: 3521935544, new: 3521935549
+2026/01/18 19:23:54 [debug] 18444#36916: *77 post event 0171EC90
+2026/01/18 19:23:54 [debug] 18444#36916: *77 delete posted event 0171EC90
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream request: "/api/create_slug?"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream process upstream
+2026/01/18 19:23:54 [debug] 18444#36916: *77 pipe read upstream: 1
+2026/01/18 19:23:54 [debug] 18444#36916: *77 WSARecv: 1:3952
+2026/01/18 19:23:54 [debug] 18444#36916: *77 pipe recv chain: 93
+2026/01/18 19:23:54 [debug] 18444#36916: *77 pipe buf free s:0 t:1 f:0 016F7410, pos 016F74A0, size: 93 file: 0, size: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 pipe length: 93
+2026/01/18 19:23:54 [debug] 18444#36916: *77 input buf #0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 pipe write downstream: 1
+2026/01/18 19:23:54 [debug] 18444#36916: *77 pipe write downstream flush in
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http output filter "/api/create_slug?"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http copy filter: "/api/create_slug?"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http postpone filter "/api/create_slug?" 01746D68
+2026/01/18 19:23:54 [debug] 18444#36916: *77 write old buf t:1 f:0 01746BC8, pos 01746BC8, size: 276 file: 0, size: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 write new buf t:1 f:0 016F7410, pos 016F74A0, size: 93 file: 0, size: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http write filter: l:0 f:0 s:369
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http copy filter: 0 "/api/create_slug?"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 pipe write downstream done
+2026/01/18 19:23:54 [debug] 18444#36916: *77 event timer: 628, old: 3521935544, new: 3521935549
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream exit: 00000000
+2026/01/18 19:23:54 [debug] 18444#36916: *77 finalize http upstream request: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 finalize http proxy request
+2026/01/18 19:23:54 [debug] 18444#36916: *77 free rr peer 1 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 close http upstream connection: 628
+2026/01/18 19:23:54 [debug] 18444#36916: *77 free: 016FA468, unused: 88
+2026/01/18 19:23:54 [debug] 18444#36916: *77 event timer del: 628: 3521935544
+2026/01/18 19:23:54 [debug] 18444#36916: *77 select del event fd:628 ev:768
+2026/01/18 19:23:54 [debug] 18444#36916: *77 reusable connection: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http upstream temp fd: -1
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http output filter "/api/create_slug?"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http copy filter: "/api/create_slug?"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http postpone filter "/api/create_slug?" 0392F954
+2026/01/18 19:23:54 [debug] 18444#36916: *77 write old buf t:1 f:0 01746BC8, pos 01746BC8, size: 276 file: 0, size: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 write old buf t:1 f:0 016F7410, pos 016F74A0, size: 93 file: 0, size: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 write new buf t:0 f:0 00000000, pos 00000000, size: 0 file: 0, size: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http write filter: l:1 f:0 s:369
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http write filter limit 2097152
+2026/01/18 19:23:54 [debug] 18444#36916: *77 WSASend: fd:624, s:369
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http write filter 00000000
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http copy filter: 0 "/api/create_slug?"
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http finalize request: 0, "/api/create_slug?" a:1, c:1
+2026/01/18 19:23:54 [debug] 18444#36916: *77 set http keepalive handler
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http close request
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http log handler
+2026/01/18 19:23:54 [debug] 18444#36916: *77 free: 016F7410
+2026/01/18 19:23:54 [debug] 18444#36916: *77 free: 016E00C8, unused: 4
+2026/01/18 19:23:54 [debug] 18444#36916: *77 free: 01746B10, unused: 3176
+2026/01/18 19:23:54 [debug] 18444#36916: *77 free: 016F8F38
+2026/01/18 19:23:54 [debug] 18444#36916: *77 hc free: 00000000
+2026/01/18 19:23:54 [debug] 18444#36916: *77 hc busy: 00000000 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 tcp_nodelay
+2026/01/18 19:23:54 [debug] 18444#36916: *77 reusable connection: 1
+2026/01/18 19:23:54 [debug] 18444#36916: *77 event timer add: 624: 75000:3521950549
+2026/01/18 19:23:54 [debug] 18444#36916: *77 post event 0171EC40
+2026/01/18 19:23:54 [debug] 18444#36916: *77 delete posted event 0171EC40
+2026/01/18 19:23:54 [debug] 18444#36916: *77 http keepalive handler
+2026/01/18 19:23:54 [debug] 18444#36916: *77 malloc: 016F8F38:1024
+2026/01/18 19:23:54 [debug] 18444#36916: *77 WSARecv: fd:624 rc:0 0 of 1024
+2026/01/18 19:23:54 [info] 18444#36916: *77 client 127.0.0.1 closed keepalive connection
+2026/01/18 19:23:54 [debug] 18444#36916: *77 close http connection: 624
+2026/01/18 19:23:54 [debug] 18444#36916: *77 event timer del: 624: 3521950549
+2026/01/18 19:23:54 [debug] 18444#36916: *77 select del event fd:624 ev:768
+2026/01/18 19:23:54 [debug] 18444#36916: *77 reusable connection: 0
+2026/01/18 19:23:54 [debug] 18444#36916: *77 free: 016F8F38
+2026/01/18 19:23:54 [debug] 18444#36916: *77 free: 016E7A18, unused: 24
+2026/01/18 19:24:04 [debug] 18444#36916: *74 event timer del: 612: 3521885548
+2026/01/18 19:24:04 [debug] 18444#36916: *74 http wait request handler
+2026/01/18 19:24:04 [info] 18444#36916: *74 client timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while waiting for request, client: 127.0.0.1, server: 0.0.0.0:8080
+2026/01/18 19:24:04 [debug] 18444#36916: *74 close http connection: 612
+2026/01/18 19:24:04 [debug] 18444#36916: *74 select del event fd:612 ev:768
+2026/01/18 19:24:04 [debug] 18444#36916: *74 reusable connection: 0
+2026/01/18 19:24:04 [debug] 18444#36916: *74 free: 016E6A38, unused: 88
+2026/01/18 19:24:04 [debug] 18444#36916: *75 event timer del: 156: 3521885813
+2026/01/18 19:24:04 [debug] 18444#36916: *75 http wait request handler
+2026/01/18 19:24:04 [info] 18444#36916: *75 client timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while waiting for request, client: 127.0.0.1, server: 0.0.0.0:8080
+2026/01/18 19:24:04 [debug] 18444#36916: *75 close http connection: 156
+2026/01/18 19:24:04 [debug] 18444#36916: *75 select del event fd:156 ev:768
+2026/01/18 19:24:04 [debug] 18444#36916: *75 reusable connection: 0
+2026/01/18 19:24:04 [debug] 18444#36916: *75 free: 016E8150, unused: 88
+2026/01/18 19:24:23 [debug] 18444#36916: *73 event timer del: 608: 3521905206
+2026/01/18 19:24:23 [debug] 18444#36916: *73 http keepalive handler
+2026/01/18 19:24:23 [debug] 18444#36916: *73 close http connection: 608
+2026/01/18 19:24:23 [debug] 18444#36916: *73 select del event fd:608 ev:768
+2026/01/18 19:24:23 [debug] 18444#36916: *73 reusable connection: 0
+2026/01/18 19:24:23 [debug] 18444#36916: *73 free: 00000000
+2026/01/18 19:24:23 [debug] 18444#36916: *73 free: 00000000
+2026/01/18 19:24:23 [debug] 18444#36916: *73 free: 016C8750, unused: 8
+2026/01/18 19:24:23 [debug] 18444#36916: *73 free: 016E7F50, unused: 16
+2026/01/18 19:24:23 [debug] 18444#36916: *73 free: 016E7B48, unused: 184
+2026/01/18 19:24:53 [debug] 18444#36916: post event 0171EB00
+2026/01/18 19:24:53 [debug] 18444#36916: delete posted event 0171EB00
+2026/01/18 19:24:53 [debug] 18444#36916: accept on 0.0.0.0:8080, ready: 0
+2026/01/18 19:24:53 [debug] 18444#36916: malloc: 016E1188:256
+2026/01/18 19:24:53 [debug] 18444#36916: *80 accept: 127.0.0.1:61147 fd:156
+2026/01/18 19:24:53 [debug] 18444#36916: *80 event timer add: 156: 60000:3521994762
+2026/01/18 19:24:53 [debug] 18444#36916: *80 reusable connection: 1
+2026/01/18 19:24:53 [debug] 18444#36916: *80 select add event fd:156 ev:768
+2026/01/18 19:24:53 [debug] 18444#36916: post event 0171EB00
+2026/01/18 19:24:53 [debug] 18444#36916: delete posted event 0171EB00
+2026/01/18 19:24:53 [debug] 18444#36916: accept on 0.0.0.0:8080, ready: 0
+2026/01/18 19:24:53 [debug] 18444#36916: malloc: 016E7B10:256
+2026/01/18 19:24:53 [debug] 18444#36916: *81 accept: 127.0.0.1:65273 fd:652
+2026/01/18 19:24:53 [debug] 18444#36916: *81 event timer add: 652: 60000:3521994762
+2026/01/18 19:24:53 [debug] 18444#36916: *81 reusable connection: 1
+2026/01/18 19:24:53 [debug] 18444#36916: *81 select add event fd:652 ev:768
+2026/01/18 19:24:54 [debug] 18444#36916: *80 post event 0171EB50
+2026/01/18 19:24:54 [debug] 18444#36916: *80 delete posted event 0171EB50
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http wait request handler
+2026/01/18 19:24:54 [debug] 18444#36916: *80 malloc: 016C85A0:1024
+2026/01/18 19:24:54 [debug] 18444#36916: *80 WSARecv: fd:156 rc:0 1024 of 1024
+2026/01/18 19:24:54 [debug] 18444#36916: *80 WSARecv: avail:570
+2026/01/18 19:24:54 [debug] 18444#36916: *80 reusable connection: 0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 malloc: 016E00C8:4096
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http process request line
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http request line: "GET / HTTP/1.1"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http uri: "/"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http args: ""
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http exten: ""
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http process request header line
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Host: localhost:8080"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Connection: keep-alive"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Pragma: no-cache"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Cache-Control: no-cache"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24""
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "sec-ch-ua-mobile: ?0"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "sec-ch-ua-platform: "Windows""
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Upgrade-Insecure-Requests: 1"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Sec-Fetch-Site: none"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Sec-Fetch-Mode: navigate"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Sec-Fetch-User: ?1"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Sec-Fetch-Dest: document"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Accept-Encoding: gzip, deflate, br, zstd"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http alloc large header buffer
+2026/01/18 19:24:54 [debug] 18444#36916: *80 malloc: 016E8928:256
+2026/01/18 19:24:54 [debug] 18444#36916: *80 malloc: 01746B10:8192
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http large header alloc: 01746B10 8192
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http large header copy: 298
+2026/01/18 19:24:54 [debug] 18444#36916: *80 WSARecv: fd:156 rc:0 570 of 7894
+2026/01/18 19:24:54 [debug] 18444#36916: *80 WSARecv: avail:0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Cookie: Webstorm-df7b7af9=778e14db-b635-4f69-b0a2-1df8b8bb853b; _ym_uid=1750951294973855952; _ym_d=1750951294; csrf_access_token=993a760f-bc98-4ff4-b603-0a6ed8fbc39e; Pycharm-cffab074=56949a2a-3e29-4a34-8202-2c5bf861a9db; access_token_cookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0MkBxLmNvbSIsImp0aSI6IjM0ZmVhM2RiLWU2N2MtNGU0Ni05M2VkLWYzMjk0NjA3N2M3YyIsInR5cGUiOiJhY2Nlc3MiLCJmcmVzaCI6ZmFsc2UsImNzcmYiOiIiLCJpYXQiOjE3NjcwMzEyNDUsImV4cCI6MTc2NzAzMjE0NS4yNzg1ODUsImxvZ2luIjoidDJAcS5jb20iLCJpc19hZG1pbiI6MH0.MxAV1tzLALPYW5iMFlVRM_mGxMUisL3dAQsAMmKYAtk; auth_cookies=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGVzaHVzMjAwN0BnbWFpbC5jb20iLCJqdGkiOiJiODk1NGQ0MC0wZTdlLTRhYTItYTU3Ni0yMWQxYTM4MzgxY2EiLCJ0eXBlIjoiYWNjZXNzIiwiZnJlc2giOmZhbHNlLCJjc3JmIjoiIiwiaWF0IjoxNzY4NzI4NTMxLCJleHAiOjE3Njg3Mjk0MzEuODUxNDEyfQ.wjvaebdfBOFAq0Y3LKoTRKK19VN15qJ6ZEzxFZBKwCE"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header done
+2026/01/18 19:24:54 [debug] 18444#36916: *80 event timer del: 156: 3521994762
+2026/01/18 19:24:54 [debug] 18444#36916: *80 generic phase: 0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 rewrite phase: 1
+2026/01/18 19:24:54 [debug] 18444#36916: *80 test location: "/"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 using configuration "/"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http cl:-1 max:1048576
+2026/01/18 19:24:54 [debug] 18444#36916: *80 rewrite phase: 3
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http set discard body
+2026/01/18 19:24:54 [debug] 18444#36916: *80 HTTP/1.1 404 Not Found
+Server: nginx/1.28.1
+Date: Sun, 18 Jan 2026 16:24:54 GMT
+Content-Type: application/octet-stream
+Content-Length: 163
+Connection: keep-alive
+X-Nginx-Location: ROOT-404
+
+2026/01/18 19:24:54 [debug] 18444#36916: *80 write new buf t:1 f:0 016E0BE0, pos 016E0BE0, size: 198 file: 0, size: 0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http write filter: l:0 f:0 s:198
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http output filter "/?"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http copy filter: "/?"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http postpone filter "/?" 0392F8F4
+2026/01/18 19:24:54 [debug] 18444#36916: *80 write old buf t:1 f:0 016E0BE0, pos 016E0BE0, size: 198 file: 0, size: 0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 write new buf t:0 f:0 00000000, pos 016F4D7B, size: 163 file: 0, size: 0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http write filter: l:1 f:0 s:361
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http write filter limit 2097152
+2026/01/18 19:24:54 [debug] 18444#36916: *80 WSASend: fd:156, s:361
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http write filter 00000000
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http copy filter: 0 "/?"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http finalize request: 0, "/?" a:1, c:1
+2026/01/18 19:24:54 [debug] 18444#36916: *80 set http keepalive handler
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http close request
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http log handler
+2026/01/18 19:24:54 [debug] 18444#36916: *80 free: 016E00C8, unused: 748
+2026/01/18 19:24:54 [debug] 18444#36916: *80 free: 016C85A0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 hc free: 00000000
+2026/01/18 19:24:54 [debug] 18444#36916: *80 hc busy: 016E1278 1
+2026/01/18 19:24:54 [debug] 18444#36916: *80 free: 01746B10
+2026/01/18 19:24:54 [debug] 18444#36916: *80 tcp_nodelay
+2026/01/18 19:24:54 [debug] 18444#36916: *80 reusable connection: 1
+2026/01/18 19:24:54 [debug] 18444#36916: *80 event timer add: 156: 75000:3522010889
+2026/01/18 19:24:54 [debug] 18444#36916: *80 post event 0171EB50
+2026/01/18 19:24:54 [debug] 18444#36916: *80 delete posted event 0171EB50
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http keepalive handler
+2026/01/18 19:24:54 [debug] 18444#36916: *80 malloc: 016C85A0:1024
+2026/01/18 19:24:54 [debug] 18444#36916: *80 WSARecv: fd:156 rc:0 1024 of 1024
+2026/01/18 19:24:54 [debug] 18444#36916: *80 WSARecv: avail:570
+2026/01/18 19:24:54 [debug] 18444#36916: *80 reusable connection: 0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 malloc: 016E00C8:4096
+2026/01/18 19:24:54 [debug] 18444#36916: *80 event timer del: 156: 3522010889
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http process request line
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http request line: "GET / HTTP/1.1"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http uri: "/"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http args: ""
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http exten: ""
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http process request header line
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Host: localhost:8080"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Connection: keep-alive"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Pragma: no-cache"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Cache-Control: no-cache"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24""
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "sec-ch-ua-mobile: ?0"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "sec-ch-ua-platform: "Windows""
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Upgrade-Insecure-Requests: 1"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Sec-Fetch-Site: none"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Sec-Fetch-Mode: navigate"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Sec-Fetch-User: ?1"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Sec-Fetch-Dest: document"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Accept-Encoding: gzip, deflate, br, zstd"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http alloc large header buffer
+2026/01/18 19:24:54 [debug] 18444#36916: *80 malloc: 01746B10:8192
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http large header alloc: 01746B10 8192
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http large header copy: 298
+2026/01/18 19:24:54 [debug] 18444#36916: *80 WSARecv: fd:156 rc:0 570 of 7894
+2026/01/18 19:24:54 [debug] 18444#36916: *80 WSARecv: avail:0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header: "Cookie: Webstorm-df7b7af9=778e14db-b635-4f69-b0a2-1df8b8bb853b; _ym_uid=1750951294973855952; _ym_d=1750951294; csrf_access_token=993a760f-bc98-4ff4-b603-0a6ed8fbc39e; Pycharm-cffab074=56949a2a-3e29-4a34-8202-2c5bf861a9db; access_token_cookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0MkBxLmNvbSIsImp0aSI6IjM0ZmVhM2RiLWU2N2MtNGU0Ni05M2VkLWYzMjk0NjA3N2M3YyIsInR5cGUiOiJhY2Nlc3MiLCJmcmVzaCI6ZmFsc2UsImNzcmYiOiIiLCJpYXQiOjE3NjcwMzEyNDUsImV4cCI6MTc2NzAzMjE0NS4yNzg1ODUsImxvZ2luIjoidDJAcS5jb20iLCJpc19hZG1pbiI6MH0.MxAV1tzLALPYW5iMFlVRM_mGxMUisL3dAQsAMmKYAtk; auth_cookies=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGVzaHVzMjAwN0BnbWFpbC5jb20iLCJqdGkiOiJiODk1NGQ0MC0wZTdlLTRhYTItYTU3Ni0yMWQxYTM4MzgxY2EiLCJ0eXBlIjoiYWNjZXNzIiwiZnJlc2giOmZhbHNlLCJjc3JmIjoiIiwiaWF0IjoxNzY4NzI4NTMxLCJleHAiOjE3Njg3Mjk0MzEuODUxNDEyfQ.wjvaebdfBOFAq0Y3LKoTRKK19VN15qJ6ZEzxFZBKwCE"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http header done
+2026/01/18 19:24:54 [debug] 18444#36916: *80 generic phase: 0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 rewrite phase: 1
+2026/01/18 19:24:54 [debug] 18444#36916: *80 test location: "/"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 using configuration "/"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http cl:-1 max:1048576
+2026/01/18 19:24:54 [debug] 18444#36916: *80 rewrite phase: 3
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http set discard body
+2026/01/18 19:24:54 [debug] 18444#36916: *80 HTTP/1.1 404 Not Found
+Server: nginx/1.28.1
+Date: Sun, 18 Jan 2026 16:24:54 GMT
+Content-Type: application/octet-stream
+Content-Length: 163
+Connection: keep-alive
+X-Nginx-Location: ROOT-404
+
+2026/01/18 19:24:54 [debug] 18444#36916: *80 write new buf t:1 f:0 016E0BE0, pos 016E0BE0, size: 198 file: 0, size: 0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http write filter: l:0 f:0 s:198
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http output filter "/?"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http copy filter: "/?"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http postpone filter "/?" 0392F8F4
+2026/01/18 19:24:54 [debug] 18444#36916: *80 write old buf t:1 f:0 016E0BE0, pos 016E0BE0, size: 198 file: 0, size: 0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 write new buf t:0 f:0 00000000, pos 016F4D7B, size: 163 file: 0, size: 0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http write filter: l:1 f:0 s:361
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http write filter limit 2097152
+2026/01/18 19:24:54 [debug] 18444#36916: *80 WSASend: fd:156, s:361
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http write filter 00000000
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http copy filter: 0 "/?"
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http finalize request: 0, "/?" a:1, c:1
+2026/01/18 19:24:54 [debug] 18444#36916: *80 set http keepalive handler
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http close request
+2026/01/18 19:24:54 [debug] 18444#36916: *80 http log handler
+2026/01/18 19:24:54 [debug] 18444#36916: *80 free: 016E00C8, unused: 748
+2026/01/18 19:24:54 [debug] 18444#36916: *80 free: 016C85A0
+2026/01/18 19:24:54 [debug] 18444#36916: *80 hc free: 00000000
+2026/01/18 19:24:54 [debug] 18444#36916: *80 hc busy: 016E1278 1
+2026/01/18 19:24:54 [debug] 18444#36916: *80 free: 01746B10
+2026/01/18 19:24:54 [debug] 18444#36916: *80 reusable connection: 1
+2026/01/18 19:24:54 [debug] 18444#36916: *80 event timer add: 156: 75000:3522011085
+2026/01/18 19:24:55 [debug] 18444#36916: *80 post event 0171EB50
+2026/01/18 19:24:55 [debug] 18444#36916: *80 delete posted event 0171EB50
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http keepalive handler
+2026/01/18 19:24:55 [debug] 18444#36916: *80 malloc: 016C85A0:1024
+2026/01/18 19:24:55 [debug] 18444#36916: *80 WSARecv: fd:156 rc:0 1024 of 1024
+2026/01/18 19:24:55 [debug] 18444#36916: *80 WSARecv: avail:570
+2026/01/18 19:24:55 [debug] 18444#36916: *80 reusable connection: 0
+2026/01/18 19:24:55 [debug] 18444#36916: *80 malloc: 016E00C8:4096
+2026/01/18 19:24:55 [debug] 18444#36916: *80 event timer del: 156: 3522011085
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http process request line
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http request line: "GET / HTTP/1.1"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http uri: "/"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http args: ""
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http exten: ""
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http process request header line
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "Host: localhost:8080"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "Connection: keep-alive"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "Pragma: no-cache"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "Cache-Control: no-cache"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24""
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "sec-ch-ua-mobile: ?0"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "sec-ch-ua-platform: "Windows""
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "Upgrade-Insecure-Requests: 1"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "Sec-Fetch-Site: none"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "Sec-Fetch-Mode: navigate"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "Sec-Fetch-User: ?1"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "Sec-Fetch-Dest: document"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "Accept-Encoding: gzip, deflate, br, zstd"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http alloc large header buffer
+2026/01/18 19:24:55 [debug] 18444#36916: *80 malloc: 01746B10:8192
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http large header alloc: 01746B10 8192
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http large header copy: 298
+2026/01/18 19:24:55 [debug] 18444#36916: *80 WSARecv: fd:156 rc:0 570 of 7894
+2026/01/18 19:24:55 [debug] 18444#36916: *80 WSARecv: avail:0
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header: "Cookie: Webstorm-df7b7af9=778e14db-b635-4f69-b0a2-1df8b8bb853b; _ym_uid=1750951294973855952; _ym_d=1750951294; csrf_access_token=993a760f-bc98-4ff4-b603-0a6ed8fbc39e; Pycharm-cffab074=56949a2a-3e29-4a34-8202-2c5bf861a9db; access_token_cookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0MkBxLmNvbSIsImp0aSI6IjM0ZmVhM2RiLWU2N2MtNGU0Ni05M2VkLWYzMjk0NjA3N2M3YyIsInR5cGUiOiJhY2Nlc3MiLCJmcmVzaCI6ZmFsc2UsImNzcmYiOiIiLCJpYXQiOjE3NjcwMzEyNDUsImV4cCI6MTc2NzAzMjE0NS4yNzg1ODUsImxvZ2luIjoidDJAcS5jb20iLCJpc19hZG1pbiI6MH0.MxAV1tzLALPYW5iMFlVRM_mGxMUisL3dAQsAMmKYAtk; auth_cookies=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGVzaHVzMjAwN0BnbWFpbC5jb20iLCJqdGkiOiJiODk1NGQ0MC0wZTdlLTRhYTItYTU3Ni0yMWQxYTM4MzgxY2EiLCJ0eXBlIjoiYWNjZXNzIiwiZnJlc2giOmZhbHNlLCJjc3JmIjoiIiwiaWF0IjoxNzY4NzI4NTMxLCJleHAiOjE3Njg3Mjk0MzEuODUxNDEyfQ.wjvaebdfBOFAq0Y3LKoTRKK19VN15qJ6ZEzxFZBKwCE"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http header done
+2026/01/18 19:24:55 [debug] 18444#36916: *80 generic phase: 0
+2026/01/18 19:24:55 [debug] 18444#36916: *80 rewrite phase: 1
+2026/01/18 19:24:55 [debug] 18444#36916: *80 test location: "/"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 using configuration "/"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http cl:-1 max:1048576
+2026/01/18 19:24:55 [debug] 18444#36916: *80 rewrite phase: 3
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http set discard body
+2026/01/18 19:24:55 [debug] 18444#36916: *80 HTTP/1.1 404 Not Found
+Server: nginx/1.28.1
+Date: Sun, 18 Jan 2026 16:24:55 GMT
+Content-Type: application/octet-stream
+Content-Length: 163
+Connection: keep-alive
+X-Nginx-Location: ROOT-404
+
+2026/01/18 19:24:55 [debug] 18444#36916: *80 write new buf t:1 f:0 016E0BE0, pos 016E0BE0, size: 198 file: 0, size: 0
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http write filter: l:0 f:0 s:198
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http output filter "/?"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http copy filter: "/?"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http postpone filter "/?" 0392F8F4
+2026/01/18 19:24:55 [debug] 18444#36916: *80 write old buf t:1 f:0 016E0BE0, pos 016E0BE0, size: 198 file: 0, size: 0
+2026/01/18 19:24:55 [debug] 18444#36916: *80 write new buf t:0 f:0 00000000, pos 016F4D7B, size: 163 file: 0, size: 0
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http write filter: l:1 f:0 s:361
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http write filter limit 2097152
+2026/01/18 19:24:55 [debug] 18444#36916: *80 WSASend: fd:156, s:361
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http write filter 00000000
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http copy filter: 0 "/?"
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http finalize request: 0, "/?" a:1, c:1
+2026/01/18 19:24:55 [debug] 18444#36916: *80 set http keepalive handler
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http close request
+2026/01/18 19:24:55 [debug] 18444#36916: *80 http log handler
+2026/01/18 19:24:55 [debug] 18444#36916: *80 free: 016E00C8, unused: 748
+2026/01/18 19:24:55 [debug] 18444#36916: *80 free: 016C85A0
+2026/01/18 19:24:55 [debug] 18444#36916: *80 hc free: 00000000
+2026/01/18 19:24:55 [debug] 18444#36916: *80 hc busy: 016E1278 1
+2026/01/18 19:24:55 [debug] 18444#36916: *80 free: 01746B10
+2026/01/18 19:24:55 [debug] 18444#36916: *80 reusable connection: 1
+2026/01/18 19:24:55 [debug] 18444#36916: *80 event timer add: 156: 75000:3522012123
+2026/01/18 19:25:00 [debug] 18444#36916: *80 post event 0171EB50
+2026/01/18 19:25:00 [debug] 18444#36916: *80 delete posted event 0171EB50
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http keepalive handler
+2026/01/18 19:25:00 [debug] 18444#36916: *80 malloc: 016C85A0:1024
+2026/01/18 19:25:00 [debug] 18444#36916: *80 WSARecv: fd:156 rc:0 1024 of 1024
+2026/01/18 19:25:00 [debug] 18444#36916: *80 WSARecv: avail:570
+2026/01/18 19:25:00 [debug] 18444#36916: *80 reusable connection: 0
+2026/01/18 19:25:00 [debug] 18444#36916: *80 malloc: 016E00C8:4096
+2026/01/18 19:25:00 [debug] 18444#36916: *80 event timer del: 156: 3522012123
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http process request line
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http request line: "GET / HTTP/1.1"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http uri: "/"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http args: ""
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http exten: ""
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http process request header line
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "Host: localhost:8080"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "Connection: keep-alive"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "Pragma: no-cache"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "Cache-Control: no-cache"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24""
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "sec-ch-ua-mobile: ?0"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "sec-ch-ua-platform: "Windows""
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "Upgrade-Insecure-Requests: 1"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "Sec-Fetch-Site: none"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "Sec-Fetch-Mode: navigate"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "Sec-Fetch-User: ?1"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "Sec-Fetch-Dest: document"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "Accept-Encoding: gzip, deflate, br, zstd"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http alloc large header buffer
+2026/01/18 19:25:00 [debug] 18444#36916: *80 malloc: 01746B10:8192
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http large header alloc: 01746B10 8192
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http large header copy: 298
+2026/01/18 19:25:00 [debug] 18444#36916: *80 WSARecv: fd:156 rc:0 570 of 7894
+2026/01/18 19:25:00 [debug] 18444#36916: *80 WSARecv: avail:0
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header: "Cookie: Webstorm-df7b7af9=778e14db-b635-4f69-b0a2-1df8b8bb853b; _ym_uid=1750951294973855952; _ym_d=1750951294; csrf_access_token=993a760f-bc98-4ff4-b603-0a6ed8fbc39e; Pycharm-cffab074=56949a2a-3e29-4a34-8202-2c5bf861a9db; access_token_cookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0MkBxLmNvbSIsImp0aSI6IjM0ZmVhM2RiLWU2N2MtNGU0Ni05M2VkLWYzMjk0NjA3N2M3YyIsInR5cGUiOiJhY2Nlc3MiLCJmcmVzaCI6ZmFsc2UsImNzcmYiOiIiLCJpYXQiOjE3NjcwMzEyNDUsImV4cCI6MTc2NzAzMjE0NS4yNzg1ODUsImxvZ2luIjoidDJAcS5jb20iLCJpc19hZG1pbiI6MH0.MxAV1tzLALPYW5iMFlVRM_mGxMUisL3dAQsAMmKYAtk; auth_cookies=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGVzaHVzMjAwN0BnbWFpbC5jb20iLCJqdGkiOiJiODk1NGQ0MC0wZTdlLTRhYTItYTU3Ni0yMWQxYTM4MzgxY2EiLCJ0eXBlIjoiYWNjZXNzIiwiZnJlc2giOmZhbHNlLCJjc3JmIjoiIiwiaWF0IjoxNzY4NzI4NTMxLCJleHAiOjE3Njg3Mjk0MzEuODUxNDEyfQ.wjvaebdfBOFAq0Y3LKoTRKK19VN15qJ6ZEzxFZBKwCE"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http header done
+2026/01/18 19:25:00 [debug] 18444#36916: *80 generic phase: 0
+2026/01/18 19:25:00 [debug] 18444#36916: *80 rewrite phase: 1
+2026/01/18 19:25:00 [debug] 18444#36916: *80 test location: "/"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 using configuration "/"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http cl:-1 max:1048576
+2026/01/18 19:25:00 [debug] 18444#36916: *80 rewrite phase: 3
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http set discard body
+2026/01/18 19:25:00 [debug] 18444#36916: *80 HTTP/1.1 404 Not Found
+Server: nginx/1.28.1
+Date: Sun, 18 Jan 2026 16:25:00 GMT
+Content-Type: application/octet-stream
+Content-Length: 163
+Connection: keep-alive
+X-Nginx-Location: ROOT-404
+
+2026/01/18 19:25:00 [debug] 18444#36916: *80 write new buf t:1 f:0 016E0BE0, pos 016E0BE0, size: 198 file: 0, size: 0
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http write filter: l:0 f:0 s:198
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http output filter "/?"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http copy filter: "/?"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http postpone filter "/?" 0392F8F4
+2026/01/18 19:25:00 [debug] 18444#36916: *80 write old buf t:1 f:0 016E0BE0, pos 016E0BE0, size: 198 file: 0, size: 0
+2026/01/18 19:25:00 [debug] 18444#36916: *80 write new buf t:0 f:0 00000000, pos 016F4D7B, size: 163 file: 0, size: 0
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http write filter: l:1 f:0 s:361
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http write filter limit 2097152
+2026/01/18 19:25:00 [debug] 18444#36916: *80 WSASend: fd:156, s:361
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http write filter 00000000
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http copy filter: 0 "/?"
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http finalize request: 0, "/?" a:1, c:1
+2026/01/18 19:25:00 [debug] 18444#36916: *80 set http keepalive handler
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http close request
+2026/01/18 19:25:00 [debug] 18444#36916: *80 http log handler
+2026/01/18 19:25:00 [debug] 18444#36916: *80 free: 016E00C8, unused: 748
+2026/01/18 19:25:00 [debug] 18444#36916: *80 free: 016C85A0
+2026/01/18 19:25:00 [debug] 18444#36916: *80 hc free: 00000000
+2026/01/18 19:25:00 [debug] 18444#36916: *80 hc busy: 016E1278 1
+2026/01/18 19:25:00 [debug] 18444#36916: *80 free: 01746B10
+2026/01/18 19:25:00 [debug] 18444#36916: *80 reusable connection: 1
+2026/01/18 19:25:00 [debug] 18444#36916: *80 event timer add: 156: 75000:3522017154
+2026/01/18 19:25:19 [notice] 11660#16624: signal process started
+2026/01/18 19:25:20 [debug] 18444#36916: select del event fd:556 ev:768
+2026/01/18 19:25:20 [debug] 18444#36916: *80 http keepalive handler
+2026/01/18 19:25:20 [debug] 18444#36916: *80 close http connection: 156
+2026/01/18 19:25:20 [debug] 18444#36916: *80 event timer del: 156: 3522017154
+2026/01/18 19:25:20 [debug] 18444#36916: *80 select del event fd:156 ev:768
+2026/01/18 19:25:20 [debug] 18444#36916: *80 reusable connection: 0
+2026/01/18 19:25:20 [debug] 18444#36916: *80 free: 00000000
+2026/01/18 19:25:20 [debug] 18444#36916: *80 free: 00000000
+2026/01/18 19:25:20 [debug] 18444#36916: *80 free: 016E1188, unused: 8
+2026/01/18 19:25:20 [debug] 18444#36916: *80 free: 016E8928, unused: 16
+2026/01/18 19:25:22 [debug] 18444#36916: *81 post event 0171EBF0
+2026/01/18 19:25:22 [debug] 18444#36916: *81 delete posted event 0171EBF0
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http wait request handler
+2026/01/18 19:25:22 [debug] 18444#36916: *81 malloc: 016C85A0:1024
+2026/01/18 19:25:22 [debug] 18444#36916: *81 WSARecv: fd:652 rc:0 1024 of 1024
+2026/01/18 19:25:22 [debug] 18444#36916: *81 WSARecv: avail:570
+2026/01/18 19:25:22 [debug] 18444#36916: *81 reusable connection: 0
+2026/01/18 19:25:22 [debug] 18444#36916: *81 malloc: 016E00C8:4096
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http process request line
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http request line: "GET / HTTP/1.1"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http uri: "/"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http args: ""
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http exten: ""
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http process request header line
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "Host: localhost:8080"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "Connection: keep-alive"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "Pragma: no-cache"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "Cache-Control: no-cache"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24""
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "sec-ch-ua-mobile: ?0"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "sec-ch-ua-platform: "Windows""
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "Upgrade-Insecure-Requests: 1"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "Sec-Fetch-Site: none"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "Sec-Fetch-Mode: navigate"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "Sec-Fetch-User: ?1"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "Sec-Fetch-Dest: document"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "Accept-Encoding: gzip, deflate, br, zstd"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "Accept-Language: ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http alloc large header buffer
+2026/01/18 19:25:22 [debug] 18444#36916: *81 malloc: 016ED050:256
+2026/01/18 19:25:22 [debug] 18444#36916: *81 malloc: 01746B10:8192
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http large header alloc: 01746B10 8192
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http large header copy: 298
+2026/01/18 19:25:22 [debug] 18444#36916: *81 WSARecv: fd:652 rc:0 570 of 7894
+2026/01/18 19:25:22 [debug] 18444#36916: *81 WSARecv: avail:0
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header: "Cookie: Webstorm-df7b7af9=778e14db-b635-4f69-b0a2-1df8b8bb853b; _ym_uid=1750951294973855952; _ym_d=1750951294; csrf_access_token=993a760f-bc98-4ff4-b603-0a6ed8fbc39e; Pycharm-cffab074=56949a2a-3e29-4a34-8202-2c5bf861a9db; access_token_cookie=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0MkBxLmNvbSIsImp0aSI6IjM0ZmVhM2RiLWU2N2MtNGU0Ni05M2VkLWYzMjk0NjA3N2M3YyIsInR5cGUiOiJhY2Nlc3MiLCJmcmVzaCI6ZmFsc2UsImNzcmYiOiIiLCJpYXQiOjE3NjcwMzEyNDUsImV4cCI6MTc2NzAzMjE0NS4yNzg1ODUsImxvZ2luIjoidDJAcS5jb20iLCJpc19hZG1pbiI6MH0.MxAV1tzLALPYW5iMFlVRM_mGxMUisL3dAQsAMmKYAtk; auth_cookies=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhbGVzaHVzMjAwN0BnbWFpbC5jb20iLCJqdGkiOiJiODk1NGQ0MC0wZTdlLTRhYTItYTU3Ni0yMWQxYTM4MzgxY2EiLCJ0eXBlIjoiYWNjZXNzIiwiZnJlc2giOmZhbHNlLCJjc3JmIjoiIiwiaWF0IjoxNzY4NzI4NTMxLCJleHAiOjE3Njg3Mjk0MzEuODUxNDEyfQ.wjvaebdfBOFAq0Y3LKoTRKK19VN15qJ6ZEzxFZBKwCE"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http header done
+2026/01/18 19:25:22 [debug] 18444#36916: *81 event timer del: 652: 3521994762
+2026/01/18 19:25:22 [debug] 18444#36916: *81 generic phase: 0
+2026/01/18 19:25:22 [debug] 18444#36916: *81 rewrite phase: 1
+2026/01/18 19:25:22 [debug] 18444#36916: *81 test location: "/"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 using configuration "/"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http cl:-1 max:1048576
+2026/01/18 19:25:22 [debug] 18444#36916: *81 rewrite phase: 3
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http set discard body
+2026/01/18 19:25:22 [debug] 18444#36916: *81 HTTP/1.1 404 Not Found
+Server: nginx/1.28.1
+Date: Sun, 18 Jan 2026 16:25:22 GMT
+Content-Type: application/octet-stream
+Content-Length: 163
+Connection: close
+X-Nginx-Location: ROOT-404
+
+2026/01/18 19:25:22 [debug] 18444#36916: *81 write new buf t:1 f:0 016E0BE0, pos 016E0BE0, size: 193 file: 0, size: 0
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http write filter: l:0 f:0 s:193
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http output filter "/?"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http copy filter: "/?"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http postpone filter "/?" 0392F8F4
+2026/01/18 19:25:22 [debug] 18444#36916: *81 write old buf t:1 f:0 016E0BE0, pos 016E0BE0, size: 193 file: 0, size: 0
+2026/01/18 19:25:22 [debug] 18444#36916: *81 write new buf t:0 f:0 00000000, pos 016F4D7B, size: 163 file: 0, size: 0
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http write filter: l:1 f:0 s:356
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http write filter limit 2097152
+2026/01/18 19:25:22 [debug] 18444#36916: *81 WSASend: fd:652, s:356
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http write filter 00000000
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http copy filter: 0 "/?"
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http finalize request: 0, "/?" a:1, c:1
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http request count:1 blk:0
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http close request
+2026/01/18 19:25:22 [debug] 18444#36916: *81 http log handler
+2026/01/18 19:25:22 [debug] 18444#36916: *81 free: 016E00C8, unused: 752
+2026/01/18 19:25:22 [debug] 18444#36916: *81 close http connection: 652
+2026/01/18 19:25:22 [debug] 18444#36916: *81 select del event fd:652 ev:768
+2026/01/18 19:25:22 [debug] 18444#36916: *81 reusable connection: 0
+2026/01/18 19:25:22 [debug] 18444#36916: *81 free: 01746B10
+2026/01/18 19:25:22 [debug] 18444#36916: *81 free: 016C85A0
+2026/01/18 19:25:22 [debug] 18444#36916: *81 free: 016E7B10, unused: 8
+2026/01/18 19:25:22 [debug] 18444#36916: *81 free: 016ED050, unused: 184
+2026/01/18 19:25:39 [error] 2528#5180: *83 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/auth/login HTTP/1.1", upstream: "http://[::1]:1111/auth/login", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:30:35 [notice] 8896#24740: signal process started
+2026/01/18 19:30:49 [error] 19408#25352: *87 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/auth/login HTTP/1.1", upstream: "http://[::1]:1111/auth/login", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:30:51 [error] 19408#25352: *87 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/account/get_created_urls HTTP/1.1", upstream: "http://[::1]:2222/account/get_created_urls", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:31:31 [error] 19408#25352: *87 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/create_slug HTTP/1.1", upstream: "http://[::1]:2222/create_slug", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:31:32 [error] 19408#25352: *88 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/account/get_created_urls HTTP/1.1", upstream: "http://[::1]:1111/account/get_created_urls", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:33:38 [error] 19408#25352: *104 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://[::1]:1111/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:33:40 [error] 19408#25352: *104 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://[::1]:2222/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:02 [error] 19408#25352: *108 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/account/get_created_urls HTTP/1.1", upstream: "http://127.0.0.1:2222/account/get_created_urls", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:03 [error] 19408#25352: *109 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://127.0.0.1:1111/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:04 [error] 19408#25352: *108 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/account/get_created_urls HTTP/1.1", upstream: "http://[::1]:2222/account/get_created_urls", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:04 [error] 19408#25352: *108 no live upstreams while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/account/get_created_urls HTTP/1.1", upstream: "http://api_backend/account/get_created_urls", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:05 [error] 19408#25352: *109 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://[::1]:1111/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:05 [error] 19408#25352: *109 no live upstreams while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://api_backend/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:12 [error] 19408#25352: *109 no live upstreams while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/account/get_created_urls HTTP/1.1", upstream: "http://api_backend/account/get_created_urls", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:12 [error] 19408#25352: *109 no live upstreams while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/account/get_created_urls HTTP/1.1", upstream: "http://api_backend/account/get_created_urls", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:12 [error] 19408#25352: *109 no live upstreams while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/account/get_created_urls HTTP/1.1", upstream: "http://api_backend/account/get_created_urls", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:22 [error] 19408#25352: *109 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/account/get_created_urls HTTP/1.1", upstream: "http://127.0.0.1:2222/account/get_created_urls", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:23 [error] 19408#25352: *108 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://[::1]:1111/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:24 [error] 19408#25352: *111 no live upstreams while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://api_backend/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:24 [error] 19408#25352: *109 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/account/get_created_urls HTTP/1.1", upstream: "http://127.0.0.1:1111/account/get_created_urls", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:24 [error] 19408#25352: *109 no live upstreams while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/account/get_created_urls HTTP/1.1", upstream: "http://api_backend/account/get_created_urls", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:24 [error] 19408#25352: *109 no live upstreams while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/account/get_created_urls HTTP/1.1", upstream: "http://api_backend/account/get_created_urls", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:25 [error] 19408#25352: *108 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://[::1]:2222/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:25 [error] 19408#25352: *108 no live upstreams while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://api_backend/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:35:54 [notice] 38068#32464: signal process started
+2026/01/18 19:35:58 [error] 24804#16232: *119 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://[::1]:1111/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:36:00 [error] 24804#16232: *119 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://127.0.0.1:1111/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:36:02 [error] 24804#16232: *119 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://[::1]:2222/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:36:05 [error] 24804#16232: *119 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://127.0.0.1:2222/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:36:07 [error] 24804#16232: *119 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://[::1]:8000/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:37:59 [notice] 4396#10852: signal process started
+2026/01/18 19:38:16 [error] 30316#15060: *127 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://[::1]:1111/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:38:18 [error] 30316#15060: *127 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://127.0.0.1:1111/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:38:21 [error] 30316#15060: *127 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://[::1]:2222/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:38:23 [error] 30316#15060: *127 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://127.0.0.1:2222/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:38:25 [error] 30316#15060: *127 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/reset_password HTTP/1.1", upstream: "http://[::1]:8000/reset_password", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:40:06 [error] 30316#15060: *139 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/?token=wS7dqMTNd-HuEt10x07udkTFXHKGua7woj1_yxKBuMk HTTP/1.1", upstream: "http://[::1]:8000/?token=wS7dqMTNd-HuEt10x07udkTFXHKGua7woj1_yxKBuMk", host: "localhost:8080"
+2026/01/18 19:40:08 [error] 30316#15060: *139 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/?token=wS7dqMTNd-HuEt10x07udkTFXHKGua7woj1_yxKBuMk HTTP/1.1", upstream: "http://127.0.0.1:2222/?token=wS7dqMTNd-HuEt10x07udkTFXHKGua7woj1_yxKBuMk", host: "localhost:8080"
+2026/01/18 19:40:10 [error] 30316#15060: *139 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/css/styles.css HTTP/1.1", upstream: "http://127.0.0.1:1111/css/styles.css", host: "localhost:8080", referrer: "http://localhost:8080/api/?token=wS7dqMTNd-HuEt10x07udkTFXHKGua7woj1_yxKBuMk"
+2026/01/18 19:40:12 [error] 30316#15060: *139 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/css/styles.css HTTP/1.1", upstream: "http://[::1]:2222/css/styles.css", host: "localhost:8080", referrer: "http://localhost:8080/api/?token=wS7dqMTNd-HuEt10x07udkTFXHKGua7woj1_yxKBuMk"
+2026/01/18 19:40:12 [error] 30316#15060: *141 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/?token=wS7dqMTNd-HuEt10x07udkTFXHKGua7woj1_yxKBuMk HTTP/1.1", upstream: "http://[::1]:1111/?token=wS7dqMTNd-HuEt10x07udkTFXHKGua7woj1_yxKBuMk", host: "localhost:8080"
+2026/01/18 19:42:15 [notice] 36344#6104: signal process started
+2026/01/18 19:42:21 [error] 19940#14036: *148 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/logout HTTP/1.1", upstream: "http://[::1]:1111/logout", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:42:23 [error] 19940#14036: *148 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/logout HTTP/1.1", upstream: "http://127.0.0.1:1111/logout", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:42:25 [error] 19940#14036: *148 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/logout HTTP/1.1", upstream: "http://[::1]:2222/logout", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:42:27 [error] 19940#14036: *148 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/logout HTTP/1.1", upstream: "http://127.0.0.1:2222/logout", host: "localhost:8080", referrer: "http://localhost:8080/"
+2026/01/18 19:42:29 [error] 19940#14036: *148 connect() failed (10061: No connection could be made because the target machine actively refused it) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "POST /api/logout HTTP/1.1", upstream: "http://[::1]:8000/logout", host: "localhost:8080", referrer: "http://localhost:8080/"

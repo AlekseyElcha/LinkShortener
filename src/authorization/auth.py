@@ -334,11 +334,10 @@ async def get_user_id_by_login(login: str, session: AsyncSession):
     raise UserNotFoundError
 
 
-@router.put("/set_password_for_slug/{slug}")
+@router.put("/set_password_for_slug/{slug}", dependencies=[Depends(security.access_token_required)])
 async def set_password_on_link(slug: str,
-                               password_for_slug: str,
-                               session: Annotated[AsyncSession,
-                               Depends(get_session)],
+                               password_for_slug: Annotated[str, Body(embed=True)],
+                               session: Annotated[AsyncSession, Depends(get_session)],
                                request: Request
     ):
     user_id_required = await get_user_id_by_slug(slug=slug, session=session)
@@ -355,6 +354,28 @@ async def set_password_on_link(slug: str,
     except:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Не удалось установить пароль на ссылку.")
     return {"success": True}
+
+
+@router.put("/remove_password_for_slug/{slug}", dependencies=[Depends(security.access_token_required)])
+async def remove_password_for_slug(slug: str,
+                                   session: Annotated[AsyncSession, Depends(get_session)],
+                                   request: Request):
+    user_id_required = await get_user_id_by_slug(slug=slug, session=session)
+    if user_id_required is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Не удается найти пользователя по ссылке.")
+    user_is_valid = await check_user_auth(request=request, session=session, id_to_check=user_id_required)
+    if not user_is_valid:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, detail="Нет доступа.")
+
+    query = update(ShortURL).where(ShortURL.slug == slug).values(password=None)
+    try:
+        await session.execute(query)
+        await session.commit()
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Не удалось установить пароль на ссылку.")
+    return {"success": True}
+
+
 
 
 async def check_password_for_protected_slug(slug: str, password_for_slug: str, session: AsyncSession):

@@ -453,6 +453,70 @@
         </div>
     </div>
 
+    <!-- Модальное окно установки пароля -->
+    <div id="set-password-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content password-modal">
+            <div class="modal-header">
+                <h3>Установить пароль на ссылку</h3>
+                <button class="modal-close" onclick="closeSetPasswordModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="password-info">
+                    <div class="info-icon">🔒</div>
+                    <p>После установки пароля для перехода по ссылке потребуется его ввод</p>
+                </div>
+                <div class="form-group">
+                    <label for="new-slug-password">Новый пароль:</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="new-slug-password" class="form-input" placeholder="Введите пароль" required>
+                        <button type="button" class="password-toggle" onclick="toggleNewSlugPassword()">
+                            <span id="new-slug-password-icon">👁️</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-slug-password">Подтвердите пароль:</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="confirm-slug-password" class="form-input" placeholder="Подтвердите пароль" required>
+                        <button type="button" class="password-toggle" onclick="toggleConfirmSlugPassword()">
+                            <span id="confirm-slug-password-icon">👁️</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-button" onclick="closeSetPasswordModal()">Отмена</button>
+                <button class="submit-button" onclick="confirmSetPassword()">Установить пароль</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно удаления пароля -->
+    <div id="remove-password-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content password-modal">
+            <div class="modal-header">
+                <h3>Удалить пароль с ссылки</h3>
+                <button class="modal-close" onclick="closeRemovePasswordModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="warning-icon">⚠️</div>
+                <p class="warning-text">Вы уверены, что хотите удалить пароль с этой ссылки?</p>
+                <div class="warning-details">
+                    <p>• После удаления пароля ссылка станет доступна всем</p>
+                    <p>• Любой пользователь сможет перейти по ней без ввода пароля</p>
+                </div>
+                <div class="password-url-info">
+                    <div class="password-url-label">Короткая ссылка:</div>
+                    <div id="password-url-short" class="password-url-value"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-button" onclick="closeRemovePasswordModal()">Отмена</button>
+                <button class="remove-password-confirm-button" onclick="confirmRemovePassword()">Удалить пароль</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         console.log('=== Скрипт начал загрузку ===');
 
@@ -465,6 +529,7 @@
         let currentStatisticsData = null;
         let currentDashboardData = null;
         let slugToDelete = null;
+        let currentPasswordSlug = null;
 
         // Функция создания/обновления графика с Chart.js
         function createChart(data) {
@@ -885,11 +950,14 @@
                 const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
                 
                 // const response = await fetch('/api/account/get_created_urls', {
+                const token = localStorage.getItem('access_token');
                 const response = await fetch(`/account/get_created_urls?user_tz=${encodeURIComponent(userTimezone)}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                    }
+                        'Authorization': `Bearer ${token}`
+                    },
+                    credentials: 'include'
                 });
 
                 if (response.ok) {
@@ -991,6 +1059,9 @@
                             <button class="expiration-button" data-slug="${url.slug}" data-has-expiration="${url.expiration_date ? 'true' : 'false'}">
                                 ${url.expiration_date ? 'Изменить срок' : 'Установить срок'}
                             </button>
+                            <button class="password-button" data-slug="${url.slug}" data-has-password="${url.password ? 'true' : 'false'}">
+                                ${url.password ? 'Убрать пароль' : 'Поставить пароль'}
+                            </button>
                             <button class="customize-slug-button" data-slug="${url.slug}" data-short-url="${shortUrl}">Изменить адрес</button>
                             <button class="delete-button" data-slug="${url.slug}" data-short-url="${shortUrl}">Удалить</button>
                         </div>
@@ -1018,6 +1089,18 @@
                     const currentExpiration = urlData ? urlData.expiration_date : null;
                     
                     showExpirationModal(slug, hasExpiration, currentExpiration);
+                });
+            });
+
+            container.querySelectorAll('.password-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const slug = this.getAttribute('data-slug');
+                    const hasPassword = this.getAttribute('data-has-password') === 'true';
+                    if (hasPassword) {
+                        showRemovePasswordModal(slug);
+                    } else {
+                        showSetPasswordModal(slug);
+                    }
                 });
             });
 
@@ -1674,6 +1757,7 @@
                     if (response.ok) {
                         const data = await response.json();
 
+                        localStorage.setItem('access_token', data.access_token);
                         localStorage.setItem('isAuthenticated', 'true');
                         localStorage.setItem('username', username);
 
@@ -1997,11 +2081,14 @@
 
             try {
                 // const response = await fetch(`/api/delete_slug/${slugToDelete}`, {
+                const token = localStorage.getItem('access_token');
                 const response = await fetch(`/delete_slug/${slugToDelete}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
-                    }
+                        'Authorization': `Bearer ${token}`
+                    },
+                    credentials: 'include'
                 });
 
                 if (response.ok) {
@@ -2217,10 +2304,12 @@
             console.log('Определенная временная зона пользователя:', userTimezone);
             
             try {
+                const token = localStorage.getItem('access_token');
                 const response = await fetch(`/set_expiration_date/${currentExpirationSlug}?user_tz=${encodeURIComponent(userTimezone)}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     },
                     body: JSON.stringify({
                         year: year,
@@ -2248,11 +2337,14 @@
             if (!currentExpirationSlug) return;
             
             try {
+                const token = localStorage.getItem('access_token');
                 const response = await fetch(`/remove_expiration_date/${currentExpirationSlug}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                    }
+                        'Authorization': `Bearer ${token}`
+                    },
+                    credentials: 'include'
                 });
 
                 if (response.ok) {
@@ -2385,12 +2477,15 @@
             }
             
             try {
+                const token = localStorage.getItem('access_token');
                 const response = await fetch(`/account/customize_slug/${currentSlugToCustomize}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     },
-                    body: JSON.stringify({ new_slug: newSlug })
+                    body: JSON.stringify({ new_slug: newSlug }),
+                    credentials: 'include'
                 });
 
                 if (response.ok) {
@@ -2416,6 +2511,8 @@
             const deleteModal = document.getElementById('delete-modal');
             const expirationModal = document.getElementById('expiration-modal');
             const customizeSlugModal = document.getElementById('customize-slug-modal');
+            const setPasswordModal = document.getElementById('set-password-modal');
+            const removePasswordModal = document.getElementById('remove-password-modal');
             
             if (event.target === deleteModal) {
                 closeDeleteModal();
@@ -2427,6 +2524,14 @@
             
             if (event.target === customizeSlugModal) {
                 closeCustomizeSlugModal();
+            }
+            
+            if (event.target === setPasswordModal) {
+                closeSetPasswordModal();
+            }
+            
+            if (event.target === removePasswordModal) {
+                closeRemovePasswordModal();
             }
         });
 
@@ -2526,6 +2631,138 @@
                 }
             }
             return null;
+        }
+
+        // Функции для управления паролем на ссылках
+        function showSetPasswordModal(slug) {
+            currentPasswordSlug = slug;
+            document.getElementById('new-slug-password').value = '';
+            document.getElementById('confirm-slug-password').value = '';
+            document.getElementById('set-password-modal').style.display = 'flex';
+        }
+
+        function closeSetPasswordModal() {
+            document.getElementById('set-password-modal').style.display = 'none';
+            currentPasswordSlug = null;
+        }
+
+        function showRemovePasswordModal(slug) {
+            currentPasswordSlug = slug;
+            const shortUrl = window.location.origin + '/' + slug;
+            document.getElementById('password-url-short').textContent = shortUrl;
+            document.getElementById('remove-password-modal').style.display = 'flex';
+        }
+
+        function closeRemovePasswordModal() {
+            document.getElementById('remove-password-modal').style.display = 'none';
+            currentPasswordSlug = null;
+        }
+
+        async function confirmSetPassword() {
+            const password = document.getElementById('new-slug-password').value;
+            const confirmPassword = document.getElementById('confirm-slug-password').value;
+
+            if (!password || !confirmPassword) {
+                alert('Пожалуйста, заполните все поля.');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Пароли не совпадают.');
+                return;
+            }
+
+            if (password.length < 6) {
+                alert('Пароль должен содержать минимум 6 символов.');
+                return;
+            }
+
+            const token = localStorage.getItem('access_token');
+            if (!token || token === 'null') {
+                alert('Токен авторизации отсутствует. Пожалуйста, войдите в систему.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/auth/set_password_for_slug/${currentPasswordSlug}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ password_for_slug: password }),
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    alert('Пароль успешно установлен!');
+                    closeSetPasswordModal();
+                    // Обновляем дашборд
+                    loadUrlHistory('dashboard-history-list');
+                } else {
+                    const error = await response.json();
+                    alert('Ошибка: ' + (error.detail || 'Не удалось установить пароль'));
+                }
+            } catch (error) {
+                console.error('Ошибка при установке пароля:', error);
+                alert('Произошла ошибка при установке пароля.');
+            }
+        }
+
+        async function confirmRemovePassword() {
+            const token = localStorage.getItem('access_token');
+            if (!token || token === 'null') {
+                alert('Токен авторизации отсутствует. Пожалуйста, войдите в систему.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/auth/remove_password_for_slug/${currentPasswordSlug}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    alert('Пароль успешно удален!');
+                    closeRemovePasswordModal();
+                    // Обновляем дашборд
+                    loadUrlHistory('dashboard-history-list');
+                } else {
+                    const error = await response.json();
+                    alert('Ошибка: ' + (error.detail || 'Не удалось удалить пароль'));
+                }
+            } catch (error) {
+                console.error('Ошибка при удалении пароля:', error);
+                alert('Произошла ошибка при удалении пароля.');
+            }
+        }
+
+        // Функции для переключения видимости пароля в модальных окнах
+        function toggleNewSlugPassword() {
+            const input = document.getElementById('new-slug-password');
+            const icon = document.getElementById('new-slug-password-icon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                icon.textContent = '👁️';
+            }
+        }
+
+        function toggleConfirmSlugPassword() {
+            const input = document.getElementById('confirm-slug-password');
+            const icon = document.getElementById('confirm-slug-password-icon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                icon.textContent = '👁️';
+            }
         }
 
         console.log('=== Скрипт загружен ===');

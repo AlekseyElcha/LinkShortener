@@ -1518,6 +1518,26 @@ body {
   transform: translateY(-1px);
 }
 
+/* Password Button */
+.password-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+}
+
+.password-button:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+}
+
 /* Responsive adjustments for customize slug modal */
 @media (max-width: 768px) {
   .customize-slug-modal {
@@ -1548,4 +1568,91 @@ body {
   .preview-url {
     font-size: 0.8rem;
   }
+}
+
+/* Password Modal Styles */
+.password-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background-color: #e8f4f8;
+  border-radius: var(--border-radius);
+  border-left: 4px solid #3498db;
+}
+
+.info-icon {
+  font-size: 2rem;
+}
+
+.warning-icon {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.warning-text {
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: var(--spacing-md);
+}
+
+.warning-details {
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.warning-details p {
+  margin: 0 0 var(--spacing-sm) 0;
+  color: #856404;
+  font-size: 0.9rem;
+}
+
+.warning-details p:last-child {
+  margin-bottom: 0;
+}
+
+.password-url-info {
+  background-color: #f8f9fa;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+}
+
+.password-url-label {
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.9rem;
+}
+
+.password-url-value {
+  font-family: monospace;
+  background-color: white;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  word-break: break-all;
+  color: var(--primary-color);
+}
+
+.remove-password-confirm-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.remove-password-confirm-button:hover {
+  background-color: #c0392b;
 }

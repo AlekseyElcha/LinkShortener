@@ -1,8 +1,9 @@
 import os
 
 import pytz
+from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI, Depends, Body, HTTPException, status, Request, Query
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
@@ -18,7 +19,7 @@ from src.database.schemas import SetExpirationTimeForSlug
 from src.get_session import get_session
 from src.authorization.auth import router as auth_router, create_link_with_token, \
     send_reset_password_email_with_instructions, check_token_and_reset_password, check_token_and_validate_user_email, \
-    create_validation_link, hash_data, security, check_password_for_protected_slug
+    create_validation_link, hash_data, security, check_password_for_protected_slug, verify_password
 from src.authorization.auth import check_auth, check_auth_get_login
 from src.services.email_sender import send_email_validation
 from src.services.location import router as location_router
@@ -31,7 +32,8 @@ from src.exeptions import LongUrlNotFoundError, AddRedirectHistoryToDatabaseErro
     SetSlugExpirationDateError, ShortLinkExpired, RemoveSlugExpirationDateError, ShortLinkIsProtected
 from src.services.ops import generate_short_url, get_long_url_by_slug_from_database, add_redirect_to_history, \
     get_redirect_history_by_slug, delete_slug_from_database, set_expiration_date_for_slug, \
-    remove_expiration_date_from_database, validate_url
+    remove_expiration_date_from_database, validate_url, get_slug_password_from_db, \
+    get_long_url_by_slug_from_database_check
 from src.services.time_service import convert_local_str_to_utc
 
 logging.basicConfig(
@@ -44,6 +46,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+templates = Jinja2Templates(directory="public/templates/")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -98,7 +101,7 @@ async def get_url_by_slug(
     user_login = await check_auth_get_login(request)
     logger.debug("Обращение к ручке get_url_by_slug (src.main.py)")
     try:
-        long_url = await get_long_url_by_slug_from_database(slug, session)
+        long_url = await get_long_url_by_slug_from_database_check(slug, session)
         logger.debug(f"Длинная ссылка возвращена из БД: {long_url}.")
     except LongUrlNotFoundError:
         raise HTTPException(
@@ -112,9 +115,23 @@ async def get_url_by_slug(
                    "Если Вы являетесь создателем этой ссылки - продлите её действие в личном кабинете нашего сервиса."
         )
     except ShortLinkIsProtected:
-        is_correct = await check_password_for_protected_slug(slug, password, session)
-        if not is_correct:
-            raise HTTPException(status.HTTP_403_FORBIDDEN, detail="Неверный пароль.")
+        slug_password = await get_slug_password_from_db(slug, session)
+        if not password:
+            return templates.TemplateResponse(
+                "password_required.html",
+                {
+                "request": request,
+                "slug": slug,
+                "error": request.query_params.get("error")
+                }
+            )
+        if not verify_password(password, slug_password):
+            return RedirectResponse(
+                url=f"/{slug}?error=Неверный пароль"
+            )
+        long_url = await get_long_url_by_slug_from_database(slug, session)
+        return RedirectResponse(url=long_url, status_code=status.HTTP_302_FOUND)
+
     try:
         location_data = await get_location(request)
         location_city = location_data.get("city")

@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.13 (url-shortener)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (LinkShortener)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (url-shortener)" project-jdk-type="Python SDK" />
 </project>

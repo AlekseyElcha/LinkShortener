@@ -1,7 +1,8 @@
 from datetime import datetime
+from http.client import HTTPException
 from string import ascii_letters
 
-from sqlalchemy.testing.pickleable import User
+from fastapi import status, HTTPException
 from validators import url as url_validator, ValidationError
 from sqlalchemy import select, delete, update
 from sqlalchemy.exc import IntegrityError
@@ -30,7 +31,7 @@ async def add_slug_to_database(slug: str, long_url: str, user_id: int, session: 
         raise SlugAlreadyExistsError
 
 
-async def get_long_url_by_slug_from_database(slug: str, session: AsyncSession):
+async def get_long_url_by_slug_from_database_check(slug: str, session: AsyncSession):
     query = select(ShortURL).where(slug == ShortURL.slug)
     res = await session.execute(query)
     result = res.scalar_one_or_none()
@@ -47,6 +48,29 @@ async def get_long_url_by_slug_from_database(slug: str, session: AsyncSession):
         return result.long_url
     else:
         raise LongUrlNotFoundError
+
+
+async def get_long_url_by_slug_from_database(slug: str, session: AsyncSession):
+    query = select(ShortURL).where(slug == ShortURL.slug)
+    res = await session.execute(query)
+    result = res.scalar_one_or_none()
+    if result:
+        result.hop_counts += 1
+        await session.commit()
+        return result.long_url
+    else:
+        raise LongUrlNotFoundError
+
+
+async def get_slug_password_from_db(slug: str, session: AsyncSession):
+    query = select(ShortURL).where(ShortURL.slug == slug)
+    try:
+        res = await session.execute(query)
+        await session.commit()
+        result = res.scalar_one_or_none()
+        return result.password
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Произошла ошибка.")
 
 
 
