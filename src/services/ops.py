@@ -11,7 +11,8 @@ import logging
 from src.database.models import ShortURL, RedirectsHistory, UserModel
 from src.exeptions import SlugAlreadyExistsError, LongUrlNotFoundError, RedirectsHistoryNull, \
     AddRedirectHistoryToDatabaseError, ShortURLToDeleteNotFound, ShortURLToDeleteNotFoundHistoryClear, \
-    SetSlugExpirationDateError, ShortLinkExpired, RemoveSlugExpirationDateError, UserIdBySlugNotFoundError
+    SetSlugExpirationDateError, ShortLinkExpired, RemoveSlugExpirationDateError, UserIdBySlugNotFoundError, \
+    ShortLinkIsProtected
 from src.services.slug_service import generate_random_short_url
 from src.services.time_service import convert_utc_string_to_local
 
@@ -39,7 +40,8 @@ async def get_long_url_by_slug_from_database(slug: str, session: AsyncSession):
 
         if exp is not None and now > exp:
             raise ShortLinkExpired
-
+        if result.password is not None:
+            raise ShortLinkIsProtected
         result.hop_counts += 1
         await session.commit()
         return result.long_url
@@ -192,7 +194,7 @@ def validate_url(url: str):
     try:
         res = url_validator(url)
         if res is True:
-            return True
+            return url
         else:
             return False
     except:

@@ -17,12 +17,13 @@ import secrets
 from sqlalchemy.orm import session
 from sqlalchemy.sql.functions import user
 from src.get_session import get_session
-from src.database.models import UserModel, PasswordReset, EmailValidation
+from src.database.models import UserModel, PasswordReset, EmailValidation, ShortURL
 from src.database.schemas import UserAddSchema, UserUpdateSchema
 from src.services.email_sender import send_reset_password_email, send_reset_password_email_notification, \
     send_email_validation
 from src.exeptions import SendEmailError, CreateResetPasswordLinkError, CreateEmailValidationLinkError, \
     UserIdByLoginNotFoundError, UserNotFoundError
+from src.services.ops import get_user_id_by_slug
 
 router = APIRouter(prefix="/auth")
 
@@ -316,13 +317,13 @@ async def check_user_auth(request: Request, session: AsyncSession, id_to_check: 
     raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Авторизация неверна.")
 
 
-
 async def check_auth_get_login(request: Request):
     token = request.cookies.get(config.JWT_ACCESS_COOKIE_NAME)
     if token:
         login = decode_token(token).get("sub")
         return login
     return "Пользователь"
+
 
 async def get_user_id_by_login(login: str, session: AsyncSession):
     query = select(UserModel.id).where(login == UserModel.login)
@@ -331,3 +332,39 @@ async def get_user_id_by_login(login: str, session: AsyncSession):
     if res:
         return res.scalar_one_or_none()
     raise UserNotFoundError
+
+
+@router.put("/set_password_for_slug/{slug}")
+async def set_password_on_link(slug: str,
+                               password_for_slug: str,
+                               session: Annotated[AsyncSession,
+                               Depends(get_session)],
+                               request: Request
+    ):
+    user_id_required = await get_user_id_by_slug(slug=slug, session=session)
+    if user_id_required is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Не удается найти пользователя по ссылке.")
+    user_is_valid = await check_user_auth(request=request, session=session, id_to_check=user_id_required)
+    if not user_is_valid:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, detail="Нет доступа.")
+
+    query = update(ShortURL).where(ShortURL.slug == slug).values(password=hash_data(password_for_slug))
+    try:
+        await session.execute(query)
+        await session.commit()
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Не удалось установить пароль на ссылку.")
+    return {"success": True}
+
+
+async def check_password_for_protected_slug(slug: str, password_for_slug: str, session: AsyncSession):
+    password = hash_data(password_for_slug)
+    query = select(ShortURL.id).where(slug == ShortURL.slug)
+    try:
+        res = await session.execute(query)
+        await session.commit()
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Возникла ошибка.")
+    if res:
+        return True
+    return False

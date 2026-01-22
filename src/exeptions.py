@@ -30,7 +30,7 @@ class ShortURLToDeleteNotFound(ShortenerBaseException):
     pass
 
 
-class ShortURLToDeleteNotFoundHistoryClear(ShortURLToDeleteNotFound):
+class ShortURLToDeleteNotFoundHistoryClear(ShortenerBaseException):
     pass
 
 
@@ -46,11 +46,11 @@ class CreateEmailValidationLinkError(ShortenerBaseException):
     pass
 
 
-class UserNotFoundError(ShortURLToDeleteNotFound):
+class UserNotFoundError(ShortenerBaseException):
     pass
 
 
-class UserIdByLoginNotFoundError(ShortURLToDeleteNotFound):
+class UserIdByLoginNotFoundError(ShortenerBaseException):
     pass
 
 
@@ -66,6 +66,9 @@ class RemoveSlugExpirationDateError(ShortenerBaseException):
     pass
 
 
-class UserIdBySlugNotFoundError(ShortURLToDeleteNotFound):
+class UserIdBySlugNotFoundError(ShortenerBaseException):
     pass
 
+
+class ShortLinkIsProtected(ShortenerBaseException):
+    pass

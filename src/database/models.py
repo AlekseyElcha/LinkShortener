@@ -17,6 +17,7 @@ class ShortURL(Base):
     expiration_date = Column(DateTime, index=True)
     user_id = Column(Integer, nullable=False)
     hop_counts = Column(Integer, default=0, nullable=False)
+    password = Column(String(2048), default=None)
 
 
 class UserModel(Base):

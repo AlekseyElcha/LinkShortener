@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime, timezone
-from typing import Annotated
+from typing import Annotated, Optional
 from tzlocal import get_localzone
 import uvicorn
 import logging
@@ -18,7 +18,7 @@ from src.database.schemas import SetExpirationTimeForSlug
 from src.get_session import get_session
 from src.authorization.auth import router as auth_router, create_link_with_token, \
     send_reset_password_email_with_instructions, check_token_and_reset_password, check_token_and_validate_user_email, \
-    create_validation_link, hash_data, security
+    create_validation_link, hash_data, security, check_password_for_protected_slug
 from src.authorization.auth import check_auth, check_auth_get_login
 from src.services.email_sender import send_email_validation
 from src.services.location import router as location_router
@@ -28,7 +28,7 @@ from src.database.models import Base
 from src.database.database import engine, new_session
 from src.exeptions import LongUrlNotFoundError, AddRedirectHistoryToDatabaseError, RedirectsHistoryNull, NoLocationData, \
     ShortURLToDeleteNotFound, CreateResetPasswordLinkError, CreateEmailValidationLinkError, UserIdByLoginNotFoundError, \
-    SetSlugExpirationDateError, ShortLinkExpired, RemoveSlugExpirationDateError
+    SetSlugExpirationDateError, ShortLinkExpired, RemoveSlugExpirationDateError, ShortLinkIsProtected
 from src.services.ops import generate_short_url, get_long_url_by_slug_from_database, add_redirect_to_history, \
     get_redirect_history_by_slug, delete_slug_from_database, set_expiration_date_for_slug, \
     remove_expiration_date_from_database, validate_url
@@ -83,7 +83,7 @@ async def create_slug(
         user_id = check_res
     else:
         user_id = 0
-    result = await generate_short_url(long_url=long_url, user_id=user_id, session=session)
+    result = await generate_short_url(long_url=long_url_is_valid, user_id=user_id, session=session)
     logger.debug(f"Успешно создан slug: {result}")
     return result
 
@@ -92,7 +92,8 @@ async def create_slug(
 async def get_url_by_slug(
         slug: str,
         session: Annotated[AsyncSession, Depends(get_session)],
-        request: Request
+        request: Request,
+        password: Optional[str] = None,
 ):
     user_login = await check_auth_get_login(request)
     logger.debug("Обращение к ручке get_url_by_slug (src.main.py)")
@@ -110,6 +111,10 @@ async def get_url_by_slug(
             detail="Ссылка недоступна, т.к. у неё истек срок действия. "
                    "Если Вы являетесь создателем этой ссылки - продлите её действие в личном кабинете нашего сервиса."
         )
+    except ShortLinkIsProtected:
+        is_correct = await check_password_for_protected_slug(slug, password, session)
+        if not is_correct:
+            raise HTTPException(status.HTTP_403_FORBIDDEN, detail="Неверный пароль.")
     try:
         location_data = await get_location(request)
         location_city = location_data.get("city")
@@ -140,6 +145,15 @@ async def get_url_by_slug(
                 f"location_country: {location_country}, location_city: {location_city}"
             )
     return RedirectResponse(url=long_url, status_code=status.HTTP_302_FOUND)
+
+
+# @app.get("/{protected_slug}")
+# async def get_protected_slug(protected_slug: str, password: str, session: Annotated[AsyncSession, get_session()])
+#     try:
+#         is_correct = await check_password_for_protected_slug(protected_slug, password, session)
+#         if is_correct:
+
+
 
 
 @app.get("/slug_redirect_history/{slug}", dependencies=[Depends(security.access_token_required)])
