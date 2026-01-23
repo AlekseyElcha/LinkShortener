@@ -15,7 +15,8 @@
                 <div class="header-content">
                     <div class="brand-section">
                         <h1 class="logo">Сократитель ссылок</h1>
-                        <p class="description">Больше не будет уж очень длиииииииинных и запутанных url! :)</p>
+                        <p class="description">При помощи этого сервиса можно сделать длинную ссылку короткой.<br>
+                            Войдите в свой аккаунт для доступа к дополнительным возможностям.</p>
                     </div>
                     <button class="login-button" onclick="showLoginPage()">Войти</button>
                 </div>
@@ -1060,7 +1061,7 @@
                                 ${url.expiration_date ? 'Изменить срок' : 'Установить срок'}
                             </button>
                             <button class="password-button" data-slug="${url.slug}" data-has-password="${url.password ? 'true' : 'false'}">
-                                ${url.password ? 'Убрать пароль' : 'Поставить пароль'}
+                                ${url.password ? 'Убрать пароль' : 'Установить пароль'}
                             </button>
                             <button class="customize-slug-button" data-slug="${url.slug}" data-short-url="${shortUrl}">Изменить адрес</button>
                             <button class="delete-button" data-slug="${url.slug}" data-short-url="${shortUrl}">Удалить</button>
