@@ -42,6 +42,8 @@ body {
 
 
 .header {
+    top: 10px;
+    position:  sticky;
     margin-bottom: var(--spacing-xl);
 }
 
@@ -93,6 +95,7 @@ body {
     color: var(--text-color);
     border: none;
     padding: var(--spacing-sm) var(--spacing-lg);
+    margin-top:  8px;
     border-radius: var(--border-radius);
     font-family: var(--font-family);
     font-size: 0.9rem;
@@ -117,6 +120,7 @@ body {
     display: flex;
     gap: var(--spacing-md);
     margin-bottom: var(--spacing-xl);
+    margin-top: var(--spacing-md);
     align-items: stretch;
 }
 
@@ -349,9 +353,13 @@ body {
 }
 
 .logout-button {
+    background: inherit!important;
+    color: var(--text-color) !important;
+    backdrop-filter: blur(3px)!important;
+    border:1px solid #fff;
   background-color: #d5dbdb;
   color: var(--text-color);
-  border: none;
+  /*border: none;*/
   padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: var(--border-radius);
   font-family: var(--font-family);
@@ -359,13 +367,14 @@ body {
   font-weight: 400;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-top: var(--spacing-xl);
+  margin-top: var(--spacing-sm) - 1;
 }
 
 .logout-button:hover {
   background-color: #bdc3c7;
+    transform: scale(0.9);
 }
-/* Page Management */
+
 .page {
   width: 100%;
 }
@@ -514,9 +523,13 @@ body {
 }
 /* Home Button */
 .home-button {
-  background-color: #d5dbdb;
-  color: var(--text-color);
-  border: none;
+    background: inherit!important;
+    color: var(--text-color) !important;
+    backdrop-filter: blur(3px)!important;
+    border:2px solid #fff;
+  /*background-color: #d5dbdb;*/
+  /*color: var(--text-color);*/
+  /*border: none;*/
   padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: var(--border-radius);
   font-family: var(--font-family);
@@ -529,6 +542,7 @@ body {
 }
 
 .home-button:hover {
+    transform: scale(0.9);
   background-color: #bdc3c7;
 }
 /* Details Button */
@@ -1048,9 +1062,13 @@ body {
 }
 
 .change-password-button {
+    background: inherit!important;
+    color: var(--text-color) !important;
+    backdrop-filter: blur(3px)!important;
+    border:1px solid #fff;
   background-color: #d5dbdb;
   color: var(--text-color);
-  border: none;
+  /*border: none;*/
   padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: var(--border-radius);
   font-family: var(--font-family);
@@ -1062,6 +1080,7 @@ body {
 
 .change-password-button:hover {
   background-color: #bdc3c7;
+    transform: scale(0.9);
 }
 
 /* Responsive adjustments for dashboard buttons */
