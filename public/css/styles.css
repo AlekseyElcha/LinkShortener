@@ -1,7 +1,7 @@
 :root {
     --logo-color: #EE0000;
     --primary-color: #0000FF;
-    --secondary-color: #747c7e;
+    --secondary-color: rgba(0, 0, 0, 0.66);
     --background-color: #ecf0f1;
     --text-color: #10101c;
     --border-color: #dc0000;
@@ -13,6 +13,7 @@
     --spacing-md: 16px;
     --spacing-lg: 24px;
     --spacing-xl: 32px;
+    --border-radius-rounded: 50px
 }
 
 * {
@@ -55,7 +56,16 @@ body {
 }
 
 .brand-section {
-    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0;
+    width: 100%;
+}
+
+.brand-section-main {
+    display: flex;
+    flex-direction: column;
 }
 
 .logo {
@@ -83,11 +93,12 @@ body {
 /*}*/
 
 .description {
-    color: var(--secondary-color);
-    font-size: 0.95rem;
+    color: black;
+    opacity: 95%;
+    font-size: 1rem;
     line-height: 1.5;
-    margin: 0;
-    max-width: 500px;
+    margin-bottom: 5px;
+    max-width: 750px;
 }
 
 .login-button {
@@ -96,7 +107,7 @@ body {
     border: none;
     padding: var(--spacing-sm) var(--spacing-lg);
     margin-top:  8px;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-rounded);
     font-family: var(--font-family);
     font-size: 0.9rem;
     font-weight: 400;
@@ -106,7 +117,9 @@ body {
 }
 
 .login-button:hover {
-    background-color: #bdc3c7;
+    transform: scale(0.9);
+    background: white!important;
+    opacity: 75%;
 }
 
 
@@ -128,47 +141,69 @@ body {
     flex: 1;
     padding: var(--spacing-md) var(--spacing-lg);
     border: 2px solid white;
-    border-radius: var(--border-radius);
+    background: inherit!important;
+    color: black !important;
+    border-radius: var(--border-radius-rounded);
     font-family: var(--font-family);
     font-size: 1rem;
-    color: var(--text-color);
-    background-color: white;
+    font-weight: 400;
     transition: all 0.2s ease;
-    outline: none;
     min-width: 400px;
 }
 
 .enter-url::placeholder {
-    color: var(--secondary-color);
-    opacity: 0.8;
+    color: black !important;
 }
 
 .enter-url:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+    opacity: 1;
+    background: white!important;
+    outline: none!important;
 }
 
 .enter-url:hover {
+    transform: scale(0.97);
     border-color: #e8e8e8;
 }
 
 .submit-button {
-    background-color: #d5dbdb;
-    color: var(--text-color);
-    border: none;
     padding: var(--spacing-md) var(--spacing-xl);
-    border-radius: var(--border-radius);
-    font-family: var(--font-family);
-    font-size: 1rem;
-    font-weight: 400;
+    border-radius: var(--border-radius-rounded);
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
     flex-shrink: 0;
+    background: inherit!important;
+    color: black !important;
+    font-weight: 500;
+    backdrop-filter: blur(3px)!important;
+    border: 2px solid #fff;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    /* Эффект блеска с помощью теней */
+    box-shadow:
+            inset 0 0 15px rgba(255, 255, 255, 0.3),
+            0 0 10px rgba(255, 255, 255, 0.2),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
+
+    position: relative;
 }
 
 .submit-button:hover {
-    background-color: #bdc3c7;
+    background: white!important;
+    opacity: 75%;
+    outline: none!important;
+    transform: scale(0.9);
+}
+
+.submit-button:focus {
+    opacity: 1;
+    background: white!important;
+    outline: none!important;
 }
 
 .submit-button:active {
@@ -179,16 +214,25 @@ body {
     width: 100%;
     min-height: 60px;
     padding: var(--spacing-md);
-    background-color: white;
+    background: rgba(255, 255, 255, 0.6);
     border: 2px solid white;
-    border-radius: var(--border-radius);
-    text-align: left;
+    border-radius: var(--border-radius-rounded);
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     gap: var(--spacing-md);
     transition: all 0.2s ease;
+    color: black !important;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: all 0.2s ease;
+    min-width: 400px;
+}
+
+.result-area:hover {
+    transform: scale(1.03);
 }
 
 .result-area:empty {
@@ -217,7 +261,7 @@ body {
     padding: var(--spacing-md);
     background-color: #fff3cd;
     border: 1px solid #ffc107;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-rounded);
     color: #856404;
     font-size: 0.9rem;
     line-height: 1.5;
@@ -267,15 +311,26 @@ body {
 }
 /* Authentication Page Styles */
 .back-link {
-  color: var(--text-color);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s ease;
-  flex-shrink: 0;
+    background: inherit!important;
+    color: var(--text-color) !important;
+    backdrop-filter: blur(3px)!important;
+    border:1px solid #fff;
+    background-color: #d5dbdb;
+    color: var(--text-color);
+    /*border: none;*/
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: var(--spacing-sm) - 1;
 }
 
 .back-link:hover {
   color: var(--primary-color);
+    transform: scale(0.9);
 }
 
 .login-form-section {
@@ -348,6 +403,7 @@ body {
 .dashboard-title {
   font-size: 2rem;
   color: var(--text-color);
+    background: inherit!important;
   margin: 0 0 var(--spacing-xl) 0; /* Только отступ снизу */
   font-weight: 400;
 }
@@ -356,18 +412,25 @@ body {
     background: inherit!important;
     color: var(--text-color) !important;
     backdrop-filter: blur(3px)!important;
-    border:1px solid #fff;
-  background-color: #d5dbdb;
-  color: var(--text-color);
-  /*border: none;*/
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border-radius: var(--border-radius);
-  font-family: var(--font-family);
-  font-size: 0.9rem;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: var(--spacing-sm) - 1;
+    border: 2px solid #fff;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    margin-bottom: var(--spacing-sm);
+    /* Эффект блеска с помощью теней */
+    box-shadow:
+            inset 0 0 15px rgba(255, 255, 255, 0.3),
+            0 0 10px rgba(255, 255, 255, 0.2),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    @apply bg-muted/25;
+
 }
 
 .logout-button:hover {
@@ -505,46 +568,47 @@ body {
   padding: var(--spacing-lg);
 }
 /* Home Button */
-.home-button {
-  background: none;
-  border: none;
-  color: var(--primary-color);
-  font-size: 1.2rem;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 0;
-  margin: 0 0 var(--spacing-md) 0;
-  transition: color 0.2s ease;
-  font-family: var(--font-family);
-}
+/*.home-button {*/
+/*  background: none;*/
+/*  border: none;*/
+/*  color: var(--primary-color);*/
+/*  font-size: 1.2rem;*/
+/*  font-weight: 1200;*/
+/*  cursor: pointer;*/
+/*  padding: 0;*/
+/*  margin: 0 0 var(--spacing-md) 0;*/
+/*  transition: color 0.2s ease;*/
+/*  font-family: var(--font-family);*/
+/*}*/
 
-.home-button:hover {
-  color: #c0392b;
-}
-/* Home Button */
+
 .home-button {
     background: inherit!important;
     color: var(--text-color) !important;
     backdrop-filter: blur(3px)!important;
-    border:2px solid #fff;
-  /*background-color: #d5dbdb;*/
-  /*color: var(--text-color);*/
-  /*border: none;*/
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border-radius: var(--border-radius);
-  font-family: var(--font-family);
-  font-size: 0.9rem;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-  margin-bottom: var(--spacing-sm);
+    border: 2px solid #fff;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    margin-bottom: var(--spacing-sm);
+    /* Эффект блеска с помощью теней */
+    box-shadow:
+            inset 0 0 15px rgba(255, 255, 255, 0.3),
+            0 0 10px rgba(255, 255, 255, 0.2),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 .home-button:hover {
+  color: #c0392b;
     transform: scale(0.9);
-  background-color: #bdc3c7;
 }
+/* Home Button */
+
 /* Details Button */
 .details-button {
   background-color: var(--primary-color);
@@ -1073,7 +1137,7 @@ body {
   border-radius: var(--border-radius);
   font-family: var(--font-family);
   font-size: 0.9rem;
-  font-weight: 400;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
 }

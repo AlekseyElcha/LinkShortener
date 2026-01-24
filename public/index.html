@@ -7,30 +7,31 @@
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+<body style="background: url(assets/background.jpg) no-repeat center center fixed; background-size: cover;">
 <body>
     <div class="page-container">
         <!-- Главная страница -->
         <div id="main-page" class="page">
             <header class="header">
                 <div class="header-content">
-                    <div class="brand-section">
+                    <div class="brand-section-main">
                         <h1 class="logo">Сократитель ссылок</h1>
                         <p class="description">При помощи этого сервиса можно сделать длинную ссылку короткой.<br>
                             Войдите в свой аккаунт для доступа к дополнительным возможностям.</p>
                     </div>
                     <button class="login-button" onclick="showLoginPage()">Войти</button>
                 </div>
+                </header>
 
-            <main class="main-content">
-                <div class="url-input-section">
-                    <input id="url" class="enter-url" placeholder="Введите ссылку, которую нужно сократить">
-                    <button class="submit-button" onclick="create()">Сократить</button>
-                </div>
-                <div id="result" class="result-area"></div>
-            </main>
+                <main class="main-content">
+                    <div class="url-input-section">
+                        <input id="url" class="enter-url" placeholder="Введите ссылку, которую нужно сократить">
+                        <button class="submit-button" onclick="create()">Сократить</button>
+                    </div>
+                    <div id="result" class="result-area"></div>
+                </main>
         </div>
-
-        <!-- Страница авторизации -->
+                <!-- Страница авторизации -->
         <div id="login-page" class="page" style="display: none;">
             <header class="header">
                 <div class="header-content">
@@ -206,14 +207,10 @@
                 <div class="header-content">
                     <div class="brand-section">
                         <button class="home-button" onclick="showMainPage()">← На главную</button>
-                    </div>
-                    <div class="dashboard-buttons">
-                        <button class="change-password-button" onclick="sendPasswordResetEmail()">Сменить пароль</button>
                         <button class="logout-button" onclick="logout()">Выйти</button>
                     </div>
                 </div>
             </header>
-
             <main class="main-content">
                 <div class="dashboard-content">
                     <h2 class="dashboard-title">Личный кабинет</h2>
@@ -1146,7 +1143,7 @@
             if (isAuthenticated && data.created_before === true) {
                 resultHtml += `
                     <div class="warning-message">
-                        ⚠️ Эта ссылка уже ранее была сгенерирована нашим сервисом, аналитика для неё будет доступна только для её создателя.
+                        ⚠️ Эта ссылка уже ранее была сгенерирована нашим сервисом. ⚠️ <br>Аналитика для неё будет доступна только для её создателя.
                     </div>
                 `;
             }
