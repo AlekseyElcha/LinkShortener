@@ -99,6 +99,8 @@ body {
     line-height: 1.5;
     margin-bottom: 5px;
     max-width: 750px;
+    display: flex;
+    flex-direction: column;
 }
 
 .login-button {
@@ -210,6 +212,54 @@ body {
     background-color: #95a5a6;
 }
 
+@keyframes ani {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    40% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    80% {
+        transform: scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes ani-reversed {
+    0% {
+        opacity: 1;
+        transform: scale(0.8);
+    }
+    20% {
+        opacity: 1;
+        transform: scale(0.95);
+    }
+    40% {
+        opacity: 1;
+        transform: scale(1.0);
+    }
+    60% {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+    80% {
+        opacity: 0;
+        transform: scale(1.02);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
 .result-area {
     width: 100%;
     min-height: 60px;
@@ -223,11 +273,10 @@ body {
     align-items: flex-start;
     justify-content: flex-start;
     gap: var(--spacing-md);
-    transition: all 0.2s ease;
+    animation: ani 0.3s forwards;
     color: black !important;
     font-size: 1rem;
     font-weight: 400;
-    transition: all 0.2s ease;
     min-width: 400px;
 }
 
@@ -255,6 +304,7 @@ body {
     color: #c0392b;
     text-decoration: underline;
 }
+
 
 .warning-message {
     width: 100%;
@@ -353,15 +403,17 @@ body {
 }
 
 .form-input {
-  padding: var(--spacing-md) var(--spacing-lg);
-  border: 2px solid white;
-  border-radius: var(--border-radius);
-  font-family: var(--font-family);
-  font-size: 1rem;
-  color: var(--text-color);
-  background-color: white;
-  transition: all 0.2s ease;
-  outline: none;
+    flex: 1;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: 2px solid white;
+    background: inherit!important;
+    color: black !important;
+    border-radius: var(--border-radius-rounded);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    font-weight: 400;
+    transition: all 0.2s ease;
+    max-width: 350px;
 }
 
 .form-input::placeholder {
@@ -372,10 +424,14 @@ body {
 .form-input:focus {
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+    opacity: 1;
+    background: white!important;
+    outline: none!important;
 }
 
 .form-input:hover {
   border-color: #e8e8e8;
+    transform: scale(0.9);
 }
 
 .register-link {
@@ -488,8 +544,12 @@ body {
 .history-title {
   font-size: 1.2rem;
   color: var(--text-color);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
   font-weight: 500;
+}
+
+.change-password-btn{
+
 }
 
 .history-list {
@@ -499,7 +559,7 @@ body {
 }
 
 .history-item {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 1);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   padding: var(--spacing-md);
@@ -942,6 +1002,64 @@ body {
   color: var(--primary-color);
 }
 
+.toggle {
+     cursor: pointer;
+     display: flex;
+ }
+
+/* Скрываем чекбокс */
+.toggle input {
+    display: none;
+}
+
+/* Трек переключателя */
+.toggle-track {
+    display: block;               /* важно, чтобы трек был блочным */
+    width: 48px;
+    height: 28px;
+    background: rgba(200, 200, 200, 0.3);
+    border-radius: 999px;
+    position: relative;
+    transition: background 0.3s ease;
+
+    /* стеклянный эффект */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow:
+            inset 0 1px 4px rgba(255, 255, 255, 0.4),
+            inset 0 -1px 4px rgba(0, 0, 0, 0.1),
+            0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Ползунок */
+.toggle-thumb {
+    width: 22px;
+    height: 22px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+    background 0.3s ease;
+    box-shadow:
+            0 2px 6px rgba(0, 0, 0, 0.2),
+            inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Состояние включено */
+.toggle input:checked + .toggle-track {
+    background: rgba(76, 201, 90, 1);
+}
+
+.toggle input:checked + .toggle-track .toggle-thumb {
+    transform: translateX(20px);
+}
+
+.text-near-toggle-history{
+    margin-left: 10px;
+}
+
 /* Delete Modal Styles */
 .delete-modal {
   max-width: 500px;
@@ -1129,7 +1247,7 @@ body {
     background: inherit!important;
     color: var(--text-color) !important;
     backdrop-filter: blur(3px)!important;
-    border:1px solid #fff;
+    border:2px solid #006e31;
   background-color: #d5dbdb;
   color: var(--text-color);
   /*border: none;*/
@@ -1144,7 +1262,7 @@ body {
 
 .change-password-button:hover {
   background-color: #bdc3c7;
-    transform: scale(0.9);
+    transform: scale(0.95);
 }
 
 /* Responsive adjustments for dashboard buttons */
@@ -1153,9 +1271,9 @@ body {
     flex-direction: column;
     gap: var(--spacing-sm);
   }
-  
+
   .change-password-button {
-    width: 100%;
+    width: 500px;
   }
 }
 

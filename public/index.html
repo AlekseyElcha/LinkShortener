@@ -25,7 +25,7 @@
 
                 <main class="main-content">
                     <div class="url-input-section">
-                        <input id="url" class="enter-url" placeholder="Введите ссылку, которую нужно сократить">
+                        <input id="url" class="enter-url" placeholder="Введите ссылку для сокращения">
                         <button class="submit-button" onclick="create()">Сократить</button>
                     </div>
                     <div id="result" class="result-area"></div>
@@ -37,7 +37,6 @@
                 <div class="header-content">
                     <div class="brand-section">
                         <h1 class="logo">Сократитель ссылок</h1>
-                        <p class="description">Войдите в свой аккаунт для доступа к дополнительным возможностям.</p>
                     </div>
                     <button class="back-link" onclick="showMainPage()">← Назад</button>
                 </div>
@@ -75,10 +74,10 @@
                 <div class="header-content">
                     <div class="brand-section">
                         <h1 class="logo">Кликер</h1>
-                        <p class="description">Создайте новый аккаунт для доступа к дополнительным возможностям.</p>
                     </div>
                     <button class="back-link" onclick="showLoginPage()">← Назад</button>
                 </div>
+                <p class="description">Создайте новый аккаунт для доступа к дополнительным возможностям.</p>
             </header>
 
             <main class="main-content">
@@ -214,12 +213,14 @@
             <main class="main-content">
                 <div class="dashboard-content">
                     <h2 class="dashboard-title">Личный кабинет</h2>
-                    
                     <!-- Информация о текущем аккаунте -->
                     <div class="account-info">
                         <div class="account-card">
                             <div class="account-label">Ваш аккаунт:</div>
-                            <div class="account-email" id="current-user-email">loading...</div>
+                            <div class="account-email" id="current-user-email">loading...</div><br>
+                            <button class="change-password-button" onclick="showChangePasswordPage()">
+                                Сменить пароль
+                            </button>
                         </div>
                     </div>
 
@@ -227,11 +228,18 @@
                     <div id="dashboard-history" class="url-history">
                         <div class="history-header">
                             <h3 class="history-title">История ваших ссылок</h3>
-                            <label class="checkbox-container">
+
+                            <!-- Переключатель iOS -->
+                            <label class="toggle">
                                 <input type="checkbox" id="dashboard-include-my-clicks" checked onchange="toggleDashboardMyClicks()">
-                                <span class="checkbox-label">Учитывать мои переходы</span>
+                                <span class="toggle-track">
+                                <span class="toggle-thumb"></span>
+                                </span>
+                                <span class="text-near-toggle-history">Учитывать мои переходы</span>
                             </label>
+
                         </div>
+
                         <div id="dashboard-history-list" class="history-list">
                             <!-- Здесь будет список ссылок -->
                         </div>
@@ -246,9 +254,8 @@
                 <div class="header-content">
                     <div class="brand-section">
                         <button class="home-button" onclick="showDashboard()">← Назад к кабинету</button>
-                        <p class="description">Смена пароля.</p>
+                        <p class="description">Смена пароля</p>
                     </div>
-                    <button class="logout-button" onclick="logout()">Выйти</button>
                 </div>
             </header>
             
@@ -1120,7 +1127,11 @@
         // Функция сокращения ссылок
         async function create() {
             const url = document.getElementById('url').value;
-
+            const resultDiv = document.getElementById('result');
+            resultDiv.classList.add('ani');
+            await new Promise(resolve => setTimeout(resolve, 500));
+            resultDiv.innerHTML = '';
+            resultDiv.classList.remove('ani-reversed');
             // const response = await fetch('/api/create_slug', {
             const response = await fetch('/create_slug', {
                 method: 'POST',
