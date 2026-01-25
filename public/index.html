@@ -229,7 +229,6 @@
                         <div class="history-header">
                             <h3 class="history-title">История ваших ссылок</h3>
 
-                            <!-- Переключатель iOS -->
                             <label class="toggle">
                                 <input type="checkbox" id="dashboard-include-my-clicks" checked onchange="toggleDashboardMyClicks()">
                                 <span class="toggle-track">
@@ -828,10 +827,14 @@
         }
 
         // Функция переключения фильтра "Учитывать мои переходы" в личном кабинете
-        async function toggleDashboardMyClicks() {
-            if (currentDashboardData && currentDashboardData.length > 0) {
-                await displayUrlHistory(currentDashboardData, 'dashboard-history-list');
-            }
+        function toggleDashboardMyClicks() {
+            const includeMyClicks = document.getElementById('dashboard-include-my-clicks').checked;
+
+            // Сохраняем настройку в localStorage
+            localStorage.setItem('includeMyClicks', includeMyClicks);
+
+            // Перезагружаем историю с новыми настройками
+            loadUserUrls(); // Или какая у вас функция загрузки ссылок
         }
 
         // Функция отображения страницы статистики
@@ -988,9 +991,56 @@
             const includeMyClicks = document.getElementById('dashboard-include-my-clicks').checked;
             const username = localStorage.getItem('username');
 
-            let html = '';
+            // Очищаем контейнер
+            container.innerHTML = '';
 
-            for (const url of urls) {
+            // Добавляем стили для анимации, если их еще нет
+            if (!document.querySelector('#history-animation-style')) {
+                const style = document.createElement('style');
+                style.id = 'history-animation-style';
+                style.textContent = `
+            @keyframes historyItemAnimateIn {
+                0% {
+                    opacity: 0;
+                    transform: scale(0.95);
+                }
+
+                20% {
+                    opacity: 0;
+                    transform: scale(0.98);
+                }
+
+                40% {
+                    opacity: 1;
+                    transform: scale(1.0);
+                }
+                60% {
+                    transform: scale(1.05);
+                }
+                80% {
+                    opacity: 1;
+                    transform: scale(1.0);
+                }
+
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            .history-item-animate {
+                animation: historyItemAnimateIn 1s ease forwards;
+            }
+        `;
+                document.head.appendChild(style);
+            }
+
+            // Сортируем ссылки по дате создания (новые сверху)
+            urls.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+            // Вместо генерации одной строки HTML, создаем элементы по отдельности
+            for (let i = 0; i < urls.length; i++) {
+                const url = urls[i];
                 const shortUrl = window.location.origin + '/' + url.slug;
                 const date = url.created_at ? new Date(url.created_at).toLocaleDateString('ru-RU') : '';
 
@@ -998,7 +1048,6 @@
 
                 if (!includeMyClicks && username) {
                     try {
-                        // const response = await fetch(`/api/slug_redirect_history/${url.slug}`, {
                         const response = await fetch(`/slug_redirect_history/${url.slug}`, {
                             method: 'GET',
                             headers: {
@@ -1022,16 +1071,15 @@
                     const expirationDate = new Date(url.expiration_date);
                     const now = new Date();
                     const isExpired = now >= expirationDate;
-                    
+
                     if (isExpired) {
                         expirationInfo = `<div class="expiration-status expired">⚠️ Истекла: ${expirationDate.toLocaleString('ru-RU')}</div>`;
                         expirationClass = 'expired-link';
                     } else {
-                        // Вычисляем оставшееся время
                         const timeDiff = expirationDate - now;
                         const daysLeft = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
                         const hoursLeft = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        
+
                         let timeLeftText = '';
                         if (daysLeft > 0) {
                             timeLeftText = `(осталось ${daysLeft} дн.)`;
@@ -1040,7 +1088,7 @@
                         } else {
                             timeLeftText = '(менее часа)';
                         }
-                        
+
                         expirationInfo = `<div class="expiration-status active">⏰ Истекает: ${expirationDate.toLocaleString('ru-RU')} ${timeLeftText}</div>`;
                         expirationClass = 'expiring-link';
                     }
@@ -1048,31 +1096,54 @@
                     expirationInfo = `<div class="expiration-status permanent">♾️ Постоянная ссылка</div>`;
                 }
 
-                html += `
-                    <div class="history-item ${expirationClass}">
-                        <div class="history-item-original">${url.long_url || url.original_url}</div>
-                        <a href="${shortUrl}" class="history-item-short" target="_blank">${shortUrl}</a>
-                        ${expirationInfo}
-                        <div class="history-item-meta">
-                            <span class="history-item-clicks">Переходов: ${clicks}</span>
-                            ${date ? `<span class="history-item-date">${date}</span>` : ''}
-                        </div>
-                        <div class="history-item-actions">
-                            <button class="details-button" data-slug="${url.slug}">Подробнее</button>
-                            <button class="expiration-button" data-slug="${url.slug}" data-has-expiration="${url.expiration_date ? 'true' : 'false'}">
-                                ${url.expiration_date ? 'Изменить срок' : 'Установить срок'}
-                            </button>
-                            <button class="password-button" data-slug="${url.slug}" data-has-password="${url.password ? 'true' : 'false'}">
-                                ${url.password ? 'Убрать пароль' : 'Установить пароль'}
-                            </button>
-                            <button class="customize-slug-button" data-slug="${url.slug}" data-short-url="${shortUrl}">Изменить адрес</button>
-                            <button class="delete-button" data-slug="${url.slug}" data-short-url="${shortUrl}">Удалить</button>
-                        </div>
-                    </div>
-                `;
-            }
+                // Создаем элемент
+                const historyItem = document.createElement('div');
+                historyItem.className = `history-item ${expirationClass}`;
 
-            container.innerHTML = html;
+                // Скрываем элемент перед анимацией
+                historyItem.style.opacity = '0';
+                historyItem.style.transform = 'scale(0.9)';
+
+                historyItem.innerHTML = `
+            <div class="history-item-original">${url.long_url || url.original_url}</div>
+            <a href="${shortUrl}" class="history-item-short" target="_blank">${shortUrl}</a>
+            ${expirationInfo}
+            <div class="history-item-meta">
+                <span class="history-item-clicks">Переходов: ${clicks}</span>
+                ${date ? `<span class="history-item-date">${date}</span>` : ''}
+            </div>
+            <div class="history-item-actions">
+                <button class="details-button" data-slug="${url.slug}">Подробнее</button>
+                <button class="expiration-button" data-slug="${url.slug}" data-has-expiration="${url.expiration_date ? 'true' : 'false'}">
+                    ${url.expiration_date ? 'Изменить срок' : 'Установить срок'}
+                </button>
+                <button class="password-button" data-slug="${url.slug}" data-has-password="${url.password ? 'true' : 'false'}">
+                    ${url.password ? 'Убрать пароль' : 'Установить пароль'}
+                </button>
+                <button class="customize-slug-button" data-slug="${url.slug}" data-short-url="${shortUrl}">Изменить адрес</button>
+                <button class="delete-button" data-slug="${url.slug}" data-short-url="${shortUrl}">Удалить</button>
+            </div>
+        `;
+
+                // Добавляем в контейнер
+                container.appendChild(historyItem);
+
+                // Запускаем анимацию с задержкой для каждого элемента
+                setTimeout(() => {
+                    historyItem.classList.add('history-item-animate');
+
+                    // Убираем inline стили после начала анимации
+                    setTimeout(() => {
+                        historyItem.style.opacity = '';
+                        historyItem.style.transform = '';
+                    }, 10);
+
+                    // Удаляем класс анимации после ее завершения
+                    historyItem.addEventListener('animationend', () => {
+                        historyItem.classList.remove('history-item-animate');
+                    }, { once: true });
+                }, i * 100); // Задержка 100ms между элементами
+            }
 
             // Добавляем обработчики событий
             container.querySelectorAll('.details-button').forEach(button => {
@@ -1086,11 +1157,10 @@
                 button.addEventListener('click', function() {
                     const slug = this.getAttribute('data-slug');
                     const hasExpiration = this.getAttribute('data-has-expiration') === 'true';
-                    
-                    // Находим соответствующую ссылку в данных для получения точного времени истечения
+
                     const urlData = urls.find(url => url.slug === slug);
                     const currentExpiration = urlData ? urlData.expiration_date : null;
-                    
+
                     showExpirationModal(slug, hasExpiration, currentExpiration);
                 });
             });

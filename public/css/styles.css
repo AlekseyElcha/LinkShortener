@@ -4,7 +4,7 @@
     --secondary-color: rgba(0, 0, 0, 0.66);
     --background-color: #ecf0f1;
     --text-color: #10101c;
-    --border-color: #dc0000;
+    --border-color: #ff0000;
     --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --border-radius: 8px;
     --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -44,7 +44,7 @@ body {
 
 .header {
     top: 10px;
-    position:  sticky;
+    position:  sticky!important;
     margin-bottom: var(--spacing-xl);
 }
 
@@ -282,6 +282,7 @@ body {
 
 .result-area:hover {
     transform: scale(1.03);
+    transition: color 0.2s ease;
 }
 
 .result-area:empty {
@@ -298,11 +299,14 @@ body {
     font-weight: 500;
     word-break: break-all;
     transition: color 0.2s ease;
+    transform: scale(1.05);
 }
 
 .result-area a:hover {
     color: #c0392b;
     text-decoration: underline;
+    transition: color 0.2s ease;
+    transform: scale(1.5);
 }
 
 
@@ -571,6 +575,10 @@ body {
 
 .history-item:hover {
   box-shadow: var(--box-shadow);
+    border: 2px solid rgb(0, 195, 255);
+    transition: all 0.2s ease;
+    transform: scale(0.995);
+    background: rgba(236, 236, 236, 0.8);
 }
 
 .history-item-original {
@@ -589,6 +597,8 @@ body {
 
 .history-item-short:hover {
   text-decoration: underline;
+    transition: all 0.2s ease;;
+    transform: scale(1.02);
 }
 
 .history-item-date {
@@ -1273,7 +1283,7 @@ body {
   }
 
   .change-password-button {
-    width: 500px;
+    max-width: 300px;
   }
 }
 
