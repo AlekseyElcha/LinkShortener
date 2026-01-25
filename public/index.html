@@ -218,7 +218,7 @@
                         <div class="account-card">
                             <div class="account-label">Ваш аккаунт:</div>
                             <div class="account-email" id="current-user-email">loading...</div><br>
-                            <button class="change-password-button" onclick="showChangePasswordPage()">
+                            <button class="change-password-button" onclick="sendPasswordResetEmail()">
                                 Сменить пароль
                             </button>
                         </div>
@@ -1423,7 +1423,8 @@
         // Функция отправки письма для смены пароля (без показа формы)
         async function sendPasswordResetEmail() {
             const username = localStorage.getItem('username');
-            if (!username) {
+            const token = localStorage.getItem('access_token');
+            if (!username || !token) {
                 alert('Пользователь не авторизован');
                 return;
             }
@@ -1434,6 +1435,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     },
                     body: JSON.stringify({ login: username })
                 });
@@ -2049,10 +2051,10 @@
             // Форма смены пароля для авторизованных пользователей
             document.getElementById('changePasswordForm').addEventListener('submit', async function(e) {
                 e.preventDefault();
-                
+
                 const newPassword = document.getElementById('change-new-password').value;
                 const confirmPassword = document.getElementById('change-new-password-confirm').value;
-                
+
                 if (!newPassword || !confirmPassword) {
                     alert('Пожалуйста, заполните все поля');
                     return;

@@ -1,4 +1,5 @@
 import base64
+import logging
 
 import bcrypt
 from fastapi import Depends, HTTPException, Response, APIRouter, Body, Request, status
@@ -197,7 +198,7 @@ async def check_token_and_validate_user_email(token: str, session: AsyncSession)
         await session.commit()
     except:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Возникла ошибка при проверке токена")
-    exp = datetime.fromisoformat(str(expires_at))
+    exp = datetime.fromisoformat(expires_at)
     now = datetime.fromisoformat(str(datetime.utcnow()))
     if exp < now:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Время действия ссылки истекло")
@@ -241,11 +242,12 @@ async def check_token_and_reset_password(token: str, new_password: str, session:
     query = select(PasswordReset.expires_at).where(PasswordReset.token_hash == token)
     try:
         res = await session.execute(query)
-        expires_at = res.scalar_one_or_none()
+        exp_at_str = str(res.scalar_one_or_none())
+        exp_at_iso_formatted = exp_at_str.replace(' ', 'T', 1)
         await session.commit()
     except:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Возникла ошибка при проверке токена")
-    exp = datetime.fromisoformat(str(expires_at))
+    exp = datetime.fromisoformat(exp_at_iso_formatted)
     now = datetime.fromisoformat(str(datetime.utcnow()))
     if exp < now:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, detail="Время дейстаия ссылки истекло")
@@ -273,7 +275,7 @@ async def check_token_and_reset_password(token: str, new_password: str, session:
     except:
         raise HTTPException(
             status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Не удалось удалить PasswordReset запрос из базы данных"
+            detail="Не удалось удалить PasswordReset-запрос из базы данных"
         )
     await send_reset_password_email_notification(user_email=login)
 
