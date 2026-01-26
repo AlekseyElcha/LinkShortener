@@ -1,15 +1,15 @@
-import json
-
 from fastapi import APIRouter, Request, Depends, HTTPException, status, Query, Body
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Annotated
 
+from src.authorization.auth import security, hash_data
+from src.authorization.ops.checks_ops import check_auth_account, check_user_auth
 from src.get_session import get_session
-from src.authorization.auth import check_auth_account, check_auth, security, check_user_auth
 from src.database.models import ShortURL
-from src.services.ops import validate_custom_slug, get_user_id_by_slug
+from src.ops.auxiliary.auxiliary_ops import get_user_id_by_slug
 from src.services.time_service import convert_utc_string_to_local
+from src.services.url_slug_basic_validation_service import validate_custom_slug
 
 router = APIRouter(prefix="/account")
 
@@ -84,5 +84,46 @@ async def customize_slug(slug: str,
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Непредвиденная ошибка.")
 
+    return {"success": True}
+
+@router.put("/set_password_for_slug/{slug}", dependencies=[Depends(security.access_token_required)])
+async def set_password_on_link(slug: str,
+                               password_for_slug: Annotated[str, Body(embed=True)],
+                               session: Annotated[AsyncSession, Depends(get_session)],
+                               request: Request
+    ):
+    user_id_required = await get_user_id_by_slug(slug=slug, session=session)
+    if user_id_required is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Не удается найти пользователя по ссылке.")
+    user_is_valid = await check_user_auth(request=request, session=session, id_to_check=user_id_required)
+    if not user_is_valid:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, detail="Нет доступа.")
+
+    query = update(ShortURL).where(ShortURL.slug == slug).values(password=hash_data(password_for_slug), is_private=True)
+    try:
+        await session.execute(query)
+        await session.commit()
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Не удалось установить пароль на ссылку.")
+    return {"success": True}
+
+
+@router.put("/remove_password_for_slug/{slug}", dependencies=[Depends(security.access_token_required)])
+async def remove_password_for_slug(slug: str,
+                                   session: Annotated[AsyncSession, Depends(get_session)],
+                                   request: Request):
+    user_id_required = await get_user_id_by_slug(slug=slug, session=session)
+    if user_id_required is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Не удается найти пользователя по ссылке.")
+    user_is_valid = await check_user_auth(request=request, session=session, id_to_check=user_id_required)
+    if not user_is_valid:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, detail="Нет доступа.")
+
+    query = update(ShortURL).where(ShortURL.slug == slug).values(password=None)
+    try:
+        await session.execute(query)
+        await session.commit()
+    except:
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Не удалось установить пароль на ссылку.")
     return {"success": True}
 

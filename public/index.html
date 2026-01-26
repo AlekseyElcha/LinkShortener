@@ -2763,7 +2763,7 @@
             }
 
             try {
-                const response = await fetch(`/auth/set_password_for_slug/${currentPasswordSlug}`, {
+                const response = await fetch(`/account/set_password_for_slug/${currentPasswordSlug}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2796,7 +2796,7 @@
             }
 
             try {
-                const response = await fetch(`/auth/remove_password_for_slug/${currentPasswordSlug}`, {
+                const response = await fetch(`/account/remove_password_for_slug/${currentPasswordSlug}`, {
                     method: 'PUT',
                     headers: {
                         'Authorization': `Bearer ${token}`

@@ -1,9 +1,7 @@
-import os
-
 import pytz
 from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI, Depends, Body, HTTPException, status, Request, Query
-from fastapi.responses import RedirectResponse, HTMLResponse
+from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
@@ -15,26 +13,27 @@ import uvicorn
 import logging
 import sys
 
+from src.authorization.ops.checks_ops import check_auth, check_auth_get_login
+from src.authorization.services.token_service import create_link_with_token, send_reset_password_email_with_instructions
 from src.database.schemas import SetExpirationTimeForSlug
 from src.get_session import get_session
-from src.authorization.auth import router as auth_router, create_link_with_token, \
-    send_reset_password_email_with_instructions, check_token_and_reset_password, check_token_and_validate_user_email, \
-    create_validation_link, hash_data, security, check_password_for_protected_slug, verify_password
-from src.authorization.auth import check_auth, check_auth_get_login
-from src.services.email_sender import send_email_validation
-from src.services.location import router as location_router
-from src.services.location import get_location
-from src.services.personal_client import router as personal_router
+from src.ops.auxiliary.auxiliary_ops import get_long_url_by_slug_from_database_check, get_slug_password_from_db, \
+    get_long_url_by_slug_from_database
+from src.ops.main.main_ops import generate_short_url, add_redirect_to_history
+from src.personal_client.ops.actions.actions import set_expiration_date_for_slug, remove_expiration_date_from_database, \
+    delete_slug_from_database
+from src.personal_client.ops.analytics.analytics import get_redirect_history_by_slug
+from src.services.email_service import send_email_validation
+from src.services.location_service import router as location_router
+from src.services.location_service import get_location
+from src.personal_client.func import router as personal_router
+from src.authorization.auth import router as auth_router, verify_password, security
 from src.database.models import Base
-from src.database.database import engine, new_session
+from src.database.database import engine
 from src.exeptions import LongUrlNotFoundError, AddRedirectHistoryToDatabaseError, RedirectsHistoryNull, NoLocationData, \
     ShortURLToDeleteNotFound, CreateResetPasswordLinkError, CreateEmailValidationLinkError, UserIdByLoginNotFoundError, \
     SetSlugExpirationDateError, ShortLinkExpired, RemoveSlugExpirationDateError, ShortLinkIsProtected
-from src.services.ops import generate_short_url, get_long_url_by_slug_from_database, add_redirect_to_history, \
-    get_redirect_history_by_slug, delete_slug_from_database, set_expiration_date_for_slug, \
-    remove_expiration_date_from_database, validate_url, get_slug_password_from_db, \
-    get_long_url_by_slug_from_database_check
-from src.services.time_service import convert_local_str_to_utc
+from src.services.url_slug_basic_validation_service import validate_url
 
 logging.basicConfig(
     level=logging.DEBUG,
