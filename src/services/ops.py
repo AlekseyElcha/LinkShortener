@@ -1,6 +1,7 @@
 from datetime import datetime
 from http.client import HTTPException
 from string import ascii_letters
+from typing import is_protocol
 
 from fastapi import status, HTTPException
 from validators import url as url_validator, ValidationError
@@ -19,10 +20,15 @@ from src.services.time_service import convert_utc_string_to_local
 
 
 async def add_slug_to_database(slug: str, long_url: str, user_id: int, session: AsyncSession):
+    if user_id > 0:
+        is_private = True
+    else:
+        is_private = False
     new_slug = ShortURL(
         slug=slug,
         long_url=long_url,
         user_id=user_id,
+        is_private=is_private
     )
     session.add(new_slug)
     try:
@@ -74,13 +80,16 @@ async def get_slug_password_from_db(slug: str, session: AsyncSession):
 
 
 
-async def check_slug_already_exists(long_url: str, session: AsyncSession):
-    query = select(ShortURL).where(ShortURL.long_url == long_url).where(ShortURL.is_private != True)
-    res = await session.execute(query)
-    result = res.first()
-    if result:
-        return result[0].slug
-    return None
+async def check_slug_already_exists(long_url: str, user_id: int, session: AsyncSession):
+    if user_id == 0:
+        query = select(ShortURL).where(ShortURL.long_url == long_url).where(ShortURL.is_private != True)
+        res = await session.execute(query)
+        result = res.first()
+        if result:
+            return result[0].slug
+        return None
+    else:
+        return None
 
 
 async def generate_short_url(
@@ -90,7 +99,7 @@ async def generate_short_url(
 ):
     async def _generate_new_slug_and_add_to_db():
         slug = generate_random_short_url()
-        existing_slug = await check_slug_already_exists(long_url, session=session)
+        existing_slug = await check_slug_already_exists(long_url=long_url, user_id=user_id, session=session)
         if existing_slug:
             return {
                 "slug": existing_slug,

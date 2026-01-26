@@ -575,9 +575,8 @@ body {
 
 .history-item:hover {
   box-shadow: var(--box-shadow);
-    border: 2px solid rgb(0, 195, 255);
+    border: 1px solid rgb(0, 195, 255);
     transition: all 0.2s ease;
-    transform: scale(0.995);
     background: rgba(236, 236, 236, 0.8);
 }
 
@@ -597,8 +596,7 @@ body {
 
 .history-item-short:hover {
   text-decoration: underline;
-    transition: all 0.2s ease;;
-    transform: scale(1.02);
+    transition: all 0.5s ease;;
 }
 
 .history-item-date {
@@ -666,7 +664,6 @@ body {
     transition: all 0.2s ease;
     flex-shrink: 0;
     margin-bottom: var(--spacing-sm);
-    /* Эффект блеска с помощью теней */
     box-shadow:
             inset 0 0 15px rgba(255, 255, 255, 0.3),
             0 0 10px rgba(255, 255, 255, 0.2),
