@@ -74,6 +74,7 @@ async def customize_slug(slug: str,
             expiration_date=old_slug_data.expiration_date,
             user_id=old_slug_data.user_id,
             hop_counts=old_slug_data.hop_counts,
+            is_private=True,
         )
         try:
             session.add(new_custom_slug)

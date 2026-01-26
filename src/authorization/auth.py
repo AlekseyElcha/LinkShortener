@@ -349,7 +349,7 @@ async def set_password_on_link(slug: str,
     if not user_is_valid:
         raise HTTPException(status.HTTP_403_FORBIDDEN, detail="Нет доступа.")
 
-    query = update(ShortURL).where(ShortURL.slug == slug).values(password=hash_data(password_for_slug))
+    query = update(ShortURL).where(ShortURL.slug == slug).values(password=hash_data(password_for_slug), is_private=True)
     try:
         await session.execute(query)
         await session.commit()

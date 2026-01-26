@@ -18,6 +18,7 @@ class ShortURL(Base):
     user_id = Column(Integer, nullable=False)
     hop_counts = Column(Integer, default=0, nullable=False)
     password = Column(String(2048), default=None)
+    is_private = Column(Boolean, nullable=False, default=False)
 
 
 class UserModel(Base):

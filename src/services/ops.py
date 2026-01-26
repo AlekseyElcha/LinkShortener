@@ -75,7 +75,7 @@ async def get_slug_password_from_db(slug: str, session: AsyncSession):
 
 
 async def check_slug_already_exists(long_url: str, session: AsyncSession):
-    query = select(ShortURL).where(ShortURL.long_url == long_url)
+    query = select(ShortURL).where(ShortURL.long_url == long_url).where(ShortURL.is_private != True)
     res = await session.execute(query)
     result = res.first()
     if result:
@@ -191,7 +191,7 @@ async def delete_slug_from_database(slug: str, session: AsyncSession):
 
 
 async def set_expiration_date_for_slug(slug: str, exp_time: datetime, session: AsyncSession):
-    query = update(ShortURL).where(ShortURL.slug == slug).values(expiration_date=exp_time)
+    query = update(ShortURL).where(ShortURL.slug == slug).values(expiration_date=exp_time, is_private=True)
     try:
         await session.execute(query)
         await session.commit()

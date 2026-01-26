@@ -236,7 +236,7 @@ async def delete_slug(slug: str, session: Annotated[AsyncSession, Depends(get_se
     return res
 
 
-@app.post("/reset_password", dependencies=[Depends(security.access_token_required)])
+@app.post("/reset_password")
 async def create_reset_password_link(login: Annotated[str, Body(embed=True)],
                     session: Annotated[AsyncSession, Depends(get_session)]):
     try:
