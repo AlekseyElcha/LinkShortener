@@ -14,7 +14,9 @@ import logging
 import sys
 
 from src.authorization.ops.checks_ops import check_auth, check_auth_get_login
+from src.authorization.services.auth_service import check_token_and_reset_password
 from src.authorization.services.token_service import create_link_with_token, send_reset_password_email_with_instructions
+from src.authorization.services.validation_services import create_validation_link, check_token_and_validate_user_email
 from src.database.schemas import SetExpirationTimeForSlug
 from src.get_session import get_session
 from src.ops.auxiliary.auxiliary_ops import get_long_url_by_slug_from_database_check, get_slug_password_from_db, \
@@ -27,7 +29,7 @@ from src.services.email_service import send_email_validation
 from src.services.location_service import router as location_router
 from src.services.location_service import get_location
 from src.personal_client.func import router as personal_router
-from src.authorization.auth import router as auth_router, verify_password, security
+from src.authorization.auth import router as auth_router, verify_password, security, hash_data
 from src.database.models import Base
 from src.database.database import engine
 from src.exeptions import LongUrlNotFoundError, AddRedirectHistoryToDatabaseError, RedirectsHistoryNull, NoLocationData, \
@@ -168,8 +170,6 @@ async def get_url_by_slug(
 #     try:
 #         is_correct = await check_password_for_protected_slug(protected_slug, password, session)
 #         if is_correct:
-
-
 
 
 @app.get("/slug_redirect_history/{slug}", dependencies=[Depends(security.access_token_required)])

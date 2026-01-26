@@ -9,7 +9,6 @@ from src.get_session import get_session
 from src.database.models import ShortURL
 from src.ops.auxiliary.auxiliary_ops import get_user_id_by_slug
 from src.services.time_service import convert_utc_string_to_local
-from src.services.url_slug_basic_validation_service import validate_custom_slug
 
 router = APIRouter(prefix="/account")
 
