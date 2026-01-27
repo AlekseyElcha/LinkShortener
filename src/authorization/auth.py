@@ -93,3 +93,9 @@ async def create_account(user: UserAddSchema,
         "message": "Аккаунт успешно создан!"
     }
 
+
+@router.post("/logout", dependencies=[Depends(security.access_token_required)])
+async def logout(response: Response):
+    response.delete_cookie(config.JWT_ACCESS_COOKIE_NAME)
+    return {"success": True}
+
