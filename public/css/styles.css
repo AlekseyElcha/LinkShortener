@@ -649,6 +649,16 @@ body {
 /*  font-family: var(--font-family);*/
 /*}*/
 
+.error-message {
+    color: #ff0000;
+    font-size: 1.1rem;
+}
+
+button:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+    background-color: #6c757d;
+}
 
 .home-button {
     background: inherit!important;

@@ -1198,50 +1198,89 @@
         async function create() {
             const url = document.getElementById('url').value;
             const resultDiv = document.getElementById('result');
+            const button = document.querySelector('button[onclick="create()"]');
+
+            // Добавляем анимацию
             resultDiv.classList.add('ani');
             await new Promise(resolve => setTimeout(resolve, 500));
             resultDiv.innerHTML = '';
             resultDiv.classList.remove('ani-reversed');
-            // const response = await fetch('/api/create_slug', {
-            const response = await fetch('/create_slug', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ long_url: url })
-            });
 
-            if (!response.ok) {
-                console.error('Ошибка:', response.status);
-                return;
-            }
+            try {
+                const response = await fetch('/create_slug', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ long_url: url })
+                });
 
-            const data = await response.json();
-            const shortUrl = window.location.origin + '/' + data.slug;
+                if (!response.ok) {
+                    let errorMessage = '';
 
-            const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+                    if (response.status === 429) {
+                        errorMessage = 'Превышено допустимое количество запросов.';
+                        // Блокируем кнопку на 5 секунд при ограничении запросов
+                        button.disabled = true;
+                        button.textContent = 'Подождите...';
 
-            let resultHtml = `<div class="result-link"><a href="${shortUrl}">${shortUrl}</a></div>`;
+                        setTimeout(() => {
+                            if (resultDiv.innerHTML.includes(errorMessage)) {
+                                resultDiv.innerHTML = '';
+                            }
+                            button.disabled = false;
+                            button.textContent = 'Сократить';
+                        }, 5000);
+                    } else {
+                        errorMessage = 'Произошла ошибка при создании ссылки.';
+                    }
 
-            if (isAuthenticated && data.created_before === true) {
-                resultHtml += `
-                    <div class="warning-message">
-                        ⚠️ Эта ссылка уже ранее была сгенерирована нашим сервисом. ⚠️ <br>Аналитика для неё будет доступна только для её создателя.
-                    </div>
-                `;
-            }
+                    // Показываем сообщение об ошибке вместо slug
+                    resultDiv.innerHTML = `
+                <div class="error-message">
+                    ${errorMessage}
+                </div>
+            `;
+                    console.error('Ошибка:', response.status);
+                    return;
+                }
 
-            document.getElementById('result').innerHTML = resultHtml;
+                const data = await response.json();
+                const shortUrl = window.location.origin + '/' + data.slug;
 
-            // Обновляем историю если открыт личный кабинет
-            const dashboardPage = document.getElementById('dashboard-page');
-            if (dashboardPage && dashboardPage.style.display !== 'none') {
-                const newUrl = {
-                    slug: data.slug,
-                    long_url: url,
-                    created_at: new Date().toISOString(),
-                    hop_counts: 0
-                };
+                const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
 
-                addUrlToHistory(newUrl, 'dashboard-history-list');
+                let resultHtml = `<div class="result-link"><a href="${shortUrl}">${shortUrl}</a></div>`;
+
+                if (isAuthenticated && data.created_before === true) {
+                    resultHtml += `
+                <div class="warning-message">
+                    ⚠️ Эта ссылка уже ранее была сгенерирована нашим сервисом. ⚠️ <br>Аналитика для неё будет доступна только для её создателя.
+                </div>
+            `;
+                }
+
+                document.getElementById('result').innerHTML = resultHtml;
+
+                // Обновляем историю если открыт личный кабинет
+                const dashboardPage = document.getElementById('dashboard-page');
+                if (dashboardPage && dashboardPage.style.display !== 'none') {
+                    const newUrl = {
+                        slug: data.slug,
+                        long_url: url,
+                        created_at: new Date().toISOString(),
+                        hop_counts: 0
+                    };
+
+                    addUrlToHistory(newUrl, 'dashboard-history-list');
+                }
+
+            } catch (error) {
+                // Обработка ошибок сети
+                resultDiv.innerHTML = `
+            <div class="error-message">
+                Ошибка соединения с сервером.
+            </div>
+        `;
+                console.error('Ошибка сети:', error);
             }
         }
 

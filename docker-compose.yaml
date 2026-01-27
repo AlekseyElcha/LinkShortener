@@ -9,6 +9,13 @@ services:
       - "6432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
+  redis_container:
+    image: redis:7
+    ports:
+      - 6379:6379
+  redis_gui:
+    image: redis/redisinsight
+    ports:
+      - 5540:5540
 volumes:
   postgres_data:

@@ -36,6 +36,7 @@ from src.exeptions import LongUrlNotFoundError, AddRedirectHistoryToDatabaseErro
     ShortURLToDeleteNotFound, CreateResetPasswordLinkError, CreateEmailValidationLinkError, UserIdByLoginNotFoundError, \
     SetSlugExpirationDateError, ShortLinkExpired, RemoveSlugExpirationDateError, ShortLinkIsProtected
 from src.services.url_slug_basic_validation_service import validate_url
+from rate_limiter import get_redis, get_rate_limiter, RateLimiter
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -51,9 +52,40 @@ templates = Jinja2Templates(directory="public/templates/")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    redis = get_redis()
+    await redis.ping()
     async with engine.begin() as connection:
         await connection.run_sync(Base.metadata.create_all)
     yield
+    await redis.aclose()
+
+
+def rate_limiter_factory(
+    endpoint: str,
+    max_requests: int,
+    window_seconds: int,
+):
+    async def dependency(request: Request,
+                   rate_limiter: Annotated[RateLimiter, Depends(get_rate_limiter)]
+    ):
+        ip_address = request.client.host
+
+        limited = await rate_limiter.is_limited(
+            ip_address,
+            endpoint,
+            max_requests,
+            window_seconds,
+        )
+
+        if limited:
+            raise HTTPException(
+                status.HTTP_429_TOO_MANY_REQUESTS,
+                detail="Превышено количество запросов. Повторите позже"
+            )
+
+    return dependency
+
+rate_limit_create_slug = rate_limiter_factory("create_slug", 5, 5)
 
 app = FastAPI(lifespan=lifespan)
 
@@ -70,7 +102,7 @@ app.add_middleware(
 )
 
 
-@app.post("/create_slug")
+@app.post("/create_slug", dependencies=[Depends(rate_limit_create_slug)])
 async def create_slug(
         long_url: Annotated[str, Body(embed=True)],
         session: Annotated[AsyncSession, Depends(get_session)],
