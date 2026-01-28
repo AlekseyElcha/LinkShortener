@@ -8,14 +8,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body style="background: url(assets/background.jpg) no-repeat center center fixed; background-size: cover;">
-<body>
     <div class="page-container">
         <!-- Главная страница -->
         <div id="main-page" class="page">
             <header class="header">
                 <div class="header-content-btns">
                     <button class="login-button" onclick="showLoginPage()">Войти</button>
-                    <button class="login-button" onclick="showLoginPage()">Новости сервиса</button>
+                    <button class="login-button" onclick="showNewsPage()">Новости сервиса</button>
                 </div>
                 <div class="header-content">
                     <div class="brand-section-main">
@@ -111,6 +110,42 @@
                             Уже есть аккаунт? Войти
                         </div>
                     </form>
+                </div>
+            </main>
+        </div>
+
+        <!-- Страница новостей сервиса -->
+        <div id="news-page" class="page" style="display: none;">
+            <header class="header">
+                <div class="header-content">
+                    <div class="brand-section">
+                        <h1 class="logo">Новости сервиса</h1>
+                    </div>
+                    <button class="back-link" onclick="showMainPage()">← На главную</button>
+                </div>
+            </header>
+
+            <main class="main-content">
+                <div class="news-content">
+                    <div class="news-list-section">
+                        <h2 class="news-title-main">Все новости</h2>
+                        <div id="news-list" class="news-list">
+                            <!-- Здесь будут заголовки новостей -->
+                        </div>
+                        <div id="news-list-empty" class="news-empty" style="display: none;">
+                            Новостей пока нет.
+                        </div>
+                        <div id="news-list-error" class="news-error" style="display: none;">
+                            Ошибка загрузки новостей. Попробуйте позже.
+                        </div>
+                    </div>
+                    <div class="news-article-section">
+                        <div id="news-article-container" class="news-article-container">
+                            <p class="news-article-placeholder">
+                                Выберите новость слева, чтобы посмотреть полный текст.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </main>
         </div>
@@ -1321,6 +1356,209 @@
             document.getElementById('dashboard-page').style.display = 'none';
             document.getElementById('statistics-page').style.display = 'none';
             document.getElementById('email-confirmed-page').style.display = 'none';
+            document.getElementById('news-page').style.display = 'none';
+        }
+
+        // Страница новостей сервиса
+        let newsCache = [];
+
+        async function loadNews() {
+            const listContainer = document.getElementById('news-list');
+            const emptyBlock = document.getElementById('news-list-empty');
+            const errorBlock = document.getElementById('news-list-error');
+
+            if (!listContainer) {
+                return;
+            }
+
+            // Сбрасываем состояния
+            listContainer.innerHTML = '<div class="news-loading">Загрузка новостей...</div>';
+            emptyBlock.style.display = 'none';
+            errorBlock.style.display = 'none';
+
+            try {
+                const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                const response = await fetch(`/admin/news/get_all_news?user_tz=${encodeURIComponent(userTimezone)}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    // Если сервер вернул неуспешный статус
+                    listContainer.innerHTML = '';
+                    errorBlock.style.display = 'block';
+                    return;
+                }
+
+                const data = await response.json();
+
+                // Если бэкенд вернул объект с сообщением
+                if (!Array.isArray(data)) {
+                    listContainer.innerHTML = '';
+                    emptyBlock.style.display = 'block';
+                    return;
+                }
+
+                newsCache = data;
+
+                if (data.length === 0) {
+                    listContainer.innerHTML = '';
+                    emptyBlock.style.display = 'block';
+                    return;
+                }
+
+                // Сортируем по дате (новые сверху)
+                data.sort((a, b) => {
+                    if (!a.created_at || !b.created_at) return 0;
+                    return new Date(b.created_at.replace(' ', 'T')) - new Date(a.created_at.replace(' ', 'T'));
+                });
+
+                listContainer.innerHTML = '';
+
+                data.forEach((item, index) => {
+                    const element = document.createElement('div');
+                    element.className = 'news-item';
+
+                    // Парсим HTML контент для извлечения заголовка
+                    let title = 'Без заголовка';
+                    try {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(item.content || '', 'text/html');
+                        const titleEl = doc.querySelector('title');
+                        if (titleEl && titleEl.textContent) {
+                            title = titleEl.textContent.trim();
+                        }
+                    } catch (e) {
+                        // В случае ошибки парсинга оставляем заголовок по умолчанию
+                    }
+
+                    let createdAtText = item.created_at || '';
+                    try {
+                        if (item.created_at) {
+                            const d = new Date(item.created_at.replace(' ', 'T'));
+                            if (!isNaN(d.getTime())) {
+                                createdAtText = d.toLocaleString('ru-RU');
+                            }
+                        }
+                    } catch (e) {
+                        // оставляем строку как есть
+                    }
+
+                    element.innerHTML = `
+                        <div class="news-item-title">${title}</div>
+                        <div class="news-item-meta">${createdAtText}</div>
+                    `;
+
+                    element.addEventListener('click', function() {
+                        showNewsArticle(item.id);
+                    });
+
+                    listContainer.appendChild(element);
+
+                    // Анимация появления (аналогично истории ссылок)
+                    element.style.opacity = '0';
+                    element.style.transform = 'scale(0.9)';
+
+                    setTimeout(() => {
+                        element.classList.add('news-item-animate');
+
+                        setTimeout(() => {
+                            element.style.opacity = '';
+                            element.style.transform = '';
+                        }, 10);
+
+                        element.addEventListener('animationend', () => {
+                            element.classList.remove('news-item-animate');
+                        }, { once: true });
+                    }, index * 100);
+                });
+            } catch (error) {
+                console.error('Ошибка загрузки новостей:', error);
+                listContainer.innerHTML = '';
+                errorBlock.style.display = 'block';
+            }
+        }
+
+        function showNewsArticle(id) {
+            const container = document.getElementById('news-article-container');
+            if (!container) return;
+
+            const article = newsCache.find(n => n.id === id);
+            if (!article) {
+                container.innerHTML = '<p class="news-article-placeholder">Не удалось найти выбранную новость.</p>';
+                return;
+            }
+
+            let title = 'Без заголовка';
+            let bodyHtml = '';
+
+            try {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(article.content || '', 'text/html');
+                const titleEl = doc.querySelector('title');
+                if (titleEl && titleEl.textContent) {
+                    title = titleEl.textContent.trim();
+                }
+                if (doc.body) {
+                    bodyHtml = doc.body.innerHTML;
+                } else {
+                    bodyHtml = article.content || '';
+                }
+            } catch (e) {
+                bodyHtml = article.content || '';
+            }
+
+            let createdAtText = article.created_at || '';
+            try {
+                if (article.created_at) {
+                    const d = new Date(article.created_at.replace(' ', 'T'));
+                    if (!isNaN(d.getTime())) {
+                        createdAtText = d.toLocaleString('ru-RU');
+                    }
+                }
+            } catch (e) {
+                // оставляем строку как есть
+            }
+
+            // Сбрасываем предыдущую анимацию
+            container.classList.remove('news-article-animate');
+
+            container.innerHTML = `
+                <h2 class="news-article-title">${title}</h2>
+                <div class="news-article-meta">${createdAtText}</div>
+                <div class="news-article-content">${bodyHtml}</div>
+            `;
+
+            // Запускаем анимацию появления блока
+            // небольшой reflow, чтобы анимация срабатывала при повторном выборе
+            void container.offsetWidth;
+            container.classList.add('news-article-animate');
+        }
+
+        function showNewsPage() {
+            stopStatisticsAutoRefresh();
+            stopExpirationStatusUpdate();
+            currentStatisticsSlug = null;
+            if (chartInstance) {
+                chartInstance.destroy();
+                chartInstance = null;
+            }
+            window.location.hash = '';
+
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('register-page').style.display = 'none';
+            document.getElementById('dashboard-page').style.display = 'none';
+            document.getElementById('statistics-page').style.display = 'none';
+            document.getElementById('forgot-password-page').style.display = 'none';
+            document.getElementById('reset-password-page').style.display = 'none';
+            document.getElementById('change-password-page').style.display = 'none';
+            document.getElementById('email-confirmed-page').style.display = 'none';
+            document.getElementById('news-page').style.display = 'block';
+
+            loadNews();
         }
 
         function showLoginPage() {
@@ -1339,6 +1577,7 @@
             document.getElementById('dashboard-page').style.display = 'none';
             document.getElementById('statistics-page').style.display = 'none';
             document.getElementById('email-confirmed-page').style.display = 'none';
+            document.getElementById('news-page').style.display = 'none';
         }
 
         function showRegisterPage() {
@@ -1355,6 +1594,7 @@
             document.getElementById('register-page').style.display = 'block';
             document.getElementById('dashboard-page').style.display = 'none';
             document.getElementById('statistics-page').style.display = 'none';
+            document.getElementById('news-page').style.display = 'none';
         }
 
         function showDashboard() {
@@ -1375,6 +1615,7 @@
             document.getElementById('reset-password-page').style.display = 'none';
             document.getElementById('change-password-page').style.display = 'none';
             document.getElementById('email-confirmed-page').style.display = 'none';
+            document.getElementById('news-page').style.display = 'none';
 
             // Отображаем email текущего пользователя
             const userEmail = localStorage.getItem('username');
@@ -1405,6 +1646,7 @@
             document.getElementById('forgot-password-page').style.display = 'block';
             document.getElementById('reset-password-page').style.display = 'none';
             document.getElementById('change-password-page').style.display = 'none';
+            document.getElementById('news-page').style.display = 'none';
         }
 
         function showResetPasswordPage() {
@@ -1423,6 +1665,7 @@
             document.getElementById('forgot-password-page').style.display = 'none';
             document.getElementById('reset-password-page').style.display = 'block';
             document.getElementById('change-password-page').style.display = 'none';
+            document.getElementById('news-page').style.display = 'none';
         }
 
         function showChangePasswordPage() {
@@ -1442,6 +1685,7 @@
             document.getElementById('reset-password-page').style.display = 'none';
             document.getElementById('email-confirmed-page').style.display = 'none';
             document.getElementById('change-password-page').style.display = 'block';
+            document.getElementById('news-page').style.display = 'none';
         }
 
         function showEmailConfirmedPage() {
@@ -1461,6 +1705,7 @@
             document.getElementById('reset-password-page').style.display = 'none';
             document.getElementById('change-password-page').style.display = 'none';
             document.getElementById('email-confirmed-page').style.display = 'block';
+            document.getElementById('news-page').style.display = 'none';
         }
 
         // Функция отправки письма для смены пароля (без показа формы)

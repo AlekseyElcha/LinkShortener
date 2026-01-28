@@ -1,5 +1,5 @@
-from sqlalchemy import String, Column, Integer, Sequence, Boolean, DateTime, ForeignKey
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy import String, Column, Integer, Text, Sequence, Boolean, DateTime, ForeignKey
+from sqlalchemy.orm import DeclarativeBase, relationship
 
 
 class Base(DeclarativeBase):
@@ -7,9 +7,6 @@ class Base(DeclarativeBase):
 
 class ShortURL(Base):
     __tablename__ = "short_urls"
-
-    # slug: Mapped[str] = mapped_column(primary_key=True)
-    # long_url: Mapped[str]
 
     id = Column(Integer, Sequence('short_urls_id_seq'), primary_key=True)
     slug = Column(String(100), unique=True, nullable=False, index=True)
@@ -65,3 +62,9 @@ class EmailValidation(Base):
     expires_at = Column(DateTime, nullable=False, index=True)
 
 
+class ServiceNews(Base):
+    __tablename__ = "service_news"
+    
+    id = Column(Integer, Sequence('service_news_id_seq'), primary_key=True)
+    created_at = Column(DateTime, nullable=False, index=True)
+    content = Column(Text, nullable=False, index=True)
