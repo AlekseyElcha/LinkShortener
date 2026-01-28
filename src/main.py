@@ -36,6 +36,7 @@ from src.exeptions import LongUrlNotFoundError, AddRedirectHistoryToDatabaseErro
     ShortURLToDeleteNotFound, CreateResetPasswordLinkError, CreateEmailValidationLinkError, UserIdByLoginNotFoundError, \
     SetSlugExpirationDateError, ShortLinkExpired, RemoveSlugExpirationDateError, ShortLinkIsProtected
 from src.services.url_slug_basic_validation_service import validate_url
+from src.admin.news import router as news_router
 from rate_limiter import get_redis, get_rate_limiter, RateLimiter
 
 logging.basicConfig(
@@ -92,6 +93,8 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(router=auth_router)
 app.include_router(router=personal_router)
 app.include_router(router=location_router)
+app.include_router(router=news_router)
+
 
 app.add_middleware(
     CORSMiddleware,
