@@ -11,13 +11,9 @@ class UserSchema(BaseModel):
     login: EmailStr
     password: str
 
-
+# not used
 class AddSlug(BaseModel):
-    slug: str
     long_url: HttpUrl
-    expiration_time: datetime | None
-    user_id: int
-    hop_count: int
 
 
 class UserAddSchema(BaseModel):
